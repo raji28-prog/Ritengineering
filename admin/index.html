@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RITW Admin CMS | Institutional Content Management System</title>
+    <link rel="shortcut icon" href="/images/RITW_Favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/font-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/admin/css/admin.css">
+</head>
+<body>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         1. LOGIN VIEW (Shown when not authenticated)
+         ══════════════════════════════════════════════════════════════ -->
+    <div id="loginView" class="login-screen" style="display: none;">
+        <div class="login-card">
+            <div class="login-brand">
+                <img src="/images/RITW-LOGO.png" alt="RITW Logo">
+                <h1>RITW Admin CMS</h1>
+                <p>Institutional Portal Management Console</p>
+            </div>
+
+            <div id="loginAlert" class="alert alert-danger" style="display: none;"></div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginUsername"><i class="fas fa-user-shield"></i> Administrator User ID</label>
+                    <input type="text" id="loginUsername" class="form-control" placeholder="Enter configured admin ID" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword"><i class="fas fa-key"></i> Password</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="••••••••••••" required>
+                </div>
+                <button type="submit" id="loginBtn" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Secure Sign In
+                </button>
+            </form>
+            <div style="margin-top: 20px; font-size: 11.5px; text-align: center; color: #8E8EA6;">
+                Protected by server-side brute-force rate limiting & bcrypt verification.
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         2. DASHBOARD VIEW (Shown when authenticated)
+         ══════════════════════════════════════════════════════════════ -->
+    <div id="dashboardView" class="dashboard-layout" style="display: none;">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="/images/RITW-LOGO.png" alt="RITW">
+                <div class="sidebar-brand">
+                    <h2>RITW CMS</h2>
+                    <span>UGC Autonomous</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Overview</div>
+                <a class="nav-link active" onclick="switchTab('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+
+                <div class="nav-section-title">Content & Architecture</div>
+                <a class="nav-link" onclick="switchTab('pages')">
+                    <i class="fas fa-file-alt"></i> Pages Manager
+                </a>
+                <a class="nav-link" onclick="switchTab('navigation')">
+                    <i class="fas fa-sitemap"></i> Navigation & Menus
+                </a>
+                <a class="nav-link" onclick="switchTab('sections')">
+                    <i class="fas fa-layer-group"></i> Content Sections
+                </a>
+                <a class="nav-link" onclick="switchTab('customFields')">
+                    <i class="fas fa-sliders-h"></i> Custom Fields
+                </a>
+                <a class="nav-link" onclick="switchTab('media')">
+                    <i class="fas fa-photo-video"></i> Media Library
+                </a>
+
+                <div class="nav-section-title">Institutional Management</div>
+                <a class="nav-link" onclick="switchTab('announcements')">
+                    <i class="fas fa-bullhorn"></i> News & Tickers
+                </a>
+                <a class="nav-link" onclick="switchTab('settings')">
+                    <i class="fas fa-university"></i> College Settings
+                </a>
+                <a class="nav-link" onclick="switchTab('enquiries')">
+                    <i class="fas fa-envelope-open-text"></i> Admission Leads
+                </a>
+                <a class="nav-link" onclick="switchTab('security')">
+                    <i class="fas fa-shield-alt"></i> Security & Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-badge">
+                    <div class="user-avatar" id="sidebarAvatar">A</div>
+                    <div class="user-info">
+                        <div class="username" id="sidebarUsername">Admin</div>
+                        <div class="role">System Administrator</div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="handleLogout()" title="Sign Out">
+                    <i class="fas fa-power-off"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN WRAPPER -->
+        <div class="main-wrapper">
+            <header class="topbar">
+                <div class="topbar-title">
+                    <h1 id="pageTitle">Dashboard Overview</h1>
+                </div>
+                <div class="topbar-actions">
+                    <a href="/" target="_blank" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-external-link-alt"></i> View Public Website
+                    </a>
+                    <button class="btn btn-primary btn-sm" onclick="showQuickAddModal()">
+                        <i class="fas fa-plus"></i> Quick Action
+                    </button>
+                </div>
+            </header>
+
+            <main class="content-area">
+
+                <!-- TAB: DASHBOARD -->
+                <div id="tab-dashboard" class="tab-pane">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon purple"><i class="fas fa-file-invoice"></i></div>
+                            <div class="stat-info">
+                                <h3 id="statPages">0</h3>
+                                <p>Managed Pages</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="fas fa-bars"></i></div>
+                            <div class="stat-info">
+                                <h3 id="statMenuItems">0</h3>
+                                <p>Menu Links</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon gold"><i class="fas fa-bullhorn"></i></div>
+                            <div class="stat-info">
+                                <h3 id="statNews">0</h3>
+                                <p>Live Notices</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
+                            <div class="stat-info">
+                                <h3 id="statEnquiries">0</h3>
+                                <p>Admission Leads</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-info-circle" style="color: var(--primary);"></i> College Portal System Status</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 280px; background: #F8FAFC; padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                                    <h4 style="margin-bottom: 10px; color: var(--primary);">System Environment</h4>
+                                    <ul style="list-style: none; font-size: 13px; line-height: 1.8;">
+                                        <li><strong>Backend Runtime:</strong> Node.js Express 5.x</li>
+                                        <li><strong>Database:</strong> Native SQLite (WAL Concurrency)</li>
+                                        <li><strong>Authentication:</strong> JWT + Bcrypt Cryptographic Hashes</li>
+                                        <li><strong>Brute Force Shield:</strong> Active (5-try lockout / 15m)</li>
+                                        <li><strong>Cache Engine:</strong> Active with Instant Invalidation</li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 280px; background: #F8FAFC; padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                                    <h4 style="margin-bottom: 10px; color: var(--secondary);">Active RITW Credentials</h4>
+                                    <p style="font-size: 13px; margin-bottom: 12px; color: var(--text-muted);">
+                                        You are authenticated as an authorized administrator. Changes published here immediately reflect across all public pages without touching code.
+                                    </p>
+                                    <button class="btn btn-secondary btn-sm" onclick="switchTab('security')">
+                                        <i class="fas fa-key"></i> Change Admin Password
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-history"></i> Recent Administrative Audit Logs</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Action</th>
+                                            <th>Target Entity</th>
+                                            <th>Details</th>
+                                            <th>IP Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="auditLogsBody">
+                                        <tr><td colspan="5" style="text-align:center;">Loading logs...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: PAGES MANAGER -->
+                <div id="tab-pages" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pages Inventory</h2>
+                            <button class="btn btn-success btn-sm" onclick="openCreatePageModal()">
+                                <i class="fas fa-plus"></i> Create New Page
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>URL Slug</th>
+                                            <th>Status</th>
+                                            <th>Template</th>
+                                            <th>Sections</th>
+                                            <th>Sort Order</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pagesTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: NAVIGATION & MENUS -->
+                <div id="tab-navigation" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Header Mega-Menu & Submenu Hierarchy</h2>
+                            <button class="btn btn-success btn-sm" onclick="openCreateNavModal()">
+                                <i class="fas fa-plus"></i> Add Menu Item
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+                                Manage top-level navigation tabs and nested submenus. Reorder with the arrows or edit routes directly. Changes immediately update the public desktop mega-menu and mobile drawer.
+                            </p>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Title</th>
+                                            <th>Level / Parent</th>
+                                            <th>Target Route / URL</th>
+                                            <th>Visibility</th>
+                                            <th>Order</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="navTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: CONTENT SECTIONS -->
+                <div id="tab-sections" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Homepage & Reusable Content Sections</h2>
+                            <button class="btn btn-success btn-sm" onclick="openCreateSectionModal()">
+                                <i class="fas fa-plus"></i> Add Section
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 16px; display: flex; gap: 12px; align-items: center;">
+                                <label style="font-size: 13px; font-weight: 600;">Filter by Type:</label>
+                                <select id="sectionFilterType" class="form-control" style="width: 220px;" onchange="loadSections()">
+                                    <option value="">All Section Types</option>
+                                    <option value="hero_slide">Hero Sliders</option>
+                                    <option value="why_ritw">Why RITW Cards</option>
+                                    <option value="counter">Stats Counters</option>
+                                    <option value="testimonial">Testimonials</option>
+                                    <option value="spotlight">Campus Spotlight</option>
+                                    <option value="standard">Standard Content Blocks</option>
+                                </select>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Section Key / Title</th>
+                                            <th>Type</th>
+                                            <th>Page Binding</th>
+                                            <th>Button Link</th>
+                                            <th>Visibility</th>
+                                            <th>Order</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sectionsTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: CUSTOM FIELDS -->
+                <div id="tab-customFields" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Custom Field Definitions</h2>
+                            <button class="btn btn-success btn-sm" onclick="openCreateCustomFieldModal()">
+                                <i class="fas fa-plus"></i> Define Field
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+                                Administrators can define supported field types (text, textarea, rich text, image, URL, date, number, boolean) attached to pages or sections.
+                            </p>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field Name</th>
+                                            <th>Field Key</th>
+                                            <th>Data Type</th>
+                                            <th>Entity Type</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="customFieldsTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: MEDIA LIBRARY -->
+                <div id="tab-media" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Media Asset Library</h2>
+                            <label class="btn btn-success btn-sm" style="margin: 0; cursor: pointer;">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Media (JPG, PNG, WebP, PDF)
+                                <input type="file" id="mediaFileInput" style="display: none;" onchange="handleFileUpload(event)" accept="image/*,application/pdf">
+                            </label>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" id="mediaSearchInput" class="form-control" placeholder="Search media by filename..." oninput="loadMedia()" style="max-width: 350px; margin-bottom: 16px;">
+                            <div id="mediaGrid" class="media-grid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: ANNOUNCEMENTS & NEWS -->
+                <div id="tab-announcements" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Flash News & Announcements Ticker</h2>
+                            <button class="btn btn-success btn-sm" onclick="openCreateAnnouncementModal()">
+                                <i class="fas fa-plus"></i> Post Announcement
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Badge</th>
+                                            <th>Target URL</th>
+                                            <th>Date Schedule</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="announcementsTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: COLLEGE SETTINGS -->
+                <div id="tab-settings" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Institutional Details & Contact Configuration</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="collegeSettingsForm" onsubmit="saveCollegeSettings(event)">
+                                <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--primary);">Campus Contacts</h3>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                                    <div class="form-group">
+                                        <label>Primary Phone</label>
+                                        <input type="text" id="settingPhonePrimary" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Secondary Phone</label>
+                                        <input type="text" id="settingPhoneSecondary" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Official Info Email</label>
+                                        <input type="email" id="settingEmailPrimary" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Admissions Email</label>
+                                        <input type="email" id="settingEmailAdmissions" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Campus Physical Address</label>
+                                    <input type="text" id="settingAddress" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Google Maps Location Link</label>
+                                    <input type="text" id="settingMapLink" class="form-control">
+                                </div>
+
+                                <h3 style="font-size: 15px; margin-top: 24px; margin-bottom: 12px; color: var(--primary);">Social Media Profiles</h3>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                                    <div class="form-group">
+                                        <label><i class="fab fa-facebook text-primary"></i> Facebook URL</label>
+                                        <input type="url" id="settingFb" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><i class="fab fa-instagram text-danger"></i> Instagram URL</label>
+                                        <input type="url" id="settingIg" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><i class="fab fa-whatsapp text-success"></i> WhatsApp URL</label>
+                                        <input type="url" id="settingWa" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><i class="fab fa-youtube text-danger"></i> YouTube URL</label>
+                                        <input type="url" id="settingYt" class="form-control">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" style="max-width: 200px;">
+                                    <i class="fas fa-save"></i> Save Settings
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: ADMISSION LEADS -->
+                <div id="tab-enquiries" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Student Admission Enquiries</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Student Name</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                            <th>Course Interest</th>
+                                            <th>Message</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="enquiriesTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: SECURITY & PROFILE -->
+                <div id="tab-security" class="tab-pane" style="display: none;">
+                    <div class="card" style="max-width: 600px;">
+                        <div class="card-header">
+                            <h2>Change Administrator Password</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="changePasswordForm" onsubmit="handleChangePassword(event)">
+                                <div class="form-group">
+                                    <label>Current Password</label>
+                                    <input type="password" id="oldPassword" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>New Password (min 8 characters)</label>
+                                    <input type="password" id="newPassword" class="form-control" required minlength="8">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm New Password</label>
+                                    <input type="password" id="confirmNewPassword" class="form-control" required minlength="8">
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-key"></i> Update Password
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL CONTAINER (Dynamic Modal Mount) -->
+    <div id="modalContainer"></div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/admin/js/admin-app.js"></script>
+</body>
+</html>

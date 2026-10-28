@@ -1,0 +1,81 @@
+/* ====================================================
+   Responsive
+==================================================== */
+
+/* Extra large desktops :1400px and up */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+}
+
+/* Large desktops :1200px–1399px */
+@media (min-width: 1300px) and (max-width: 1399px) {
+    .container {
+        max-width: 1240px;
+    }
+}
+
+/* Normal desktops :992px–1199px */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+
+    /* Global font scaling */
+    h1 { font-size: 30px; }
+    h2 { font-size: 26px; }
+    h3 { font-size: 22px; }
+    h4 { font-size: 20px; }
+    h5 { font-size: 18px; }
+    h6 { font-size: 16px; }
+}
+
+/* Tablets :768px–991px */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        max-width: 720px;
+    }
+
+    body { font-size: 14px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 22px; }
+    h3 { font-size: 20px; }
+    h4 { font-size: 18px; }
+    h5 { font-size: 16px; }
+    h6 { font-size: 15px; }
+    p  { font-size: 14px; }
+}
+
+/* Mobile :576px–767px */
+@media (min-width: 576px) and (max-width: 767px) {
+    .container {
+        max-width: 540px;
+    }
+
+    body { font-size: 14px; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 20px; }
+    h3 { font-size: 18px; }
+    h4 { font-size: 17px; }
+    h5 { font-size: 16px; }
+    h6 { font-size: 14px; }
+    p  { font-size: 14px; }
+}
+
+/* Extra small mobile :0–575px */
+@media (max-width: 575px) {
+    .container {
+        max-width: 100%;
+        padding: 0 15px; /* avoid edge sticking */
+    }
+
+    body { font-size: 14px; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; }
+    h3 { font-size: 16px; }
+    h4 { font-size: 15px; }
+    h5 { font-size: 14px; }
+    h6 { font-size: 13px; }
+    p  { font-size: 14px; }
+}

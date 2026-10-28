@@ -1,0 +1,2560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RITW Campus Portal | Role-Based Access for Parents, Students & Staff</title>
+    <link rel="shortcut icon" href="/images/RITW_Favicon.png" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Design System Stylesheet -->
+    <link rel="stylesheet" href="/portal/css/portal.css">
+</head>
+<body>
+
+    <!-- ====================================================================
+         1. LOGIN SCREEN (Shown when not authenticated)
+         ==================================================================== -->
+    <div id="loginView" class="login-wrapper">
+        <div class="login-card">
+            <div class="login-brand">
+                <img src="/images/RITW-LOGO.png" alt="RITW Logo" class="login-brand-logo">
+                <div class="login-brand-title">RITW CAMPUS PORTAL</div>
+                <div class="login-brand-sub">Rishi M.S Institute of Engineering &amp; Technology for Women</div>
+                <div class="login-badges-row">
+                    <span class="badge-pill badge-ugc">UGC Autonomous</span>
+                    <span class="badge-pill badge-naac">NAAC 'A'</span>
+                    <span class="badge-pill badge-nba">NBA Accredited</span>
+                </div>
+            </div>
+
+            <!-- Role Selector Tabs -->
+            <div class="role-tabs">
+                <button type="button" class="role-tab-btn active" id="tabStudent" onclick="switchLoginRole('student')">
+                    <i class="fas fa-user-graduate"></i> Student
+                </button>
+                <button type="button" class="role-tab-btn" id="tabParent" onclick="switchLoginRole('parent')">
+                    <i class="fas fa-user-friends"></i> Parent
+                </button>
+                <button type="button" class="role-tab-btn" id="tabStaff" onclick="switchLoginRole('staff')">
+                    <i class="fas fa-chalkboard-teacher"></i> Staff
+                </button>
+            </div>
+
+            <!-- Quick Demo Credential Autofill -->
+            <div class="quick-demo-box">
+                <div class="quick-demo-title">
+                    <i class="fas fa-bolt"></i> Quick Demo Accounts (Click to Fill)
+                </div>
+                <div class="quick-demo-btns" id="demoButtonsContainer">
+                    <!-- Populated dynamically based on selected role tab -->
+                </div>
+            </div>
+
+            <!-- Alert Container -->
+            <div id="loginAlert" class="portal-alert portal-alert-danger" style="display: none;"></div>
+
+            <!-- Login Form -->
+            <form id="portalLoginForm" onsubmit="handlePortalLogin(event)">
+                <input type="hidden" id="loginRole" value="student">
+
+                <div class="form-group">
+                    <label class="form-label" id="identifierLabel" for="loginIdentifier">
+                        <i class="fas fa-id-card"></i> Student Roll Number or Email
+                    </label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-user prefix-icon"></i>
+                        <input type="text" id="loginIdentifier" class="form-input" 
+                               placeholder="e.g. 23RITW0501" required autofocus autocomplete="username">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">
+                        <i class="fas fa-key"></i> Password
+                    </label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-lock prefix-icon"></i>
+                        <input type="password" id="loginPassword" class="form-input" 
+                               placeholder="Enter your institutional password" required autocomplete="current-password">
+                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('loginPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" id="loginSubmitBtn" class="btn-primary-portal">
+                    <i class="fas fa-sign-in-alt"></i> Sign In to Portal
+                </button>
+            </form>
+
+            <div class="login-back-link">
+                <a href="/"><i class="fas fa-arrow-left"></i> Return to Public College Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         2. MAIN DASHBOARD VIEW (Shown when authenticated)
+         ==================================================================== -->
+    <div id="dashboardView" class="portal-app" style="display: none;">
+        
+        <!-- Header -->
+        <header class="portal-header">
+            <div class="portal-header-inner">
+                <div class="portal-header-left">
+                    <a href="/" class="portal-logo-link" title="RITW Engineering College">
+                        <img src="/images/RITW-LOGO.png" alt="RITW Logo" class="portal-logo-img">
+                        <div class="portal-header-titles">
+                            <span class="portal-title-brand">RITW CAMPUS PORTAL</span>
+                            <span class="portal-title-badge">UGC Autonomous &bull; NAAC 'A'</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="portal-header-right">
+                    <!-- Role badge -->
+                    <span id="headerRoleBadge" class="user-role-badge student">
+                        <i class="fas fa-user-graduate"></i> Student
+                    </span>
+
+                    <!-- Display name -->
+                    <span id="headerUserName" style="font-weight: 600; font-size: 0.9rem; color: #fff;">User</span>
+
+                    <!-- Notifications Button -->
+                    <button type="button" class="btn-header-action" onclick="toggleNotifDrawer()" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span id="headerNotifBadge" class="notif-badge-count" style="display: none;">0</span>
+                    </button>
+
+                    <!-- Profile Settings Button -->
+                    <button type="button" class="btn-header-action" onclick="openProfileModal()" title="My Profile &amp; Settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+
+                    <!-- Logout Button -->
+                    <button type="button" class="btn-logout" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Secondary Navigation (Rendered dynamically based on Role) -->
+        <nav class="portal-subnav">
+            <div class="portal-subnav-inner" id="subnavLinksContainer">
+                <!-- Injected via renderRoleNavigation() -->
+            </div>
+        </nav>
+
+        <!-- Parent Multi-Child Selector Bar (Visible ONLY for Parent role) -->
+        <div id="parentChildSelectorBar" class="parent-child-selector-bar" style="display: none;">
+            <div class="parent-child-selector-inner">
+                <span class="child-selector-label">
+                    <i class="fas fa-children"></i> Verified Linked Wards:
+                </span>
+                <div class="child-pills" id="parentChildPills">
+                    <!-- Injected via renderParentChildSelector() -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="portal-main-content" id="portalMainContent">
+            <!-- Dynamic Content View Injected Here -->
+        </main>
+    </div>
+
+    <!-- ====================================================================
+         3. NOTIFICATIONS DRAWER
+         ==================================================================== -->
+    <div id="notifBackdrop" class="portal-modal-backdrop" onclick="toggleNotifDrawer(false)"></div>
+    <div id="notifDrawer" class="notif-drawer">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-bell" style="color: var(--ritw-gold);"></i> Notifications
+            </div>
+            <button type="button" class="modal-close-btn" onclick="toggleNotifDrawer(false)">&times;</button>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+            <span id="notifUnreadSummary" style="font-size: 0.76rem; color: var(--text-muted);">0 unread updates</span>
+            <button type="button" onclick="markAllNotificationsRead()" 
+                    style="background: none; border: none; color: var(--ritw-purple-400); font-size: 0.76rem; cursor: pointer; text-decoration: underline;">
+                Mark all as read
+            </button>
+        </div>
+        <div id="notifListContainer" class="notif-list">
+            <!-- Notification items injected here -->
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         4. PROFILE & SETTINGS MODAL
+         ==================================================================== -->
+    <div id="profileModal" class="portal-modal-backdrop">
+        <div class="portal-modal-dialog">
+            <div class="modal-header">
+                <div style="font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-user-circle" style="color: var(--ritw-gold);"></i> Profile &amp; Settings
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closeProfileModal()">&times;</button>
+            </div>
+
+            <div id="profileAlert" class="portal-alert portal-alert-success" style="display: none;"></div>
+
+            <!-- Profile Overview (Institutional Read-Only Details) -->
+            <div id="profileInfoBox" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px; margin-bottom: 18px;">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- Contact Update Form -->
+            <h4 style="font-size: 0.92rem; margin-bottom: 12px; color: var(--ritw-gold);">
+                <i class="fas fa-edit"></i> Update Contact Details
+            </h4>
+            <form id="profileUpdateForm" onsubmit="handleProfileUpdate(event)">
+                <div class="form-group">
+                    <label class="form-label" for="profilePhone">Phone Number</label>
+                    <input type="text" id="profilePhone" class="form-input" placeholder="+91-98765-43210">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="profileAddress">Residential Address</label>
+                    <textarea id="profileAddress" class="form-input" rows="2" placeholder="Full address"></textarea>
+                </div>
+                <div class="form-group" id="profileOccupationGroup" style="display: none;">
+                    <label class="form-label" for="profileOccupation">Occupation</label>
+                    <input type="text" id="profileOccupation" class="form-input" placeholder="Occupation / Designation">
+                </div>
+                <div class="form-group" id="profileOfficeGroup" style="display: none;">
+                    <label class="form-label" for="profileOfficeRoom">Office Room / Cabin</label>
+                    <input type="text" id="profileOfficeRoom" class="form-input" placeholder="e.g. Block-A, Room 304">
+                </div>
+                <button type="submit" class="btn-primary-portal" style="padding: 10px 16px; font-size: 0.88rem; margin-bottom: 24px;">
+                    <i class="fas fa-save"></i> Save Profile Details
+                </button>
+            </form>
+
+            <!-- Password Change Section -->
+            <h4 style="font-size: 0.92rem; margin-bottom: 12px; color: var(--ritw-gold); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px;">
+                <i class="fas fa-shield-alt"></i> Change Institutional Password
+            </h4>
+            <form id="passwordChangeForm" onsubmit="handlePasswordChange(event)">
+                <div class="form-group">
+                    <label class="form-label" for="oldPassword">Current Password</label>
+                    <input type="password" id="oldPassword" class="form-input" placeholder="••••••••" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="newPassword">New Password (Min 8 chars)</label>
+                    <input type="password" id="newPassword" class="form-input" placeholder="••••••••" minlength="8" required>
+                </div>
+                <button type="submit" class="btn-primary-portal" style="padding: 10px 16px; font-size: 0.88rem; background: linear-gradient(135deg, #4b5563, #1f2937);">
+                    <i class="fas fa-key"></i> Update Password
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         5. GENERIC MODAL (Used for Assignment Submission, etc.)
+         ==================================================================== -->
+    <div id="genericModal" class="portal-modal-backdrop">
+        <div class="portal-modal-dialog" id="genericModalDialog">
+            <!-- Injected dynamically -->
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         CLIENT LOGIC & DATA ORCHESTRATION
+         ==================================================================== -->
+    <script>
+    // Global Application State
+    const PortalState = {
+        token: localStorage.getItem('ritw_portal_token') || null,
+        user: JSON.parse(localStorage.getItem('ritw_portal_user') || 'null'),
+        currentTab: 'overview',
+        parentChildren: [],
+        currentChildId: null,
+        staffClasses: [],
+        notifications: []
+    };
+
+    // Quick demo credential definitions
+    const DEMO_CREDENTIALS = {
+        student: [
+            { label: 'Priya Sharma (CSE)', id: '23RITW0501', pass: 'Student@2026!' },
+            { label: 'Ananya Sharma (IT)', id: '24RITW0412', pass: 'Student@2026!' },
+            { label: 'Sneha Reddy (ECE)', id: '23RITW0525', pass: 'Student@2026!' }
+        ],
+        parent: [
+            { label: 'Ramesh Sharma (Father of 2)', id: 'parent.ramesh', pass: 'Parent@2026!' },
+            { label: 'Kavitha Reddy (Mother)', id: 'parent.kavitha', pass: 'Parent@2026!' }
+        ],
+        staff: [
+            { label: 'Dr. Radhika Rao (CSE Prof)', id: 'FAC-CSE-101', pass: 'Staff@2026!' },
+            { label: 'Prof. Suresh Kumar (ECE)', id: 'FAC-ECE-201', pass: 'Staff@2026!' }
+        ]
+    };
+
+    // Helper: Authenticated API request
+    async function apiRequest(endpoint, method = 'GET', body = null) {
+        const headers = { 'Content-Type': 'application/json' };
+        if (PortalState.token) {
+            headers['Authorization'] = `Bearer ${PortalState.token}`;
+        }
+        const options = { method, headers };
+        if (body) options.body = JSON.stringify(body);
+
+        try {
+            const res = await fetch(endpoint, options);
+            const data = await res.json();
+            if (res.status === 401) {
+                // Token expired or invalid
+                handleLogout('Your session has expired. Please log in again.');
+                return null;
+            }
+            return { ok: res.ok, status: res.status, data };
+        } catch (err) {
+            console.error('API Fetch error:', err);
+            return { ok: false, status: 0, data: { message: 'Network connection failed.' } };
+        }
+    }
+
+    // Role switcher on login page
+    function switchLoginRole(role) {
+        document.getElementById('loginRole').value = role;
+        document.querySelectorAll('.role-tab-btn').forEach(btn => btn.classList.remove('active'));
+        if (role === 'student') document.getElementById('tabStudent').classList.add('active');
+        if (role === 'parent') document.getElementById('tabParent').classList.add('active');
+        if (role === 'staff') document.getElementById('tabStaff').classList.add('active');
+
+        const idLabel = document.getElementById('identifierLabel');
+        const idInput = document.getElementById('loginIdentifier');
+        if (role === 'student') {
+            idLabel.innerHTML = '<i class="fas fa-id-card"></i> Student Roll Number or Email';
+            idInput.placeholder = 'e.g. 23RITW0501';
+        } else if (role === 'parent') {
+            idLabel.innerHTML = '<i class="fas fa-id-card"></i> Parent Code / Phone / Email';
+            idInput.placeholder = 'e.g. parent.ramesh or PAR-9041';
+        } else if (role === 'staff') {
+            idLabel.innerHTML = '<i class="fas fa-id-card"></i> Staff Code or College Email';
+            idInput.placeholder = 'e.g. FAC-CSE-101';
+        }
+
+        renderDemoButtons(role);
+        hideLoginAlert();
+    }
+
+    function renderDemoButtons(role) {
+        const container = document.getElementById('demoButtonsContainer');
+        container.innerHTML = '';
+        (DEMO_CREDENTIALS[role] || []).forEach(demo => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'btn-demo-chip';
+            btn.innerHTML = `<i class="fas fa-arrow-circle-right"></i> ${demo.label}`;
+            btn.onclick = () => {
+                document.getElementById('loginIdentifier').value = demo.id;
+                document.getElementById('loginPassword').value = demo.pass;
+                hideLoginAlert();
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    function togglePasswordVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            input.type = 'password';
+            btn.innerHTML = '<i class="fas fa-eye"></i>';
+        }
+    }
+
+    function showLoginAlert(msg, isSuccess = false) {
+        const alert = document.getElementById('loginAlert');
+        alert.className = `portal-alert ${isSuccess ? 'portal-alert-success' : 'portal-alert-danger'}`;
+        alert.innerHTML = `<i class="fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+        alert.style.display = 'flex';
+    }
+
+    function hideLoginAlert() {
+        document.getElementById('loginAlert').style.display = 'none';
+    }
+
+    // Handle Login Form Submission
+    async function handlePortalLogin(e) {
+        e.preventDefault();
+        hideLoginAlert();
+        const identifier = document.getElementById('loginIdentifier').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const expectedRole = document.getElementById('loginRole').value;
+        const submitBtn = document.getElementById('loginSubmitBtn');
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+
+        const res = await apiRequest('/api/v1/portal/auth/login', 'POST', { identifier, password, expectedRole });
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In to Portal';
+
+        if (!res || !res.ok) {
+            showLoginAlert(res?.data?.message || 'Authentication failed. Please verify credentials.');
+            return;
+        }
+
+        // Store session
+        PortalState.token = res.data.token;
+        PortalState.user = res.data.user;
+        localStorage.setItem('ritw_portal_token', res.data.token);
+        localStorage.setItem('ritw_portal_user', JSON.stringify(res.data.user));
+
+        initDashboard();
+    }
+
+    // Handle Logout
+    function handleLogout(optionalMessage) {
+        PortalState.token = null;
+        PortalState.user = null;
+        PortalState.parentChildren = [];
+        PortalState.currentChildId = null;
+        localStorage.removeItem('ritw_portal_token');
+        localStorage.removeItem('ritw_portal_user');
+
+        document.getElementById('dashboardView').style.display = 'none';
+        document.getElementById('loginView').style.display = 'flex';
+        if (optionalMessage) {
+            showLoginAlert(optionalMessage);
+        } else {
+            hideLoginAlert();
+        }
+    }
+
+    // ========================================================================
+    // DASHBOARD INITIALIZATION
+    // ========================================================================
+    async function initDashboard() {
+        if (!PortalState.token || !PortalState.user) {
+            handleLogout();
+            return;
+        }
+
+        document.getElementById('loginView').style.display = 'none';
+        document.getElementById('dashboardView').style.display = 'flex';
+
+        // Update header user info
+        const role = PortalState.user.role;
+        const badge = document.getElementById('headerRoleBadge');
+        badge.className = `user-role-badge ${role}`;
+        if (role === 'student') badge.innerHTML = '<i class="fas fa-user-graduate"></i> Student';
+        else if (role === 'parent') badge.innerHTML = '<i class="fas fa-user-friends"></i> Parent';
+        else if (role === 'staff') badge.innerHTML = '<i class="fas fa-chalkboard-teacher"></i> Faculty';
+
+        document.getElementById('headerUserName').textContent = PortalState.user.displayName || PortalState.user.username;
+
+        // Render Navigation according to role
+        renderRoleNavigation(role);
+
+        // Fetch notifications count
+        loadNotifications();
+
+        // Role-specific preloading
+        if (role === 'parent') {
+            document.getElementById('parentChildSelectorBar').style.display = 'block';
+            await loadParentChildren();
+        } else {
+            document.getElementById('parentChildSelectorBar').style.display = 'none';
+            switchTab('overview');
+        }
+    }
+
+    // Render Subnav Links per role
+    function renderRoleNavigation(role) {
+        const container = document.getElementById('subnavLinksContainer');
+        container.innerHTML = '';
+
+        let tabs = [];
+        if (role === 'student') {
+            tabs = [
+                { id: 'overview', label: 'Overview', icon: 'fa-tachometer-alt' },
+                { id: 'profile', label: 'My Profile', icon: 'fa-user' },
+                { id: 'attendance', label: 'Attendance', icon: 'fa-calendar-check' },
+                { id: 'marks', label: 'Marks & Grades', icon: 'fa-award' },
+                { id: 'timetable', label: 'Timetable', icon: 'fa-clock' },
+                { id: 'assignments', label: 'Assignments', icon: 'fa-tasks' },
+                { id: 'fees', label: 'Fees Status', icon: 'fa-receipt' },
+                { id: 'announcements', label: 'Announcements', icon: 'fa-bullhorn' }
+            ];
+        } else if (role === 'parent') {
+            tabs = [
+                { id: 'overview', label: 'Ward Overview', icon: 'fa-tachometer-alt' },
+                { id: 'profile', label: 'Ward Profile', icon: 'fa-user-graduate' },
+                { id: 'academics', label: 'Academic Details', icon: 'fa-book-open' },
+                { id: 'marks', label: 'Marks & Grades', icon: 'fa-award' },
+                { id: 'attendance', label: 'Attendance Records', icon: 'fa-calendar-check' },
+                { id: 'fees', label: 'Fees & Dues', icon: 'fa-file-invoice-dollar' },
+                { id: 'announcements', label: 'Announcements', icon: 'fa-bullhorn' }
+            ];
+        } else if (role === 'staff') {
+            tabs = [
+                { id: 'overview', label: 'Faculty Overview', icon: 'fa-tachometer-alt' },
+                { id: 'profile', label: 'My Profile', icon: 'fa-id-badge' },
+                { id: 'classes', label: 'Assigned Classes', icon: 'fa-layer-group' },
+                { id: 'timetable', label: 'My Timetable', icon: 'fa-clock' },
+                { id: 'attendance', label: 'Attendance Tasks', icon: 'fa-clipboard-check' },
+                { id: 'marks', label: 'Student Marks', icon: 'fa-pen-fancy' },
+                { id: 'assignments', label: 'Assignments Manager', icon: 'fa-tasks' },
+                { id: 'announcements', label: 'Announcements', icon: 'fa-bullhorn' }
+            ];
+        }
+
+        tabs.forEach(t => {
+            const a = document.createElement('a');
+            a.className = `subnav-link ${t.id === PortalState.currentTab ? 'active' : ''}`;
+            a.id = `subnav-${t.id}`;
+            a.innerHTML = `<i class="fas ${t.icon}"></i> ${t.label}`;
+            a.onclick = () => switchTab(t.id);
+            container.appendChild(a);
+        });
+    }
+
+    function switchTab(tabId) {
+        PortalState.currentTab = tabId;
+        document.querySelectorAll('.subnav-link').forEach(el => el.classList.remove('active'));
+        const activeEl = document.getElementById(`subnav-${tabId}`);
+        if (activeEl) activeEl.classList.add('active');
+
+        const role = PortalState.user.role;
+        if (role === 'student') renderStudentTab(tabId);
+        else if (role === 'parent') renderParentTab(tabId);
+        else if (role === 'staff') renderStaffTab(tabId);
+    }
+
+    // ========================================================================
+    // PARENT MULTI-CHILD MANAGEMENT
+    // ========================================================================
+    async function loadParentChildren() {
+        const res = await apiRequest('/api/v1/portal/parent/children');
+        if (!res || !res.ok) {
+            document.getElementById('portalMainContent').innerHTML = `
+                <div class="portal-alert portal-alert-danger">Failed to load linked children.</div>
+            `;
+            return;
+        }
+
+        PortalState.parentChildren = res.data.children || [];
+        if (PortalState.parentChildren.length === 0) {
+            document.getElementById('portalMainContent').innerHTML = `
+                <div class="glass-panel" style="text-align: center; padding: 40px 20px;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: var(--ritw-gold); margin-bottom: 14px;"></i>
+                    <h3>No Linked Wards Found</h3>
+                    <p style="color: var(--text-secondary); max-width: 500px; margin: 10px auto;">
+                        There are currently no verified student accounts linked to your parent registration. Please contact the Academic Administration office.
+                    </p>
+                </div>
+            `;
+            return;
+        }
+
+        // Set default child if not already set or not present
+        if (!PortalState.currentChildId || !PortalState.parentChildren.some(c => c.id === PortalState.currentChildId)) {
+            PortalState.currentChildId = PortalState.parentChildren[0].id;
+        }
+
+        renderParentChildPills();
+        switchTab(PortalState.currentTab || 'overview');
+    }
+
+    function renderParentChildPills() {
+        const container = document.getElementById('parentChildPills');
+        container.innerHTML = '';
+
+        PortalState.parentChildren.forEach(child => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `child-pill-btn ${child.id === PortalState.currentChildId ? 'active' : ''}`;
+            btn.innerHTML = `
+                <i class="fas fa-user-graduate"></i>
+                <span>${child.full_name} (${child.roll_number})</span>
+                <span style="font-size: 0.7rem; opacity: 0.8;">• ${child.semester}</span>
+            `;
+            btn.onclick = () => {
+                if (PortalState.currentChildId !== child.id) {
+                    PortalState.currentChildId = child.id;
+                    renderParentChildPills();
+                    switchTab(PortalState.currentTab);
+                }
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    // ========================================================================
+    // STUDENT VIEW IMPLEMENTATION
+    // ========================================================================
+    async function renderStudentTab(tabId) {
+        const content = document.getElementById('portalMainContent');
+        content.innerHTML = `<div style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin fa-2x" style="color:var(--ritw-purple-400);"></i></div>`;
+
+        if (tabId === 'overview') {
+            const [profileRes, attRes, feesRes, annRes] = await Promise.all([
+                apiRequest('/api/v1/portal/student/profile'),
+                apiRequest('/api/v1/portal/student/attendance'),
+                apiRequest('/api/v1/portal/student/fees'),
+                apiRequest('/api/v1/portal/student/announcements')
+            ]);
+
+            const p = profileRes?.data?.data || {};
+            const att = attRes?.data?.data || {};
+            const fees = feesRes?.data?.data || {};
+            const announcements = annRes?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="portal-welcome-banner">
+                    <div class="welcome-info">
+                        <h2>Welcome back, ${p.full_name || PortalState.user.username}! <i class="fas fa-sparkles" style="color: var(--ritw-gold); font-size: 1.1rem;"></i></h2>
+                        <p>Academic Year 2025–2026 &bull; ${p.department} &bull; ${p.semester} (Section ${p.section})</p>
+                        <div class="welcome-meta-chips">
+                            <span class="meta-chip"><i class="fas fa-id-badge"></i> Roll No: <strong>${p.roll_number}</strong></span>
+                            <span class="meta-chip"><i class="fas fa-star" style="color:var(--ritw-gold)"></i> CGPA: <strong>${p.cgpa || 'N/A'}</strong></span>
+                            <span class="meta-chip"><i class="fas fa-chart-line" style="color:var(--success)"></i> Attendance: <strong>${att.overall_percentage}%</strong></span>
+                            <span class="meta-chip"><i class="fas fa-shield-alt"></i> Status: <strong style="color:var(--success)">Enrolled Active</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portal-grid">
+                    <div class="col-3">
+                        <div class="stat-card">
+                            <div class="stat-icon purple"><i class="fas fa-chart-pie"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Attendance</div>
+                                <div class="stat-val">${att.overall_percentage}%</div>
+                                <div class="stat-sub">${att.total_attended || 0} of ${att.total_classes || 0} classes attended</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="stat-card">
+                            <div class="stat-icon gold"><i class="fas fa-award"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Academic CGPA</div>
+                                <div class="stat-val">${p.cgpa || '8.74'}</div>
+                                <div class="stat-sub">Top 5% of Department</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="stat-card">
+                            <div class="stat-icon emerald"><i class="fas fa-receipt"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Fees Balance</div>
+                                <div class="stat-val">₹${(fees?.summary?.total_due || 0).toLocaleString()}</div>
+                                <div class="stat-sub">${fees?.summary?.is_all_clear ? 'All Cleared' : 'Pending Tuition Dues'}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="stat-card">
+                            <div class="stat-icon sky"><i class="fas fa-book-reader"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Current Semester</div>
+                                <div class="stat-val">${p.semester?.split(' ')[0] || 'IV'}</div>
+                                <div class="stat-sub">Batch: ${p.batch_year || '2023-2027'}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subject Attendance Summary -->
+                    <div class="col-8">
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <div class="panel-title"><i class="fas fa-calendar-check"></i> Subject Attendance Status</div>
+                                <button class="btn-demo-chip" onclick="switchTab('attendance')">View Detailed Log</button>
+                            </div>
+                            <div class="portal-table-wrap">
+                                <table class="portal-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject Code</th>
+                                            <th>Subject Name</th>
+                                            <th>Held</th>
+                                            <th>Attended</th>
+                                            <th>Percentage</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${(att.subjects || []).map(s => `
+                                            <tr>
+                                                <td><strong>${s.subject_code}</strong></td>
+                                                <td>${s.subject_name}</td>
+                                                <td>${s.total_classes}</td>
+                                                <td>${s.attended}</td>
+                                                <td><strong style="color:${s.percentage >= 75 ? '#34d399' : '#f87171'}">${s.percentage}%</strong></td>
+                                                <td>
+                                                    <span class="status-badge ${s.percentage >= 75 ? 'present' : 'absent'}">
+                                                        ${s.percentage >= 75 ? 'Eligible' : 'Shortage'}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campus Announcements for Students -->
+                    <div class="col-4">
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <div class="panel-title"><i class="fas fa-bullhorn"></i> Important Notices</div>
+                            </div>
+                            <div>
+                                ${announcements.slice(0, 3).map(a => `
+                                    <div class="announcement-card">
+                                        <div class="announcement-header">
+                                            <span class="announcement-title">${a.title}</span>
+                                            <span class="status-badge ${a.priority === 'urgent' ? 'absent' : 'partial'}">${a.priority}</span>
+                                        </div>
+                                        <div class="announcement-body">${a.content}</div>
+                                        <div class="announcement-meta">
+                                            <span><i class="fas fa-calendar-alt"></i> ${a.posted_date}</span>
+                                            <span><i class="fas fa-user-edit"></i> ${a.posted_by}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'profile') {
+            const res = await apiRequest('/api/v1/portal/student/profile');
+            const p = res?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-user-graduate"></i> Student Profile &amp; Enrollment Details</div>
+                        <button class="btn-demo-chip" onclick="openProfileModal()"><i class="fas fa-edit"></i> Edit Contact Info</button>
+                    </div>
+
+                    <div style="display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap; margin-bottom:24px;">
+                        <div style="width:110px; height:110px; border-radius:50%; background:linear-gradient(135deg, var(--ritw-purple-600), var(--ritw-gold)); padding:3px; flex-shrink:0;">
+                            <div style="width:100%; height:100%; border-radius:50%; background:#1c0633; display:flex; align-items:center; justify-content:center; font-size:2.8rem; color:#fff;">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <div style="flex:1; min-width:240px;">
+                            <h2 style="font-size:1.6rem; margin-bottom:4px;">${p.full_name}</h2>
+                            <p style="color:var(--ritw-gold); font-weight:600; font-size:0.95rem;">${p.department} &bull; ${p.degree}</p>
+                            <p style="color:var(--text-secondary); font-size:0.85rem; margin-top:4px;">
+                                <i class="fas fa-id-badge"></i> Roll No: <strong>${p.roll_number}</strong> &bull; 
+                                <i class="fas fa-layer-group"></i> ${p.semester} - Section ${p.section} &bull; 
+                                <i class="fas fa-calendar"></i> Batch ${p.batch_year}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="portal-grid">
+                        <div class="col-6">
+                            <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:18px;">
+                                <h4 style="font-size:0.9rem; color:var(--ritw-gold); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Institutional Records</h4>
+                                <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Admission Date:</span> <strong>${p.admission_date || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Academic CGPA:</span> <strong>${p.cgpa || 'N/A'} / 10.0</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Attendance:</span> <strong>${p.attendance_percentage}%</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">College Email:</span> <strong>${p.email}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Blood Group:</span> <strong>${p.blood_group || 'O+ve'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Gender:</span> <strong>${p.gender || 'Female'}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:18px;">
+                                <h4 style="font-size:0.9rem; color:var(--ritw-gold); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Guardian &amp; Contact Info</h4>
+                                <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Guardian Name:</span> <strong>${p.guardian_name || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Guardian Phone:</span> <strong>${p.guardian_phone || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Student Phone:</span> <strong>${p.phone || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Address:</span> <strong>${p.address || 'N/A'}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'attendance') {
+            const res = await apiRequest('/api/v1/portal/student/attendance');
+            const data = res?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-calendar-check"></i> Attendance Details &amp; History</div>
+                        <div style="font-size:0.85rem; color:var(--ritw-gold); font-weight:700;">
+                            Overall: ${data.overall_percentage}% (${data.total_attended} / ${data.total_classes} Classes)
+                        </div>
+                    </div>
+
+                    <h4 style="font-size:0.92rem; margin:14px 0 10px; color:#fff;">Subject-Wise Summary</h4>
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject Code</th>
+                                    <th>Subject Title</th>
+                                    <th>Held</th>
+                                    <th>Attended</th>
+                                    <th>Absent</th>
+                                    <th>Percentage</th>
+                                    <th>Compliance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.subjects || []).map(s => `
+                                    <tr>
+                                        <td><strong>${s.subject_code}</strong></td>
+                                        <td>${s.subject_name}</td>
+                                        <td>${s.total_classes}</td>
+                                        <td>${s.attended}</td>
+                                        <td>${s.absent}</td>
+                                        <td><strong style="color:${s.percentage >= 75 ? '#34d399' : '#f87171'}">${s.percentage}%</strong></td>
+                                        <td>
+                                            <span class="status-badge ${s.percentage >= 75 ? 'present' : 'absent'}">
+                                                ${s.percentage >= 75 ? 'Requirement Met' : 'Shortage'}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 style="font-size:0.92rem; margin:24px 0 10px; color:#fff;">Recent Attendance Log (Day by Day)</h4>
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time Slot</th>
+                                    <th>Subject Code</th>
+                                    <th>Subject Title</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.logs || []).map(l => `
+                                    <tr>
+                                        <td><i class="far fa-calendar"></i> ${l.date}</td>
+                                        <td>${l.time_slot}</td>
+                                        <td><strong>${l.subject_code}</strong></td>
+                                        <td>${l.subject_name}</td>
+                                        <td>
+                                            <span class="status-badge ${l.status.toLowerCase()}">
+                                                ${l.status}
+                                            </span>
+                                        </td>
+                                        <td>${l.remarks || '-'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'marks') {
+            const res = await apiRequest('/api/v1/portal/student/marks');
+            const data = res?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-award"></i> Academic Performance &amp; Grade Sheets</div>
+                        <div style="font-size:0.9rem; color:var(--ritw-gold); font-weight:700;">
+                            Cumulative CGPA: ${data.cgpa || '8.74'}
+                        </div>
+                    </div>
+
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Semester</th>
+                                    <th>Exam Type</th>
+                                    <th>Subject Code</th>
+                                    <th>Subject Name</th>
+                                    <th>Max Marks</th>
+                                    <th>Marks Scored</th>
+                                    <th>Grade</th>
+                                    <th>Status</th>
+                                    <th>Evaluator</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.records || []).map(m => `
+                                    <tr>
+                                        <td><strong>${m.semester}</strong></td>
+                                        <td>${m.exam_type}</td>
+                                        <td><strong>${m.subject_code}</strong></td>
+                                        <td>${m.subject_name}</td>
+                                        <td>${m.max_marks}</td>
+                                        <td><strong>${m.marks_obtained}</strong></td>
+                                        <td><span class="status-badge present">${m.grade}</span></td>
+                                        <td><span class="status-badge ${m.status === 'Pass' ? 'present' : 'absent'}">${m.status}</span></td>
+                                        <td>${m.evaluated_by || 'Faculty Member'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'timetable') {
+            const res = await apiRequest('/api/v1/portal/student/timetable');
+            const data = res?.data?.data || {};
+            const byDay = data.byDay || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-clock"></i> Weekly Class Timetable</div>
+                        <div style="font-size:0.85rem; color:var(--text-secondary);">
+                            ${data.department} &bull; ${data.semester} (${data.section})
+                        </div>
+                    </div>
+
+                    ${Object.keys(byDay).map(day => `
+                        <div class="timetable-day-header">${day}</div>
+                        ${(byDay[day] && byDay[day].length > 0) ? byDay[day].map(slot => `
+                            <div class="timetable-slot-card">
+                                <div class="slot-time"><i class="far fa-clock"></i> ${slot.start_time} - ${slot.end_time}</div>
+                                <div class="slot-subject">
+                                    <div class="slot-subject-name">${slot.subject_name}</div>
+                                    <div class="slot-subject-code">${slot.subject_code} &bull; Faculty: ${slot.faculty_name || 'Department Faculty'}</div>
+                                </div>
+                                <div class="slot-room"><i class="fas fa-door-open"></i> ${slot.room_number || 'Room A-301'}</div>
+                            </div>
+                        `).join('') : '<p style="color:var(--text-muted); font-size:0.82rem; margin:6px 0 14px 10px;">No scheduled sessions.</p>'}
+                    `).join('')}
+                </div>
+            `;
+        } else if (tabId === 'assignments') {
+            const res = await apiRequest('/api/v1/portal/student/assignments');
+            const assignments = res?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-tasks"></i> Coursework &amp; Assignments</div>
+                        <span style="font-size:0.82rem; color:var(--text-secondary);">${assignments.length} Total Assignments</span>
+                    </div>
+
+                    <div class="portal-grid">
+                        ${assignments.map(a => `
+                            <div class="col-6">
+                                <div class="announcement-card" style="height:100%; display:flex; flex-direction:column; justify-content:space-between;">
+                                    <div>
+                                        <div class="announcement-header">
+                                            <span class="announcement-title">${a.title}</span>
+                                            <span class="status-badge ${a.submission_status === 'Submitted' ? 'submitted' : 'partial'}">
+                                                ${a.submission_status || 'Pending'}
+                                            </span>
+                                        </div>
+                                        <div style="font-size:0.78rem; color:var(--ritw-gold); margin-bottom:6px;">
+                                            ${a.subject_name} (${a.subject_code}) &bull; Max Marks: ${a.max_marks}
+                                        </div>
+                                        <div class="announcement-body">${a.description || 'Submit your assignments on time as per faculty guidelines.'}</div>
+                                    </div>
+                                    <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-size:0.75rem; color:var(--text-muted);">
+                                            <i class="far fa-calendar-times"></i> Due: ${a.due_date}
+                                        </span>
+                                        <button class="btn-demo-chip" onclick="openAssignmentModal(${a.id}, '${escapeQuotes(a.title)}', '${escapeQuotes(a.submission_content || '')}')">
+                                            <i class="fas ${a.submission_status === 'Submitted' ? 'fa-check' : 'fa-upload'}"></i> 
+                                            ${a.submission_status === 'Submitted' ? 'Update Submission' : 'Submit Now'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'fees') {
+            const res = await apiRequest('/api/v1/portal/student/fees');
+            const data = res?.data?.data || {};
+            const summary = data.summary || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-file-invoice-dollar"></i> Tuition &amp; Academic Fees Status</div>
+                        <span class="status-badge ${summary.is_all_clear ? 'present' : 'absent'}">
+                            ${summary.is_all_clear ? 'No Outstanding Dues' : 'Outstanding Balance'}
+                        </span>
+                    </div>
+
+                    <div class="portal-grid" style="margin-bottom:20px;">
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <div class="stat-icon purple"><i class="fas fa-calculator"></i></div>
+                                <div class="stat-details">
+                                    <div class="stat-title">Total Assessed Fee</div>
+                                    <div class="stat-val">₹${(summary.total_fee || 0).toLocaleString()}</div>
+                                    <div class="stat-sub">Academic Year 2025–2026</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <div class="stat-icon emerald"><i class="fas fa-check-circle"></i></div>
+                                <div class="stat-details">
+                                    <div class="stat-title">Paid to Date</div>
+                                    <div class="stat-val">₹${(summary.total_paid || 0).toLocaleString()}</div>
+                                    <div class="stat-sub">Direct Bank / Gateway</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <div class="stat-icon gold"><i class="fas fa-exclamation-circle"></i></div>
+                                <div class="stat-details">
+                                    <div class="stat-title">Pending Balance</div>
+                                    <div class="stat-val">₹${(summary.total_due || 0).toLocaleString()}</div>
+                                    <div class="stat-sub">Due as per semester schedule</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="font-size:0.92rem; margin:20px 0 10px; color:#fff;">Fee Ledger &amp; Receipts</h4>
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Fee Head</th>
+                                    <th>Year</th>
+                                    <th>Total Amount</th>
+                                    <th>Paid Amount</th>
+                                    <th>Due Balance</th>
+                                    <th>Status</th>
+                                    <th>Due Date</th>
+                                    <th>Receipt No.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.items || []).map(f => `
+                                    <tr>
+                                        <td><strong>${f.fee_type}</strong></td>
+                                        <td>${f.academic_year}</td>
+                                        <td>₹${f.total_amount.toLocaleString()}</td>
+                                        <td>₹${f.paid_amount.toLocaleString()}</td>
+                                        <td><strong style="color:${f.due_amount > 0 ? '#f87171' : '#34d399'}">₹${f.due_amount.toLocaleString()}</strong></td>
+                                        <td><span class="status-badge ${f.payment_status.toLowerCase()}">${f.payment_status}</span></td>
+                                        <td>${f.due_date}</td>
+                                        <td>${f.receipt_number || '-'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'announcements') {
+            const res = await apiRequest('/api/v1/portal/student/announcements');
+            const items = res?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-bullhorn"></i> Institutional Notices &amp; Circulars</div>
+                        <span style="font-size:0.82rem; color:var(--text-secondary);">${items.length} Active Circulars</span>
+                    </div>
+
+                    ${items.map(a => `
+                        <div class="announcement-card">
+                            <div class="announcement-header">
+                                <span class="announcement-title">${a.title}</span>
+                                <div>
+                                    <span class="status-badge ${a.priority === 'urgent' ? 'absent' : (a.priority === 'high' ? 'partial' : 'present')}">${a.priority}</span>
+                                    <span class="status-badge" style="background:rgba(255,255,255,0.08);">${a.category}</span>
+                                </div>
+                            </div>
+                            <div class="announcement-body">${a.content}</div>
+                            <div class="announcement-meta">
+                                <span><i class="far fa-calendar-alt"></i> Posted: ${a.posted_date}</span>
+                                <span><i class="fas fa-university"></i> Authority: ${a.posted_by}</span>
+                                <span><i class="fas fa-users"></i> Department: ${a.department}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    }
+
+    // ========================================================================
+    // PARENT VIEW IMPLEMENTATION (Multi-Child Support & Strict Relationship Checks)
+    // ========================================================================
+    async function renderParentTab(tabId) {
+        const content = document.getElementById('portalMainContent');
+        const childId = PortalState.currentChildId;
+
+        if (!childId) {
+            content.innerHTML = `<div class="portal-alert portal-alert-danger">No child selected.</div>`;
+            return;
+        }
+
+        content.innerHTML = `<div style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin fa-2x" style="color:var(--ritw-gold);"></i></div>`;
+
+        if (tabId === 'overview') {
+            const [childProfileRes, childAttRes, childMarksRes, childFeesRes] = await Promise.all([
+                apiRequest(`/api/v1/portal/parent/child/${childId}/profile`),
+                apiRequest(`/api/v1/portal/parent/child/${childId}/attendance`),
+                apiRequest(`/api/v1/portal/parent/child/${childId}/marks`),
+                apiRequest(`/api/v1/portal/parent/child/${childId}/fees`)
+            ]);
+
+            const p = childProfileRes?.data?.data || {};
+            const att = childAttRes?.data?.data || {};
+            const marks = childMarksRes?.data?.data || {};
+            const fees = childFeesRes?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="portal-welcome-banner" style="border-color: rgba(245, 158, 11, 0.3);">
+                    <div class="welcome-info">
+                        <h2>Ward Academic Monitoring: ${p.full_name || 'Student'} <i class="fas fa-shield-alt" style="color:var(--ritw-gold); font-size:1.1rem;"></i></h2>
+                        <p>${p.department} &bull; ${p.semester} (Section ${p.section}) &bull; Verified Relation: <strong>${p.verified_relation || 'Parent'}</strong></p>
+                        <div class="welcome-meta-chips">
+                            <span class="meta-chip"><i class="fas fa-id-badge"></i> Roll No: <strong>${p.roll_number}</strong></span>
+                            <span class="meta-chip"><i class="fas fa-star" style="color:var(--ritw-gold)"></i> CGPA: <strong>${marks.cgpa || p.cgpa || 'N/A'}</strong></span>
+                            <span class="meta-chip"><i class="fas fa-calendar-check" style="color:var(--success)"></i> Overall Attendance: <strong>${att.overall_percentage}%</strong></span>
+                            <span class="meta-chip"><i class="fas fa-receipt"></i> Pending Dues: <strong style="color:${fees?.summary?.total_due > 0 ? '#f87171' : '#34d399'}">₹${(fees?.summary?.total_due || 0).toLocaleString()}</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portal-grid">
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="stat-icon gold"><i class="fas fa-chart-line"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Attendance Level</div>
+                                <div class="stat-val">${att.overall_percentage}%</div>
+                                <div class="stat-sub">${att.total_attended || 0} of ${att.total_classes || 0} total sessions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="stat-icon purple"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Cumulative Grade (CGPA)</div>
+                                <div class="stat-val">${marks.cgpa || p.cgpa || 'N/A'}</div>
+                                <div class="stat-sub">Degree: ${p.degree || 'B.Tech'}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="stat-icon emerald"><i class="fas fa-file-invoice"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Fee Account Status</div>
+                                <div class="stat-val">₹${(fees?.summary?.total_due || 0).toLocaleString()}</div>
+                                <div class="stat-sub">${fees?.summary?.is_all_clear ? 'All Paid' : 'Outstanding Balance'}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subject Attendance Summary -->
+                    <div class="col-12">
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <div class="panel-title"><i class="fas fa-calendar-check"></i> Ward's Subject Attendance Tracking</div>
+                                <button class="btn-demo-chip" onclick="switchTab('attendance')">Detailed Attendance Records</button>
+                            </div>
+                            <div class="portal-table-wrap">
+                                <table class="portal-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject Code</th>
+                                            <th>Subject Title</th>
+                                            <th>Total Classes</th>
+                                            <th>Attended</th>
+                                            <th>Absent</th>
+                                            <th>Attendance %</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${(att.subjects || []).map(s => `
+                                            <tr>
+                                                <td><strong>${s.subject_code}</strong></td>
+                                                <td>${s.subject_name}</td>
+                                                <td>${s.total_classes}</td>
+                                                <td>${s.attended}</td>
+                                                <td>${s.absent}</td>
+                                                <td><strong style="color:${s.percentage >= 75 ? '#34d399' : '#f87171'}">${s.percentage}%</strong></td>
+                                                <td>
+                                                    <span class="status-badge ${s.percentage >= 75 ? 'present' : 'absent'}">
+                                                        ${s.percentage >= 75 ? 'Regular' : 'Irregular Warning'}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'profile') {
+            const res = await apiRequest(`/api/v1/portal/parent/child/${childId}/profile`);
+            const p = res?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-user-graduate"></i> Ward Academic Profile</div>
+                        <span class="status-badge present"><i class="fas fa-check-circle"></i> Verified Family Record</span>
+                    </div>
+
+                    <div style="display:flex; gap:24px; align-items:center; margin-bottom:24px;">
+                        <div style="width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg, var(--ritw-gold), #b45309); padding:3px; flex-shrink:0;">
+                            <div style="width:100%; height:100%; border-radius:50%; background:#1c0633; display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:#fff;">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 style="font-size:1.5rem; margin-bottom:4px;">${p.full_name}</h2>
+                            <p style="color:var(--ritw-gold); font-weight:600;">${p.department} &bull; ${p.degree}</p>
+                            <p style="color:var(--text-secondary); font-size:0.85rem; margin-top:2px;">
+                                Roll No: <strong>${p.roll_number}</strong> &bull; Class: <strong>${p.semester} (${p.section})</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="portal-grid">
+                        <div class="col-6">
+                            <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:18px;">
+                                <h4 style="font-size:0.9rem; color:var(--ritw-gold); margin-bottom:12px; text-transform:uppercase;">Institutional Record</h4>
+                                <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Admission Date:</span> <strong>${p.admission_date || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Academic Batch:</span> <strong>${p.batch_year || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Current CGPA:</span> <strong>${p.cgpa || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Attendance:</span> <strong>${p.attendance_percentage}%</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Date of Birth:</span> <strong>${p.dob || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Blood Group:</span> <strong>${p.blood_group || 'O+ve'}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:18px;">
+                                <h4 style="font-size:0.9rem; color:var(--ritw-gold); margin-bottom:12px; text-transform:uppercase;">Registered Contacts</h4>
+                                <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Primary Guardian:</span> <strong>${p.guardian_name || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Guardian Phone:</span> <strong>${p.guardian_phone || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Student Email:</span> <strong>${p.email}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Permanent Address:</span> <strong>${p.address || 'N/A'}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'academics') {
+            const res = await apiRequest(`/api/v1/portal/parent/child/${childId}/academics`);
+            const data = res?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-book-open"></i> Ward Academic Schedule &amp; Assignments</div>
+                        <span style="font-size:0.85rem; color:var(--ritw-gold); font-weight:600;">${data.class}</span>
+                    </div>
+
+                    <h4 style="font-size:0.92rem; margin:16px 0 10px; color:#fff;">Course Timetable</h4>
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Time Slot</th>
+                                    <th>Subject Code</th>
+                                    <th>Subject Title</th>
+                                    <th>Faculty Incharge</th>
+                                    <th>Room</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.timetable || []).map(t => `
+                                    <tr>
+                                        <td><strong>${t.day_of_week}</strong></td>
+                                        <td>${t.start_time} - ${t.end_time}</td>
+                                        <td><strong>${t.subject_code}</strong></td>
+                                        <td>${t.subject_name}</td>
+                                        <td>${t.faculty_name || 'Faculty Member'}</td>
+                                        <td>${t.room_number || 'A-301'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 style="font-size:0.92rem; margin:24px 0 10px; color:#fff;">Coursework &amp; Submissions Status</h4>
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Assignment Title</th>
+                                    <th>Due Date</th>
+                                    <th>Max Marks</th>
+                                    <th>Submission Status</th>
+                                    <th>Marks Scored</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.assignments || []).map(a => `
+                                    <tr>
+                                        <td><strong>${a.subject_name}</strong></td>
+                                        <td>${a.title}</td>
+                                        <td>${a.due_date}</td>
+                                        <td>${a.max_marks}</td>
+                                        <td><span class="status-badge ${a.submission_status === 'Submitted' ? 'submitted' : 'partial'}">${a.submission_status || 'Pending'}</span></td>
+                                        <td>${a.marks_awarded !== null && a.marks_awarded !== undefined ? `${a.marks_awarded} / ${a.max_marks}` : 'Awaiting Grading'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'marks') {
+            const res = await apiRequest(`/api/v1/portal/parent/child/${childId}/marks`);
+            const data = res?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-award"></i> Ward Marks &amp; Examination Records</div>
+                        <span style="font-size:0.9rem; color:var(--ritw-gold); font-weight:700;">
+                            Cumulative CGPA: ${data.cgpa || 'N/A'}
+                        </span>
+                    </div>
+
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Semester</th>
+                                    <th>Exam Type</th>
+                                    <th>Subject Code</th>
+                                    <th>Subject Title</th>
+                                    <th>Max Marks</th>
+                                    <th>Marks Scored</th>
+                                    <th>Letter Grade</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.records || []).map(m => `
+                                    <tr>
+                                        <td><strong>${m.semester}</strong></td>
+                                        <td>${m.exam_type}</td>
+                                        <td><strong>${m.subject_code}</strong></td>
+                                        <td>${m.subject_name}</td>
+                                        <td>${m.max_marks}</td>
+                                        <td><strong>${m.marks_obtained}</strong></td>
+                                        <td><span class="status-badge present">${m.grade}</span></td>
+                                        <td><span class="status-badge ${m.status === 'Pass' ? 'present' : 'absent'}">${m.status}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'attendance') {
+            const res = await apiRequest(`/api/v1/portal/parent/child/${childId}/attendance`);
+            const data = res?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-calendar-check"></i> Ward Attendance Details</div>
+                        <span style="font-size:0.9rem; color:var(--ritw-gold); font-weight:700;">
+                            Overall: ${data.overall_percentage}% (${data.total_attended} / ${data.total_classes} Classes)
+                        </span>
+                    </div>
+
+                    <h4 style="font-size:0.92rem; margin:14px 0 10px; color:#fff;">Subject Breakdown</h4>
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject Code</th>
+                                    <th>Subject Title</th>
+                                    <th>Held</th>
+                                    <th>Attended</th>
+                                    <th>Absent</th>
+                                    <th>Percentage</th>
+                                    <th>Evaluation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.subjects || []).map(s => `
+                                    <tr>
+                                        <td><strong>${s.subject_code}</strong></td>
+                                        <td>${s.subject_name}</td>
+                                        <td>${s.total_classes}</td>
+                                        <td>${s.attended}</td>
+                                        <td>${s.absent}</td>
+                                        <td><strong style="color:${s.percentage >= 75 ? '#34d399' : '#f87171'}">${s.percentage}%</strong></td>
+                                        <td>
+                                            <span class="status-badge ${s.percentage >= 75 ? 'present' : 'absent'}">
+                                                ${s.percentage >= 75 ? 'Satisfactory' : 'Attendance Shortage'}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4 style="font-size:0.92rem; margin:24px 0 10px; color:#fff;">Session Attendance Log</h4>
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time Slot</th>
+                                    <th>Subject Code</th>
+                                    <th>Subject Title</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.logs || []).map(l => `
+                                    <tr>
+                                        <td><i class="far fa-calendar"></i> ${l.date}</td>
+                                        <td>${l.time_slot}</td>
+                                        <td><strong>${l.subject_code}</strong></td>
+                                        <td>${l.subject_name}</td>
+                                        <td>
+                                            <span class="status-badge ${l.status.toLowerCase()}">${l.status}</span>
+                                        </td>
+                                        <td>${l.remarks || '-'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'fees') {
+            const res = await apiRequest(`/api/v1/portal/parent/child/${childId}/fees`);
+            const data = res?.data?.data || {};
+            const summary = data.summary || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-file-invoice-dollar"></i> Ward Fee Statements &amp; Dues</div>
+                        <span class="status-badge ${summary.is_all_clear ? 'present' : 'absent'}">
+                            ${summary.is_all_clear ? 'No Dues Pending' : 'Payment Required'}
+                        </span>
+                    </div>
+
+                    <div class="portal-grid" style="margin-bottom:20px;">
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <div class="stat-icon purple"><i class="fas fa-calculator"></i></div>
+                                <div class="stat-details">
+                                    <div class="stat-title">Total Assessed Fee</div>
+                                    <div class="stat-val">₹${(summary.total_fee || 0).toLocaleString()}</div>
+                                    <div class="stat-sub">Annual Academic Package</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <div class="stat-icon emerald"><i class="fas fa-check-circle"></i></div>
+                                <div class="stat-details">
+                                    <div class="stat-title">Paid Amount</div>
+                                    <div class="stat-val">₹${(summary.total_paid || 0).toLocaleString()}</div>
+                                    <div class="stat-sub">Receipted Payments</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <div class="stat-icon gold"><i class="fas fa-exclamation-circle"></i></div>
+                                <div class="stat-details">
+                                    <div class="stat-title">Pending Due Balance</div>
+                                    <div class="stat-val">₹${(summary.total_due || 0).toLocaleString()}</div>
+                                    <div class="stat-sub">Payable via College Accounts</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="font-size:0.92rem; margin:20px 0 10px; color:#fff;">Fee Heads &amp; Payment Receipts</h4>
+                    <div class="portal-table-wrap">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>Fee Head</th>
+                                    <th>Academic Year</th>
+                                    <th>Total (₹)</th>
+                                    <th>Paid (₹)</th>
+                                    <th>Due (₹)</th>
+                                    <th>Status</th>
+                                    <th>Due Date</th>
+                                    <th>Receipt Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(data.items || []).map(f => `
+                                    <tr>
+                                        <td><strong>${f.fee_type}</strong></td>
+                                        <td>${f.academic_year}</td>
+                                        <td>₹${f.total_amount.toLocaleString()}</td>
+                                        <td>₹${f.paid_amount.toLocaleString()}</td>
+                                        <td><strong style="color:${f.due_amount > 0 ? '#f87171' : '#34d399'}">₹${f.due_amount.toLocaleString()}</strong></td>
+                                        <td><span class="status-badge ${f.payment_status.toLowerCase()}">${f.payment_status}</span></td>
+                                        <td>${f.due_date}</td>
+                                        <td>${f.receipt_number || '-'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'announcements') {
+            const res = await apiRequest('/api/v1/portal/parent/announcements');
+            const items = res?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-bullhorn"></i> Parent Communications &amp; Institutional Circulars</div>
+                        <span style="font-size:0.82rem; color:var(--text-secondary);">${items.length} Active Circulars</span>
+                    </div>
+
+                    ${items.map(a => `
+                        <div class="announcement-card">
+                            <div class="announcement-header">
+                                <span class="announcement-title">${a.title}</span>
+                                <div>
+                                    <span class="status-badge ${a.priority === 'urgent' ? 'absent' : (a.priority === 'high' ? 'partial' : 'present')}">${a.priority}</span>
+                                    <span class="status-badge" style="background:rgba(255,255,255,0.08);">${a.category}</span>
+                                </div>
+                            </div>
+                            <div class="announcement-body">${a.content}</div>
+                            <div class="announcement-meta">
+                                <span><i class="far fa-calendar-alt"></i> Posted: ${a.posted_date}</span>
+                                <span><i class="fas fa-university"></i> Authority: ${a.posted_by}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    }
+
+    // ========================================================================
+    // STAFF VIEW IMPLEMENTATION (Assigned Classes, Attendance Tasks, Marks Records)
+    // ========================================================================
+    async function renderStaffTab(tabId) {
+        const content = document.getElementById('portalMainContent');
+        content.innerHTML = `<div style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin fa-2x" style="color:var(--ritw-purple-400);"></i></div>`;
+
+        if (tabId === 'overview') {
+            const [profileRes, classesRes, annRes] = await Promise.all([
+                apiRequest('/api/v1/portal/staff/profile'),
+                apiRequest('/api/v1/portal/staff/classes'),
+                apiRequest('/api/v1/portal/staff/announcements')
+            ]);
+
+            const p = profileRes?.data?.data || {};
+            const classes = classesRes?.data?.data || [];
+            const announcements = annRes?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="portal-welcome-banner" style="border-color: rgba(147, 51, 234, 0.4);">
+                    <div class="welcome-info">
+                        <h2>Welcome, ${p.full_name || 'Faculty Member'} <i class="fas fa-chalkboard-teacher" style="color:var(--ritw-gold); font-size:1.1rem;"></i></h2>
+                        <p>${p.designation} &bull; ${p.department} &bull; Staff Code: <strong>${p.staff_code}</strong></p>
+                        <div class="welcome-meta-chips">
+                            <span class="meta-chip"><i class="fas fa-layer-group"></i> Active Teaching Classes: <strong>${classes.length}</strong></span>
+                            <span class="meta-chip"><i class="fas fa-door-open"></i> Office: <strong>${p.office_room || 'Main Block'}</strong></span>
+                            <span class="meta-chip"><i class="fas fa-graduation-cap"></i> Qualification: <strong>${p.qualification || 'M.Tech'}</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portal-grid">
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="stat-icon purple"><i class="fas fa-chalkboard"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Assigned Classes</div>
+                                <div class="stat-val">${classes.length}</div>
+                                <div class="stat-sub">Subjects Taught</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="stat-icon gold"><i class="fas fa-users"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Total Students</div>
+                                <div class="stat-val">${classes.reduce((sum, c) => sum + (c.student_count || 0), 0)}</div>
+                                <div class="stat-sub">Across Assigned Sections</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-card">
+                            <div class="stat-icon emerald"><i class="fas fa-clipboard-check"></i></div>
+                            <div class="stat-details">
+                                <div class="stat-title">Attendance Tasks</div>
+                                <div class="stat-val">Active</div>
+                                <div class="stat-sub">Daily Rollcall Verification</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Assigned Classes Cards -->
+                    <div class="col-8">
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <div class="panel-title"><i class="fas fa-layer-group"></i> Your Authorized Classes &amp; Subjects</div>
+                                <button class="btn-demo-chip" onclick="switchTab('attendance')">Take Attendance</button>
+                            </div>
+                            <div class="portal-table-wrap">
+                                <table class="portal-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject Code</th>
+                                            <th>Subject Name</th>
+                                            <th>Department</th>
+                                            <th>Semester</th>
+                                            <th>Section</th>
+                                            <th>Role</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${classes.map(c => `
+                                            <tr>
+                                                <td><strong>${c.subject_code}</strong></td>
+                                                <td>${c.subject_name}</td>
+                                                <td>${c.department}</td>
+                                                <td>${c.semester}</td>
+                                                <td><span class="status-badge" style="background:rgba(255,255,255,0.08);">${c.section}</span></td>
+                                                <td><span class="status-badge present">${c.role_in_class}</span></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Faculty Notices -->
+                    <div class="col-4">
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <div class="panel-title"><i class="fas fa-bullhorn"></i> Faculty Notices</div>
+                            </div>
+                            ${announcements.slice(0, 3).map(a => `
+                                <div class="announcement-card">
+                                    <div class="announcement-header">
+                                        <span class="announcement-title">${a.title}</span>
+                                        <span class="status-badge ${a.priority === 'urgent' ? 'absent' : 'partial'}">${a.priority}</span>
+                                    </div>
+                                    <div class="announcement-body">${a.content}</div>
+                                    <div class="announcement-meta">
+                                        <span><i class="far fa-calendar-alt"></i> ${a.posted_date}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'profile') {
+            const res = await apiRequest('/api/v1/portal/staff/profile');
+            const p = res?.data?.data || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-id-badge"></i> Faculty Profile &amp; Academic Credentials</div>
+                        <button class="btn-demo-chip" onclick="openProfileModal()"><i class="fas fa-edit"></i> Edit Contact Info</button>
+                    </div>
+
+                    <div style="display:flex; gap:24px; align-items:center; margin-bottom:24px;">
+                        <div style="width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg, var(--ritw-purple-600), var(--ritw-gold)); padding:3px; flex-shrink:0;">
+                            <div style="width:100%; height:100%; border-radius:50%; background:#1c0633; display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:#fff;">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 style="font-size:1.5rem; margin-bottom:4px;">${p.full_name}</h2>
+                            <p style="color:var(--ritw-gold); font-weight:600;">${p.designation} &bull; ${p.department}</p>
+                            <p style="color:var(--text-secondary); font-size:0.85rem; margin-top:2px;">
+                                Faculty Code: <strong>${p.staff_code}</strong> &bull; Office Room: <strong>${p.office_room || 'Main Block'}</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="portal-grid">
+                        <div class="col-6">
+                            <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:18px;">
+                                <h4 style="font-size:0.9rem; color:var(--ritw-gold); margin-bottom:12px; text-transform:uppercase;">Academic Credentials</h4>
+                                <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Qualification:</span> <strong>${p.qualification || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Specialization:</span> <strong>${p.specialization || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Joining Date:</span> <strong>${p.joining_date || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Active Classes:</span> <strong>${p.active_assignments_count || 0}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:18px;">
+                                <h4 style="font-size:0.9rem; color:var(--ritw-gold); margin-bottom:12px; text-transform:uppercase;">Official Contact Information</h4>
+                                <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88rem;">
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Official Email:</span> <strong>${p.email}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Phone / Extension:</span> <strong>${p.phone || 'N/A'}</strong></div>
+                                    <div><span style="color:var(--text-muted); width:130px; display:inline-block;">Cabin / Room:</span> <strong>${p.office_room || 'N/A'}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'classes') {
+            const res = await apiRequest('/api/v1/portal/staff/classes');
+            const classes = res?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-layer-group"></i> Assigned Classes &amp; Teaching Curriculum</div>
+                        <span style="font-size:0.85rem; color:var(--text-secondary);">${classes.length} Assigned Sections</span>
+                    </div>
+
+                    <div class="portal-grid">
+                        ${classes.map(c => `
+                            <div class="col-6">
+                                <div class="announcement-card">
+                                    <div class="announcement-header">
+                                        <span class="announcement-title">${c.subject_name}</span>
+                                        <span class="status-badge present">${c.subject_code}</span>
+                                    </div>
+                                    <div style="font-size:0.85rem; color:var(--ritw-gold); margin-bottom:8px;">
+                                        ${c.department} &bull; ${c.semester} (Section ${c.section})
+                                    </div>
+                                    <div style="display:flex; gap:10px; font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px;">
+                                        <span><i class="fas fa-user-tag"></i> Role: <strong>${c.role_in_class}</strong></span>
+                                        <span><i class="fas fa-users"></i> Enrolled: <strong>${c.student_count || 0} Students</strong></span>
+                                    </div>
+                                    <div style="display:flex; gap:8px;">
+                                        <button class="btn-demo-chip" onclick="loadClassAttendance('${escapeQuotes(c.department)}', '${escapeQuotes(c.semester)}', '${escapeQuotes(c.section)}', '${escapeQuotes(c.subject_code)}')">
+                                            <i class="fas fa-clipboard-check"></i> Attendance
+                                        </button>
+                                        <button class="btn-demo-chip" onclick="loadClassMarks('${escapeQuotes(c.department)}', '${escapeQuotes(c.semester)}', '${escapeQuotes(c.section)}', '${escapeQuotes(c.subject_code)}')">
+                                            <i class="fas fa-pen-fancy"></i> Enter Marks
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'timetable') {
+            const res = await apiRequest('/api/v1/portal/staff/timetable');
+            const data = res?.data?.data || {};
+            const byDay = data.byDay || {};
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-clock"></i> Weekly Faculty Teaching Schedule</div>
+                    </div>
+
+                    ${Object.keys(byDay).map(day => `
+                        <div class="timetable-day-header">${day}</div>
+                        ${(byDay[day] && byDay[day].length > 0) ? byDay[day].map(slot => `
+                            <div class="timetable-slot-card">
+                                <div class="slot-time"><i class="far fa-clock"></i> ${slot.start_time} - ${slot.end_time}</div>
+                                <div class="slot-subject">
+                                    <div class="slot-subject-name">${slot.subject_name} (${slot.subject_code})</div>
+                                    <div class="slot-subject-code">${slot.department} &bull; ${slot.semester} - Section ${slot.section}</div>
+                                </div>
+                                <div class="slot-room"><i class="fas fa-door-open"></i> ${slot.room_number || 'Room A-301'}</div>
+                            </div>
+                        `).join('') : '<p style="color:var(--text-muted); font-size:0.82rem; margin:6px 0 14px 10px;">No teaching hours scheduled.</p>'}
+                    `).join('')}
+                </div>
+            `;
+        } else if (tabId === 'attendance') {
+            // Fetch assigned classes to let faculty select which class to mark
+            const classesRes = await apiRequest('/api/v1/portal/staff/classes');
+            PortalState.staffClasses = classesRes?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-clipboard-check"></i> Class Attendance Management</div>
+                    </div>
+
+                    <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:16px; margin-bottom:20px; display:flex; gap:14px; flex-wrap:wrap; align-items:flex-end;">
+                        <div style="flex:1; min-width:240px;">
+                            <label class="form-label">Select Assigned Class / Subject:</label>
+                            <select id="staffAttClassSelect" class="form-input" style="padding:10px 14px;">
+                                ${PortalState.staffClasses.map((c, i) => `
+                                    <option value="${i}">${c.subject_name} (${c.subject_code}) - ${c.semester} [Sec ${c.section}]</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                        <div style="width:180px;">
+                            <label class="form-label">Session Date:</label>
+                            <input type="date" id="staffAttDate" class="form-input" style="padding:10px 14px;" value="${new Date().toISOString().split('T')[0]}">
+                        </div>
+                        <div>
+                            <button type="button" class="btn-primary-portal" style="padding:10px 20px;" onclick="fetchStaffClassAttendance()">
+                                <i class="fas fa-search"></i> Load Class Roster
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="staffAttendanceRosterArea">
+                        <div style="text-align:center; padding:30px; color:var(--text-muted);">
+                            <i class="fas fa-users-class fa-2x" style="margin-bottom:8px;"></i>
+                            <p>Select your assigned class above and click "Load Class Roster" to take or review attendance.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (PortalState.staffClasses.length > 0) {
+                fetchStaffClassAttendance();
+            }
+        } else if (tabId === 'marks') {
+            const classesRes = await apiRequest('/api/v1/portal/staff/classes');
+            PortalState.staffClasses = classesRes?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-pen-fancy"></i> Student Academic Marks Entry</div>
+                    </div>
+
+                    <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:16px; margin-bottom:20px; display:flex; gap:14px; flex-wrap:wrap; align-items:flex-end;">
+                        <div style="flex:1; min-width:240px;">
+                            <label class="form-label">Select Assigned Class / Subject:</label>
+                            <select id="staffMarksClassSelect" class="form-input" style="padding:10px 14px;">
+                                ${PortalState.staffClasses.map((c, i) => `
+                                    <option value="${i}">${c.subject_name} (${c.subject_code}) - ${c.semester} [Sec ${c.section}]</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                        <div style="width:160px;">
+                            <label class="form-label">Examination Type:</label>
+                            <select id="staffMarksExamType" class="form-input" style="padding:10px 14px;">
+                                <option value="Mid-1">Mid-1 Exam</option>
+                                <option value="Mid-2">Mid-2 Exam</option>
+                                <option value="Semester End">Semester End</option>
+                                <option value="Assignment-1">Assignment 1</option>
+                                <option value="Assignment-2">Assignment 2</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="button" class="btn-primary-portal" style="padding:10px 20px;" onclick="fetchStaffClassMarks()">
+                                <i class="fas fa-search"></i> Load Marks Sheet
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="staffMarksArea">
+                        <div style="text-align:center; padding:30px; color:var(--text-muted);">
+                            <p>Select an authorized class and examination to record or update marks.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (PortalState.staffClasses.length > 0) {
+                fetchStaffClassMarks();
+            }
+        } else if (tabId === 'assignments') {
+            const res = await apiRequest('/api/v1/portal/staff/assignments');
+            const assignments = res?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-tasks"></i> Coursework &amp; Assignments Management</div>
+                        <button class="btn-primary-portal" style="width:auto; padding:8px 16px; font-size:0.85rem;" onclick="openCreateAssignmentModal()">
+                            <i class="fas fa-plus"></i> Publish New Assignment
+                        </button>
+                    </div>
+
+                    <div class="portal-grid">
+                        ${assignments.map(a => `
+                            <div class="col-6">
+                                <div class="announcement-card">
+                                    <div class="announcement-header">
+                                        <span class="announcement-title">${a.title}</span>
+                                        <span class="status-badge present">${a.subject_code}</span>
+                                    </div>
+                                    <div style="font-size:0.82rem; color:var(--ritw-gold); margin-bottom:6px;">
+                                        ${a.department} &bull; ${a.semester} (Section ${a.section})
+                                    </div>
+                                    <div class="announcement-body">${a.description || 'No description provided.'}</div>
+                                    <div style="margin-top:12px; display:flex; justify-content:space-between; font-size:0.76rem; color:var(--text-muted);">
+                                        <span><i class="far fa-calendar-alt"></i> Due: <strong>${a.due_date}</strong></span>
+                                        <span><i class="fas fa-file-upload"></i> Submissions: <strong>${a.submissions_count || 0}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        } else if (tabId === 'announcements') {
+            const res = await apiRequest('/api/v1/portal/staff/announcements');
+            const items = res?.data?.data || [];
+
+            content.innerHTML = `
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i class="fas fa-bullhorn"></i> Faculty Announcements &amp; Administrative Circulars</div>
+                        <span style="font-size:0.82rem; color:var(--text-secondary);">${items.length} Circulars</span>
+                    </div>
+
+                    ${items.map(a => `
+                        <div class="announcement-card">
+                            <div class="announcement-header">
+                                <span class="announcement-title">${a.title}</span>
+                                <span class="status-badge ${a.priority === 'urgent' ? 'absent' : (a.priority === 'high' ? 'partial' : 'present')}">${a.priority}</span>
+                            </div>
+                            <div class="announcement-body">${a.content}</div>
+                            <div class="announcement-meta">
+                                <span><i class="far fa-calendar-alt"></i> Posted: ${a.posted_date}</span>
+                                <span><i class="fas fa-university"></i> Authority: ${a.posted_by}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    }
+
+    // Staff Attendance Task Actions
+    function loadClassAttendance(dept, sem, sec, code) {
+        switchTab('attendance');
+        setTimeout(() => {
+            const select = document.getElementById('staffAttClassSelect');
+            if (select) {
+                const idx = PortalState.staffClasses.findIndex(c => c.subject_code === code && c.semester === sem && c.section === sec);
+                if (idx !== -1) select.value = idx;
+                fetchStaffClassAttendance();
+            }
+        }, 100);
+    }
+
+    async function fetchStaffClassAttendance() {
+        const select = document.getElementById('staffAttClassSelect');
+        const dateInput = document.getElementById('staffAttDate');
+        const container = document.getElementById('staffAttendanceRosterArea');
+
+        if (!select || !dateInput || !container) return;
+        const cls = PortalState.staffClasses[select.value];
+        if (!cls) return;
+
+        container.innerHTML = `<div style="text-align:center; padding:20px;"><i class="fas fa-spinner fa-spin"></i> Loading roster...</div>`;
+
+        const query = `department=${encodeURIComponent(cls.department)}&semester=${encodeURIComponent(cls.semester)}&section=${encodeURIComponent(cls.section)}&subject_code=${encodeURIComponent(cls.subject_code)}&date=${dateInput.value}`;
+        const res = await apiRequest(`/api/v1/portal/staff/attendance/class?${query}`);
+
+        if (!res || !res.ok) {
+            container.innerHTML = `<div class="portal-alert portal-alert-danger">${res?.data?.message || 'Failed to load class roster.'}</div>`;
+            return;
+        }
+
+        const students = res.data.students || [];
+        if (students.length === 0) {
+            container.innerHTML = `<div class="portal-alert portal-alert-warning">No enrolled students found in this section.</div>`;
+            return;
+        }
+
+        container.innerHTML = `
+            <div id="staffAttSaveAlert" class="portal-alert portal-alert-success" style="display:none;"></div>
+            <form id="staffAttendanceForm" onsubmit="submitStaffAttendance(event)">
+                <div class="portal-table-wrap">
+                    <table class="portal-table">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Student Name</th>
+                                <th style="text-align:center;">Mark Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${students.map(s => {
+                                const currentStatus = s.attendance_status || 'Present';
+                                return `
+                                    <tr>
+                                        <td><strong>${s.roll_number}</strong></td>
+                                        <td>${s.full_name}</td>
+                                        <td style="text-align:center;">
+                                            <div class="att-radio-group" style="justify-content:center;">
+                                                <label class="att-radio-label present">
+                                                    <input type="radio" name="att_${s.student_id}" value="Present" ${currentStatus === 'Present' ? 'checked' : ''}> Present
+                                                </label>
+                                                <label class="att-radio-label absent">
+                                                    <input type="radio" name="att_${s.student_id}" value="Absent" ${currentStatus === 'Absent' ? 'checked' : ''}> Absent
+                                                </label>
+                                                <label class="att-radio-label onduty">
+                                                    <input type="radio" name="att_${s.student_id}" value="OnDuty" ${currentStatus === 'OnDuty' ? 'checked' : ''}> On Duty
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="rem_${s.student_id}" class="form-input" style="padding:6px 10px; font-size:0.8rem;" placeholder="Optional remarks" value="${s.attendance_remarks || ''}">
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top:18px; display:flex; justify-content:flex-end; gap:12px;">
+                    <button type="submit" id="saveAttBtn" class="btn-primary-portal" style="width:auto; padding:12px 28px;">
+                        <i class="fas fa-save"></i> Save &amp; Record Attendance
+                    </button>
+                </div>
+            </form>
+        `;
+    }
+
+    async function submitStaffAttendance(e) {
+        e.preventDefault();
+        const select = document.getElementById('staffAttClassSelect');
+        const dateInput = document.getElementById('staffAttDate');
+        const saveBtn = document.getElementById('saveAttBtn');
+        const alertBox = document.getElementById('staffAttSaveAlert');
+
+        const cls = PortalState.staffClasses[select.value];
+        if (!cls) return;
+
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+        // Collect radio selections
+        const records = [];
+        const form = document.getElementById('staffAttendanceForm');
+        const radios = form.querySelectorAll('input[type="radio"]:checked');
+
+        radios.forEach(r => {
+            const studentId = r.name.replace('att_', '');
+            const remarksInput = document.getElementById(`rem_${studentId}`);
+            records.push({
+                student_id: studentId,
+                status: r.value,
+                remarks: remarksInput ? remarksInput.value.trim() : null
+            });
+        });
+
+        const res = await apiRequest('/api/v1/portal/staff/attendance/mark', 'POST', {
+            department: cls.department,
+            semester: cls.semester,
+            section: cls.section,
+            subject_code: cls.subject_code,
+            date: dateInput.value,
+            time_slot: '09:30 AM',
+            records
+        });
+
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Save &amp; Record Attendance';
+
+        if (res && res.ok) {
+            alertBox.className = 'portal-alert portal-alert-success';
+            alertBox.innerHTML = `<i class="fas fa-check-circle"></i> ${res.data.message}`;
+            alertBox.style.display = 'flex';
+            setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
+        } else {
+            alertBox.className = 'portal-alert portal-alert-danger';
+            alertBox.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${res?.data?.message || 'Failed to save attendance.'}`;
+            alertBox.style.display = 'flex';
+        }
+    }
+
+    // Staff Marks Actions
+    function loadClassMarks(dept, sem, sec, code) {
+        switchTab('marks');
+        setTimeout(() => {
+            const select = document.getElementById('staffMarksClassSelect');
+            if (select) {
+                const idx = PortalState.staffClasses.findIndex(c => c.subject_code === code && c.semester === sem && c.section === sec);
+                if (idx !== -1) select.value = idx;
+                fetchStaffClassMarks();
+            }
+        }, 100);
+    }
+
+    async function fetchStaffClassMarks() {
+        const select = document.getElementById('staffMarksClassSelect');
+        const examSelect = document.getElementById('staffMarksExamType');
+        const container = document.getElementById('staffMarksArea');
+
+        if (!select || !examSelect || !container) return;
+        const cls = PortalState.staffClasses[select.value];
+        if (!cls) return;
+
+        container.innerHTML = `<div style="text-align:center; padding:20px;"><i class="fas fa-spinner fa-spin"></i> Loading marks...</div>`;
+
+        const query = `department=${encodeURIComponent(cls.department)}&semester=${encodeURIComponent(cls.semester)}&section=${encodeURIComponent(cls.section)}&subject_code=${encodeURIComponent(cls.subject_code)}&exam_type=${encodeURIComponent(examSelect.value)}`;
+        const res = await apiRequest(`/api/v1/portal/staff/academics/students?${query}`);
+
+        if (!res || !res.ok) {
+            container.innerHTML = `<div class="portal-alert portal-alert-danger">${res?.data?.message || 'Failed to load marks.'}</div>`;
+            return;
+        }
+
+        const students = res.data.students || [];
+        if (students.length === 0) {
+            container.innerHTML = `<div class="portal-alert portal-alert-warning">No enrolled students found in this section.</div>`;
+            return;
+        }
+
+        container.innerHTML = `
+            <div id="staffMarksSaveAlert" class="portal-alert portal-alert-success" style="display:none;"></div>
+            <form id="staffMarksForm" onsubmit="submitStaffMarks(event)">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <div style="font-size:0.85rem; color:var(--text-secondary);">
+                        Subject: <strong>${cls.subject_name} (${cls.subject_code})</strong> &bull; Exam: <strong>${examSelect.value}</strong>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <label class="form-label" style="margin-bottom:0;">Max Marks:</label>
+                        <input type="number" id="marksMaxVal" class="form-input" style="width:80px; padding:6px 8px; text-align:center;" value="30">
+                    </div>
+                </div>
+
+                <div class="portal-table-wrap">
+                    <table class="portal-table">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Student Name</th>
+                                <th style="width:130px;">Marks Obtained</th>
+                                <th>Grade Preview</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${students.map(s => `
+                                <tr>
+                                    <td><strong>${s.roll_number}</strong></td>
+                                    <td>${s.full_name}</td>
+                                    <td>
+                                        <input type="number" step="0.5" id="mark_${s.student_id}" class="form-input" style="padding:6px 10px; text-align:center;" value="${s.marks_obtained !== null && s.marks_obtained !== undefined ? s.marks_obtained : ''}" placeholder="0 - 30">
+                                    </td>
+                                    <td>
+                                        <span class="status-badge ${s.mark_status === 'Pass' ? 'present' : (s.mark_status === 'Fail' ? 'absent' : '')}">
+                                            ${s.grade || 'Pending'}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="mrem_${s.student_id}" class="form-input" style="padding:6px 10px; font-size:0.8rem;" placeholder="Feedback" value="${s.remarks || ''}">
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top:18px; display:flex; justify-content:flex-end;">
+                    <button type="submit" id="saveMarksBtn" class="btn-primary-portal" style="width:auto; padding:12px 28px;">
+                        <i class="fas fa-save"></i> Save Student Marks
+                    </button>
+                </div>
+            </form>
+        `;
+    }
+
+    async function submitStaffMarks(e) {
+        e.preventDefault();
+        const select = document.getElementById('staffMarksClassSelect');
+        const examSelect = document.getElementById('staffMarksExamType');
+        const maxInput = document.getElementById('marksMaxVal');
+        const saveBtn = document.getElementById('saveMarksBtn');
+        const alertBox = document.getElementById('staffMarksSaveAlert');
+
+        const cls = PortalState.staffClasses[select.value];
+        if (!cls) return;
+
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving Marks...';
+
+        const form = document.getElementById('staffMarksForm');
+        const markInputs = form.querySelectorAll('input[id^="mark_"]');
+        const records = [];
+
+        markInputs.forEach(input => {
+            const studentId = input.id.replace('mark_', '');
+            const val = input.value.trim();
+            if (val !== '') {
+                const remInput = document.getElementById(`mrem_${studentId}`);
+                records.push({
+                    student_id: studentId,
+                    marks_obtained: parseFloat(val),
+                    remarks: remInput ? remInput.value.trim() : null
+                });
+            }
+        });
+
+        const res = await apiRequest('/api/v1/portal/staff/academics/marks', 'POST', {
+            department: cls.department,
+            semester: cls.semester,
+            section: cls.section,
+            subject_code: cls.subject_code,
+            exam_type: examSelect.value,
+            max_marks: parseFloat(maxInput.value) || 30,
+            records
+        });
+
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Save Student Marks';
+
+        if (res && res.ok) {
+            alertBox.className = 'portal-alert portal-alert-success';
+            alertBox.innerHTML = `<i class="fas fa-check-circle"></i> ${res.data.message}`;
+            alertBox.style.display = 'flex';
+            setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
+        } else {
+            alertBox.className = 'portal-alert portal-alert-danger';
+            alertBox.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${res?.data?.message || 'Failed to record marks.'}`;
+            alertBox.style.display = 'flex';
+        }
+    }
+
+    // ========================================================================
+    // MODALS & COMMON FEATURES (Profile, Notifications, Submissions)
+    // ========================================================================
+    async function loadNotifications() {
+        const res = await apiRequest('/api/v1/portal/common/notifications');
+        if (!res || !res.ok) return;
+
+        PortalState.notifications = res.data.data || [];
+        const unreadCount = res.data.unread_count || 0;
+
+        const badge = document.getElementById('headerNotifBadge');
+        if (unreadCount > 0) {
+            badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+
+        document.getElementById('notifUnreadSummary').textContent = `${unreadCount} unread update${unreadCount === 1 ? '' : 's'}`;
+        renderNotificationList();
+    }
+
+    function renderNotificationList() {
+        const container = document.getElementById('notifListContainer');
+        container.innerHTML = '';
+
+        if (PortalState.notifications.length === 0) {
+            container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-muted);">No new notifications.</div>`;
+            return;
+        }
+
+        PortalState.notifications.forEach(n => {
+            const item = document.createElement('div');
+            item.className = `notif-item ${n.is_read === 0 ? 'unread' : ''}`;
+            item.innerHTML = `
+                <div class="notif-title">${n.title}</div>
+                <div class="notif-msg">${n.message}</div>
+                <div class="notif-time"><i class="far fa-clock"></i> ${n.created_at}</div>
+            `;
+            container.appendChild(item);
+        });
+    }
+
+    function toggleNotifDrawer(forceState) {
+        const drawer = document.getElementById('notifDrawer');
+        const backdrop = document.getElementById('notifBackdrop');
+        const isOpen = drawer.classList.contains('open');
+        const newState = forceState !== undefined ? forceState : !isOpen;
+
+        if (newState) {
+            drawer.classList.add('open');
+            backdrop.style.display = 'block';
+            loadNotifications();
+        } else {
+            drawer.classList.remove('open');
+            backdrop.style.display = 'none';
+        }
+    }
+
+    async function markAllNotificationsRead() {
+        await apiRequest('/api/v1/portal/common/notifications/mark-read', 'POST', {});
+        await loadNotifications();
+    }
+
+    // Profile Settings Modal
+    async function openProfileModal() {
+        const modal = document.getElementById('profileModal');
+        modal.style.display = 'flex';
+        document.getElementById('profileAlert').style.display = 'none';
+
+        const res = await apiRequest('/api/v1/portal/common/profile');
+        if (!res || !res.ok) return;
+
+        const user = res.data.user || {};
+        const profile = res.data.profile || {};
+
+        const infoBox = document.getElementById('profileInfoBox');
+        infoBox.innerHTML = `
+            <div style="font-weight:700; font-size:1.05rem; color:#fff; margin-bottom:4px;">${profile.full_name || user.username}</div>
+            <div style="font-size:0.82rem; color:var(--ritw-gold); font-weight:600; margin-bottom:10px;">${user.roleTitle} &bull; ${profile.department || 'Institutional User'}</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; font-size:0.8rem; color:var(--text-secondary);">
+                <div>Username: <strong style="color:#fff">${user.username}</strong></div>
+                <div>Institutional Email: <strong style="color:#fff">${user.email}</strong></div>
+                ${profile.roll_number ? `<div>Roll Number: <strong style="color:#fff">${profile.roll_number}</strong></div>` : ''}
+                ${profile.parent_code ? `<div>Parent Code: <strong style="color:#fff">${profile.parent_code}</strong></div>` : ''}
+                ${profile.staff_code ? `<div>Staff Code: <strong style="color:#fff">${profile.staff_code}</strong></div>` : ''}
+            </div>
+        `;
+
+        document.getElementById('profilePhone').value = profile.phone || '';
+        document.getElementById('profileAddress').value = profile.address || '';
+
+        // Role-specific fields
+        if (user.role === 'parent') {
+            document.getElementById('profileOccupationGroup').style.display = 'block';
+            document.getElementById('profileOccupation').value = profile.occupation || '';
+            document.getElementById('profileOfficeGroup').style.display = 'none';
+        } else if (user.role === 'staff') {
+            document.getElementById('profileOfficeGroup').style.display = 'block';
+            document.getElementById('profileOfficeRoom').value = profile.office_room || '';
+            document.getElementById('profileOccupationGroup').style.display = 'none';
+        } else {
+            document.getElementById('profileOccupationGroup').style.display = 'none';
+            document.getElementById('profileOfficeGroup').style.display = 'none';
+        }
+    }
+
+    function closeProfileModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+
+    async function handleProfileUpdate(e) {
+        e.preventDefault();
+        const alertBox = document.getElementById('profileAlert');
+        const phone = document.getElementById('profilePhone').value.trim();
+        const address = document.getElementById('profileAddress').value.trim();
+        const occupation = document.getElementById('profileOccupation').value.trim();
+        const office_room = document.getElementById('profileOfficeRoom').value.trim();
+
+        const res = await apiRequest('/api/v1/portal/common/profile', 'PUT', { phone, address, occupation, office_room });
+        if (res && res.ok) {
+            alertBox.className = 'portal-alert portal-alert-success';
+            alertBox.innerHTML = `<i class="fas fa-check-circle"></i> ${res.data.message}`;
+            alertBox.style.display = 'flex';
+        } else {
+            alertBox.className = 'portal-alert portal-alert-danger';
+            alertBox.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${res?.data?.message || 'Failed to update profile.'}`;
+            alertBox.style.display = 'flex';
+        }
+    }
+
+    async function handlePasswordChange(e) {
+        e.preventDefault();
+        const alertBox = document.getElementById('profileAlert');
+        const old_password = document.getElementById('oldPassword').value;
+        const new_password = document.getElementById('newPassword').value;
+
+        const res = await apiRequest('/api/v1/portal/auth/change-password', 'POST', { old_password, new_password });
+        if (res && res.ok) {
+            alertBox.className = 'portal-alert portal-alert-success';
+            alertBox.innerHTML = `<i class="fas fa-check-circle"></i> ${res.data.message}`;
+            alertBox.style.display = 'flex';
+            document.getElementById('passwordChangeForm').reset();
+        } else {
+            alertBox.className = 'portal-alert portal-alert-danger';
+            alertBox.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${res?.data?.message || 'Failed to change password.'}`;
+            alertBox.style.display = 'flex';
+        }
+    }
+
+    // Assignment Submission Modal for Students
+    function openAssignmentModal(assignmentId, title, currentContent) {
+        const dialog = document.getElementById('genericModalDialog');
+        dialog.innerHTML = `
+            <div class="modal-header">
+                <div style="font-weight:700; font-size:1.1rem; color:#fff;">
+                    <i class="fas fa-upload" style="color:var(--ritw-gold)"></i> Submit Coursework
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closeGenericModal()">&times;</button>
+            </div>
+            <div id="assignSubmitAlert" class="portal-alert portal-alert-danger" style="display:none;"></div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">Assignment: <strong>${title}</strong></p>
+            <form onsubmit="submitAssignmentWork(event, ${assignmentId})">
+                <div class="form-group">
+                    <label class="form-label">Submission Content / Drive Link / Git Repository:</label>
+                    <textarea id="assignContentInput" class="form-input" rows="4" placeholder="Paste your submission notes, report summary, or Google Drive / GitHub link here..." required>${currentContent || ''}</textarea>
+                </div>
+                <button type="submit" id="submitWorkBtn" class="btn-primary-portal">
+                    <i class="fas fa-paper-plane"></i> Submit Assignment
+                </button>
+            </form>
+        `;
+        document.getElementById('genericModal').style.display = 'flex';
+    }
+
+    async function submitAssignmentWork(e, assignmentId) {
+        e.preventDefault();
+        const content = document.getElementById('assignContentInput').value.trim();
+        const btn = document.getElementById('submitWorkBtn');
+        const alertBox = document.getElementById('assignSubmitAlert');
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+        const res = await apiRequest(`/api/v1/portal/student/assignments/${assignmentId}/submit`, 'POST', { submission_content: content });
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Assignment';
+
+        if (res && res.ok) {
+            closeGenericModal();
+            renderStudentTab('assignments');
+        } else {
+            alertBox.style.display = 'flex';
+            alertBox.textContent = res?.data?.message || 'Failed to submit assignment.';
+        }
+    }
+
+    // Staff Create Assignment Modal
+    function openCreateAssignmentModal() {
+        const dialog = document.getElementById('genericModalDialog');
+        dialog.innerHTML = `
+            <div class="modal-header">
+                <div style="font-weight:700; font-size:1.1rem; color:#fff;">
+                    <i class="fas fa-plus-circle" style="color:var(--ritw-gold)"></i> Publish Assignment to Students
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closeGenericModal()">&times;</button>
+            </div>
+            <div id="createAssignAlert" class="portal-alert portal-alert-danger" style="display:none;"></div>
+            <form onsubmit="handleCreateAssignment(event)">
+                <div class="form-group">
+                    <label class="form-label">Target Class:</label>
+                    <select id="newAssignClass" class="form-input" required>
+                        ${PortalState.staffClasses.map((c, i) => `
+                            <option value="${i}">${c.subject_name} (${c.subject_code}) - ${c.semester} [Sec ${c.section}]</option>
+                        `).join('')}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Assignment Title:</label>
+                    <input type="text" id="newAssignTitle" class="form-input" placeholder="e.g. Lab Assignment 3: SQL Normalization" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description / Instructions:</label>
+                    <textarea id="newAssignDesc" class="form-input" rows="3" placeholder="Provide problem statement or criteria..."></textarea>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div class="form-group">
+                        <label class="form-label">Due Date:</label>
+                        <input type="date" id="newAssignDate" class="form-input" value="${new Date(Date.now() + 7*86400000).toISOString().split('T')[0]}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Max Marks:</label>
+                        <input type="number" id="newAssignMarks" class="form-input" value="10" required>
+                    </div>
+                </div>
+                <button type="submit" id="publishAssignBtn" class="btn-primary-portal">
+                    <i class="fas fa-bullhorn"></i> Publish Assignment
+                </button>
+            </form>
+        `;
+        document.getElementById('genericModal').style.display = 'flex';
+    }
+
+    async function handleCreateAssignment(e) {
+        e.preventDefault();
+        const select = document.getElementById('newAssignClass');
+        const title = document.getElementById('newAssignTitle').value.trim();
+        const description = document.getElementById('newAssignDesc').value.trim();
+        const due_date = document.getElementById('newAssignDate').value;
+        const max_marks = document.getElementById('newAssignMarks').value;
+        const alertBox = document.getElementById('createAssignAlert');
+
+        const cls = PortalState.staffClasses[select.value];
+        if (!cls) return;
+
+        const res = await apiRequest('/api/v1/portal/staff/assignments', 'POST', {
+            department: cls.department,
+            semester: cls.semester,
+            section: cls.section,
+            subject_code: cls.subject_code,
+            title,
+            description,
+            due_date,
+            max_marks
+        });
+
+        if (res && res.ok) {
+            closeGenericModal();
+            renderStaffTab('assignments');
+        } else {
+            alertBox.style.display = 'flex';
+            alertBox.textContent = res?.data?.message || 'Failed to create assignment.';
+        }
+    }
+
+    function closeGenericModal() {
+        document.getElementById('genericModal').style.display = 'none';
+    }
+
+    function escapeQuotes(str) {
+        if (!str) return '';
+        return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Initial page boot
+    document.addEventListener('DOMContentLoaded', () => {
+        renderDemoButtons('student');
+        if (PortalState.token && PortalState.user) {
+            initDashboard();
+        }
+    });
+    </script>
+</body>
+</html>

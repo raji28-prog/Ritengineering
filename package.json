@@ -1,0 +1,29 @@
+{
+  "name": "ritw-website",
+  "version": "1.0.0",
+  "description": "Rishi M.S Institute of Engineering & Technology for Women (RITW) Website",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "init-admin": "node cli.js init-admin",
+    "change-password": "node cli.js change-password",
+    "list-users": "node cli.js list-users",
+    "legacy-serve": "node serve.js 5000"
+  },
+  "keywords": [
+    "ritw",
+    "engineering-college",
+    "hyderabad"
+  ],
+  "author": "RITW",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.5.0",
+    "sanitize-html": "^2.18.1"
+  }
+}
