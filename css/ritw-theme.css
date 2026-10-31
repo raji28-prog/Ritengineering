@@ -1966,13 +1966,14 @@ img {
 .ritw-nav-item:hover > .ritw-nav-link,
 .ritw-nav-link:focus,
 .ritw-nav-link.active {
-  color: #392F87 !important;
+  color: #0A2540 !important;
 }
 
-.ritw-nav-item:hover .ritw-nav-arrow {
+.ritw-nav-item:hover .ritw-nav-arrow,
+.ritw-nav-item:focus-within .ritw-nav-arrow {
   transform: rotate(180deg) !important;
   opacity: 1 !important;
-  color: #392F87 !important;
+  color: #22AE6F !important;
 }
 
 .ritw-nav-link::after {
@@ -1982,51 +1983,79 @@ img {
   left: 11px !important;
   right: 11px !important;
   height: 3px !important;
-  background: #392F87 !important;
+  background: #22AE6F !important;
   border-radius: 3px 3px 0 0 !important;
   transform: scaleX(0) !important;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .ritw-nav-item:hover > .ritw-nav-link::after,
+.ritw-nav-link:focus::after,
 .ritw-nav-link.active::after {
   transform: scaleX(1) !important;
 }
 
-/* Mega-Menu & Dropdown Panels */
+/* Sreyas-Inspired Kinetic Mega-Menu & Dropdown Panels */
 .ritw-mega-panel {
   position: absolute !important;
   top: 100% !important;
   left: 0 !important;
-  background: #ffffff !important;
+  background: rgba(255, 255, 255, 0.99) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   border-radius: 12px !important;
-  box-shadow: 0 20px 50px rgba(57, 47, 135, 0.15), 0 4px 12px rgba(0,0,0,0.06) !important;
-  border: 1px solid rgba(57, 47, 135, 0.1) !important;
+  border-top: 3px solid #22AE6F !important;
+  box-shadow: 0 24px 60px -12px rgba(10, 37, 64, 0.18), 0 8px 24px -4px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(10, 37, 64, 0.07) !important;
   opacity: 0 !important;
   visibility: hidden !important;
-  transform: translateY(10px) !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transform: translateY(12px) scale(0.98) !important;
+  transform-origin: top center !important;
+  transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1), transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.26s !important;
   z-index: 1050 !important;
-  padding: 20px !important;
+  padding: 22px 24px !important;
   pointer-events: none !important;
-  max-height: 80vh !important;
+  max-height: calc(100vh - 110px) !important;
   overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(10, 37, 64, 0.2) transparent !important;
 }
 
 .ritw-mega-panel::-webkit-scrollbar {
-  width: 6px;
+  width: 5px !important;
 }
 .ritw-mega-panel::-webkit-scrollbar-thumb {
-  background: rgba(57, 47, 135, 0.2);
-  border-radius: 4px;
+  background: rgba(10, 37, 64, 0.2) !important;
+  border-radius: 4px !important;
 }
 
 .ritw-nav-item:hover > .ritw-mega-panel,
-.ritw-mega-panel:hover {
+.ritw-nav-item:focus-within > .ritw-mega-panel,
+.ritw-mega-panel:hover,
+.ritw-mega-panel.ritw-panel-open {
   opacity: 1 !important;
   visibility: visible !important;
-  transform: translateY(0) !important;
+  transform: translateY(0) scale(1) !important;
   pointer-events: auto !important;
+}
+
+/* Staggered Column Reveals */
+@keyframes ritwStaggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ritw-nav-item:hover .ritw-panel-col,
+.ritw-nav-item:focus-within .ritw-panel-col,
+.ritw-mega-panel.ritw-panel-open .ritw-panel-col {
+  animation: ritwStaggerIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  animation-delay: calc(var(--col-index, 1) * 35ms) !important;
 }
 
 .ritw-panel-w-280 { width: 280px !important; }
@@ -2040,7 +2069,7 @@ img {
 
 .ritw-panel-grid {
   display: grid !important;
-  gap: 20px !important;
+  gap: 22px !important;
 }
 .ritw-grid-2 { grid-template-columns: repeat(2, 1fr) !important; }
 .ritw-grid-3 { grid-template-columns: repeat(3, 1fr) !important; }
@@ -2056,17 +2085,17 @@ img {
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.5px !important;
-  color: #392F87 !important;
+  color: #0A2540 !important;
   padding-bottom: 8px !important;
   margin-bottom: 12px !important;
-  border-bottom: 2px solid rgba(57, 47, 135, 0.1) !important;
+  border-bottom: 2px solid rgba(10, 37, 64, 0.08) !important;
   display: flex !important;
   align-items: center !important;
   gap: 8px !important;
 }
 
 .ritw-heading-icon {
-  color: #159B62 !important;
+  color: #22AE6F !important;
   font-size: 13px !important;
 }
 
@@ -2076,7 +2105,7 @@ img {
   padding: 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 3px !important;
+  gap: 2px !important;
 }
 
 .ritw-panel-links li {
@@ -2090,21 +2119,25 @@ img {
   padding: 5px 8px !important;
   font-size: 13px !important;
   font-weight: 500 !important;
-  color: #4a5568 !important;
+  color: #334155 !important;
   text-decoration: none !important;
   border-radius: 6px !important;
-  transition: all 0.15s ease !important;
+  border-left: 3px solid transparent !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
   line-height: 1.35 !important;
 }
 
-.ritw-panel-links a:hover {
-  background: rgba(57, 47, 135, 0.05) !important;
-  color: #392F87 !important;
-  padding-left: 12px !important;
+.ritw-panel-links a:hover,
+.ritw-panel-links a:focus {
+  background: rgba(10, 37, 64, 0.04) !important;
+  color: #0A2540 !important;
+  border-left: 3px solid #22AE6F !important;
+  padding-left: 13px !important;
+  outline: none !important;
 }
 
 .ritw-panel-links a strong {
-  color: #392F87 !important;
+  color: #0A2540 !important;
   font-weight: 700 !important;
 }
 
@@ -2114,9 +2147,62 @@ img {
   line-height: 1.3 !important;
 }
 
+/* Nested Flyout Direction Support */
+.ritw-has-flyout {
+  position: relative !important;
+}
+.ritw-flyout-menu {
+  position: absolute !important;
+  top: 0 !important;
+  left: 100% !important;
+  min-width: 200px !important;
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(10, 37, 64, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(10, 37, 64, 0.12) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateX(8px) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.ritw-has-flyout:hover > .ritw-flyout-menu,
+.ritw-has-flyout:focus-within > .ritw-flyout-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(0) !important;
+}
+.ritw-flyout-left > .ritw-flyout-menu {
+  left: auto !important;
+  right: 100% !important;
+  transform: translateX(-8px) !important;
+}
+.ritw-flyout-left:hover > .ritw-flyout-menu,
+.ritw-flyout-left:focus-within > .ritw-flyout-menu {
+  transform: translateX(0) !important;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .ritw-mega-panel,
+  .ritw-nav-arrow,
+  .ritw-nav-link::after,
+  .ritw-panel-col,
+  .ritw-panel-links a {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  .ritw-nav-item:hover > .ritw-mega-panel,
+  .ritw-nav-item:focus-within > .ritw-mega-panel,
+  .ritw-mega-panel.ritw-panel-open {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
 /* Portal Button in Nav */
 .ritw-portal-btn {
-  background: linear-gradient(135deg, #159B62 0%, #0d6e44 100%) !important;
+  background: linear-gradient(135deg, #22AE6F 0%, #159B62 100%) !important;
   color: #ffffff !important;
   padding: 8px 18px !important;
   border-radius: 20px !important;
@@ -2127,16 +2213,15 @@ img {
   align-items: center !important;
   gap: 7px !important;
   text-decoration: none !important;
-  box-shadow: 0 4px 14px rgba(21, 155, 98, 0.3) !important;
+  box-shadow: 0 4px 14px rgba(34, 174, 111, 0.3) !important;
   transition: all 0.25s ease !important;
 }
 
 .ritw-portal-btn:hover {
   transform: translateY(-1px) !important;
-  box-shadow: 0 6px 18px rgba(21, 155, 98, 0.45) !important;
+  box-shadow: 0 6px 18px rgba(34, 174, 111, 0.45) !important;
   color: #ffffff !important;
 }
-
 
 /* ==========================================================================
    VIT-INSPIRED HERO SLIDER & NEWS SHOWCASE STYLES
