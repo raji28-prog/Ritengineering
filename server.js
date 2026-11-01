@@ -80,60 +80,63 @@ app.get('/api/v1/health', (req, res) => {
 // STATIC ASSETS & ADMIN CMS SERVING
 // ============================================================================
 
+// Options to allow serving files within paths containing hidden directory segments (e.g. .gemini worktrees)
+const sendFileOpts = { dotfiles: 'allow' };
+
 // Static file directories
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/css', express.static(path.join(__dirname, 'css')));
-app.use('/js', express.static(path.join(__dirname, 'js')));
-app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/img', express.static(path.join(__dirname, 'img')));
+app.use('/css', express.static(path.join(__dirname, 'css'), sendFileOpts));
+app.use('/js', express.static(path.join(__dirname, 'js'), sendFileOpts));
+app.use('/images', express.static(path.join(__dirname, 'images'), sendFileOpts));
+app.use('/img', express.static(path.join(__dirname, 'img'), sendFileOpts));
 app.use('/PhotoGallery', express.static(path.join(__dirname, 'PhotoGallery')));
 app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
 app.use('/webfonts', express.static(path.join(__dirname, 'webfonts')));
 
 // Admin Panel Static Serving
-app.use('/admin', express.static(path.join(__dirname, 'admin')));
+app.use('/admin', express.static(path.join(__dirname, 'admin'), sendFileOpts));
 
 // Admin SPA Route Fallback (for /admin, /admin/login, /admin/dashboard, etc.)
 app.get(['/admin', '/admin/*path'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+    res.sendFile(path.join(__dirname, 'admin', 'index.html'), sendFileOpts);
 });
 
 // Campus Portal Static Serving
-app.use('/portal', express.static(path.join(__dirname, 'portal')));
+app.use('/portal', express.static(path.join(__dirname, 'portal'), sendFileOpts));
 
 // Campus Portal SPA Route Fallback (for /portal, /portal/login, /portal/student, /portal/parent, /portal/staff)
 app.get(['/portal', '/portal/*path'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'portal', 'index.html'));
+    res.sendFile(path.join(__dirname, 'portal', 'index.html'), sendFileOpts);
 });
 
 // Public Site Static Page Serving with clean URLs
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'), sendFileOpts);
 });
 
 app.get(['/about', '/about/*path'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'about', 'index.html'));
+    res.sendFile(path.join(__dirname, 'about', 'index.html'), sendFileOpts);
 });
 
 app.get(['/departments', '/departments/*path'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'departments', 'index.html'));
+    res.sendFile(path.join(__dirname, 'departments', 'index.html'), sendFileOpts);
 });
 
 app.get(['/admissions', '/admissions/*path'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'admissions', 'index.html'));
+    res.sendFile(path.join(__dirname, 'admissions', 'index.html'), sendFileOpts);
 });
 
 app.get(['/placements', '/placements/*path'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'placements', 'index.html'));
+    res.sendFile(path.join(__dirname, 'placements', 'index.html'), sendFileOpts);
 });
 
 app.get(['/contact', '/contact/*path'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'contact', 'index.html'));
+    res.sendFile(path.join(__dirname, 'contact', 'index.html'), sendFileOpts);
 });
 
 
 // Static fallback for other root files
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, sendFileOpts));
 
 // 404 Handler for APIs
 app.all('/api/*path', (req, res) => {

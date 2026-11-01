@@ -1,0 +1,51 @@
+# Databases & SQLite Runtime Journals
+server/db/*.sqlite
+server/db/*.sqlite-shm
+server/db/*.sqlite-wal
+*.sqlite
+*.sqlite3
+*.db
+
+# Node Dependencies
+node_modules/
+.package-lock.json
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+
+# Logs & Runtime
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Verification & Test Artifacts
+screenshots/
+edge_user_data*/
+
+# Temporary Test & Scraping Scripts
+crop_analysis.js
+crop_exact.js
+generate_clean_emblem.js
+inspect_and_crop_logo.js
+take_screenshots.js
+test_and_capture.js
+test_qe_popup.js
+update_all_pages_header.js
+verify_deployment.js
+verify_final_safety.js
+add_announcements_to_index.js
+clean_inner_pages_qe_styles.js
+update_quick_enquiry_css.js
+update_ritw_elements.js
+
+# Python Virtual Environments & Caches
+backend/venv/
+backend/__pycache__/
+*/__pycache__/
+
+# Frontend Build & Node Modules
+frontend/node_modules/
+frontend/dist/
+

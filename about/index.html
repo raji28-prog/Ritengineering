@@ -106,1283 +106,58 @@
 <!-- Body main wrapper start -->
 <div class="body-wrapper">
 
-    <!-- HEADER AREA START (header-3) -->
-    <header class="ltn__header-area ltn__header-3">
-
-        <!-- ══ PREMIUM TOP BAR ══════════════════════════════════════════════ -->
-        <div class="ritw-topbar">
-            <div class="container">
-                <div class="ritw-topbar-inner">
-
-                    <!-- LEFT: Contact info -->
-                    <div class="ritw-topbar-left">
-                        <a href="mailto:info@rishimsengg.ac.in" class="ritw-topbar-item">
-                            <span class="ritw-topbar-icon"><i class="fas fa-envelope"></i></span>
-                            <span>info@rishimsengg.ac.in</span>
-                        </a>
-                        <a href="tel:+919676233050" class="ritw-topbar-item">
-                            <span class="ritw-topbar-icon"><i class="fas fa-phone-alt"></i></span>
-                            <span>+91-967-623-3050</span>
-                        </a>
-                        <a href="https://maps.google.com/?q=Rishi+MS+Institute+of+Engineering+Technology+for+Women+Kukatpally+Hyderabad" target="_blank" rel="noopener noreferrer" class="ritw-topbar-item ritw-topbar-addr">
-                            <span class="ritw-topbar-icon"><i class="fas fa-map-marker-alt"></i></span>
-                            <span>Kukatpally, Near JNTU Metro, Hyderabad – 500 085</span>
-                        </a>
-                    </div>
-
-                    <!-- RIGHT: Social + Search -->
-                    <div class="ritw-topbar-right">
-
-                        <!-- Accreditation badges -->
-                        <div class="ritw-topbar-badges">
-                            <span class="ritw-tbadge naac" title="NAAC A Grade">NAAC A</span>
-                            <span class="ritw-tbadge nba" title="NBA Accredited">NBA</span>
-                            <span class="ritw-tbadge ugc" title="UGC Autonomous">UGC</span>
-                            <span class="ritw-tbadge nirf" title="NIRF Ranked">NIRF</span>
-                        </div>
-
-                        <!-- Social icons -->
-                        <div class="ritw-topbar-social">
-                            <a href="https://www.facebook.com/rishicollege" target="_blank" rel="noopener noreferrer" title="Facebook" class="ritw-social-btn fb"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/rishimsengg/" target="_blank" rel="noopener noreferrer" title="Instagram" class="ritw-social-btn ig"><i class="fab fa-instagram"></i></a>
-                            <a href="https://wa.me/919676233050" target="_blank" rel="noopener noreferrer" title="WhatsApp" class="ritw-social-btn wa"><i class="fab fa-whatsapp"></i></a>
-                            <a href="https://www.youtube.com/@rishimsengg" target="_blank" rel="noopener noreferrer" title="YouTube" class="ritw-social-btn yt"><i class="fab fa-youtube"></i></a>
-                        </div>
-
-                        <!-- Search — opens live search modal -->
-                        <a href="https://rishimsengg.ac.in/search-page.php"
-                           class="ritw-search-trigger"
-                           aria-label="Search RITW" title="Search RITW (Ctrl+K)">
-                            <i class="fas fa-search"></i>
-                        </a>
-
-                    </div>
-                </div>
+                <!-- =======================================================
+         RITW UNIFIED ROUNDED WHITE HEADER (MATCHING SREYAS REFERENCE)
+         1. Clean, rounded, white sticky header.
+         2. Left: Hamburger menu button.
+         3. Centre: ONE original RITW logo with full college name.
+         4. Right: Display only the accreditation and recognition logos that already exist in the RITW project.
+         ======================================================= -->
+    <div class="ritw-sreyas-header-sticky-wrap">
+        <header class="ritw-sreyas-header-pill" role="banner">
+            
+            <!-- Left: Hamburger Menu Button -->
+            <div class="ritw-sreyas-pill-left">
+                <button type="button" class="ritw-sreyas-toggle-btn" id="ritwSreyasToggleBtn" aria-expanded="false" aria-controls="ritwSreyasMegaOverlay" aria-label="Toggle Navigation Menu" title="Toggle Navigation Menu">
+                    <span class="ritw-sreyas-bar"></span>
+                    <span class="ritw-sreyas-bar"></span>
+                </button>
             </div>
-        </div>
 
-        <style>
-        /* ══ RITW PREMIUM TOP BAR ══════════════════════════════════════════ */
-        .ritw-topbar {
-            background: linear-gradient(135deg, #1a0035 0%, #2d0058 40%, #3b0070 70%, #4a0088 100%);
-            border-bottom: 1px solid rgba(132,45,184,.4);
-            position: relative;
-            overflow: hidden;
-        }
-        .ritw-topbar::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 20% 50%, rgba(243,185,12,.06) 0%, transparent 60%),
-                        radial-gradient(ellipse at 80% 50%, rgba(168,85,247,.08) 0%, transparent 60%);
-            pointer-events: none;
-        }
+            <!-- Centre: ONE Centered Branding Group (Emblem + Large RITW + Full Name below) exactly like Sreyas -->
+            <div class="ritw-sreyas-pill-center">
+                <a href="/" class="ritw-sreyas-center-brand" aria-label="Rishi M.S. Institute of Engineering &amp; Technology for Women">
+                    <img src="/images/ritw-emblem-logo.png" alt="RITW Emblem" class="ritw-sreyas-emblem-img">
+                    <div class="ritw-sreyas-brand-text">
+                        <span class="ritw-sreyas-brand-acronym">RITW</span>
+                        <span class="ritw-sreyas-brand-fullname">RISHI M.S. INSTITUTE OF ENGINEERING &amp; TECHNOLOGY FOR WOMEN</span>
+                    </div>
+                </a>
+            </div>
 
-        /* ── Desktop layout (≥ 768px) ─────────────────────────── */
-        .ritw-topbar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 7px 0;
-            position: relative;
-            z-index: 1;
-        }
-        .ritw-topbar-left {
-            display: flex;
-            align-items: center;
-            flex-wrap: nowrap;
-            gap: 0;
-            min-width: 0;
-        }
-        .ritw-topbar-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: rgba(255,255,255,.82);
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 4px 14px 4px 0;
-            margin-right: 14px;
-            border-right: 1px solid rgba(255,255,255,.15);
-            transition: color .2s;
-            white-space: nowrap;
-        }
-        .ritw-topbar-item:last-child { border-right: none; margin-right: 0; }
-        .ritw-topbar-item:hover { color: #f3b90c; text-decoration: none; }
-        .ritw-topbar-icon {
-            width: 22px; height: 22px;
-            background: rgba(255,255,255,.1);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 10px; flex-shrink: 0;
-        }
-        /* Address hidden below 992px */
-        .ritw-topbar-addr { display: none; }
-        @media (min-width: 992px) { .ritw-topbar-addr { display: inline-flex; } }
-
-        .ritw-topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        /* ── Accreditation badges ─────────────────────────────── */
-        .ritw-topbar-badges {
-            display: flex;
-            gap: 5px;
-            align-items: center;
-        }
-        .ritw-tbadge {
-            font-size: 9.5px;
-            font-weight: 800;
-            padding: 3px 9px;
-            border-radius: 50px;
-            letter-spacing: .5px;
-            text-transform: uppercase;
-            white-space: nowrap;
-            cursor: default;
-        }
-        .ritw-tbadge.naac { background: rgba(243,185,12,.2); border: 1px solid rgba(243,185,12,.5); color: #f3b90c; }
-        .ritw-tbadge.nba  { background: rgba(37,211,102,.15); border: 1px solid rgba(37,211,102,.4); color: #4ade80; }
-        .ritw-tbadge.ugc  { background: rgba(168,85,247,.2); border: 1px solid rgba(168,85,247,.4); color: #d8b4fe; }
-        .ritw-tbadge.nirf { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.8); }
-        /* Hide badges on desktop topbar — shown in mobile row instead */
-        @media (min-width: 769px) { .ritw-topbar-badges { display: flex; } }
-
-        /* ── Social buttons ───────────────────────────────────── */
-        .ritw-topbar-social { display: flex; gap: 4px; }
-        .ritw-social-btn {
-            width: 28px; height: 28px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; text-decoration: none;
-            transition: transform .15s, opacity .15s; opacity: .75;
-        }
-        .ritw-social-btn:hover { transform: translateY(-2px); opacity: 1; text-decoration: none; }
-        .ritw-social-btn.fb { background: #1877f2; color: #fff; }
-        .ritw-social-btn.ig { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
-        .ritw-social-btn.wa { background: #25D366; color: #fff; }
-        .ritw-social-btn.yt { background: #ff0000; color: #fff; }
-        @media (max-width: 576px) { .ritw-topbar-social { display: none; } }
-
-        /* ── Search trigger ───────────────────────────────────── */
-        .ritw-search-trigger {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 34px; height: 34px;
-            background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
-            color: rgba(255,255,255,.9);
-            border-radius: 50%; font-size: 13px;
-            cursor: pointer; transition: background .2s, border-color .2s, color .2s;
-            text-decoration: none; flex-shrink: 0;
-        }
-        .ritw-search-trigger:hover {
-            background: rgba(255,255,255,.25); border-color: rgba(255,255,255,.5);
-            color: #fff; text-decoration: none;
-        }
-
-        /* ══ MOBILE TOP BAR (≤ 767px) ══════════════════════════ */
-        @media (max-width: 767px) {
-
-            .ritw-topbar-inner {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0;
-                padding: 0;
-            }
-
-            /* Row 1: contact info */
-            .ritw-topbar-left {
-                display: flex;
-                justify-content: center;
-                gap: 0;
-                padding: 7px 12px;
-                border-bottom: 1px solid rgba(255,255,255,.08);
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-            }
-            .ritw-topbar-left::-webkit-scrollbar { display: none; }
-
-            .ritw-topbar-item {
-                font-size: 11px;
-                padding: 2px 12px 2px 0;
-                margin-right: 12px;
-                flex-shrink: 0;
-            }
-
-            /* Row 2: badges + search */
-            .ritw-topbar-right {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 7px 12px;
-                gap: 8px;
-            }
-
-            /* Show badges on mobile */
-            .ritw-topbar-badges {
-                display: flex !important;
-                gap: 5px;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                flex: 1;
-            }
-            .ritw-topbar-badges::-webkit-scrollbar { display: none; }
-
-            .ritw-tbadge {
-                font-size: 9px;
-                padding: 3px 8px;
-                flex-shrink: 0;
-            }
-
-            /* Search button: icon only on mobile */
-            .ritw-search-trigger span,
-            .ritw-search-trigger kbd { display: none; }
-            .ritw-search-trigger {
-                padding: 7px 10px;
-                border-radius: 50%;
-                flex-shrink: 0;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .ritw-topbar-item { font-size: 10px; padding: 2px 10px 2px 0; margin-right: 10px; }
-            .ritw-tbadge { font-size: 8.5px; padding: 2px 7px; }
-        }
-        </style>
-
-        <script>
-        // Keyboard shortcut: Cmd+K / Ctrl+K opens search modal
-        document.addEventListener('keydown', function(e) {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                if (typeof window.ritwOpenSearch === 'function') {
-                    window.ritwOpenSearch('');
-                } else {
-                    var m = document.getElementById('ritwSearchModal');
-                    if (m) { m.classList.add('rsm-open'); document.body.style.overflow = 'hidden'; }
-                }
-            }
-        });
-        </script>
-
-        <!-- ltn__header-top-area end -->
-        <!-- ltn__header-middle-area start -->
-        <div class="ritw-brand-header">
-            <div class="container">
-                <div class="ritw-brand-wrap">
-                    <a href="../index.html" class="ritw-brand-left" aria-label="Rishi M.S Institute of Engineering & Technology for Women">
-                        <img src="../images/RITW-LOGO.png" alt="RITW Logo" class="ritw-brand-logo-img">
-                        <div class="ritw-brand-titles">
-                            <span class="ritw-brand-title">RISHI M.S INSTITUTE OF ENGINEERING &amp; TECHNOLOGY FOR WOMEN</span>
-                            <span class="ritw-brand-memory">In memory of Bharat Ratna (Late) Smt. M.S. Subbulakshmi</span>
-                            <span class="ritw-brand-sub">
-                                <span>UGC Autonomous</span> &bull; 
-                                <span>Approved by AICTE</span> &bull; 
-                                <span>Affiliated to JNTU-H</span> &bull; 
-                                <span>NAAC 'A' Grade</span> &bull; 
-                                <span>NBA Accredited</span>
-                            </span>
-                        </div>
+            <!-- Right: Display only the accreditation and recognition logos that already exist in the RITW project -->
+            <div class="ritw-sreyas-pill-right">
+                <div class="ritw-sreyas-accred-strip" aria-label="Official Institutional Accreditations and Recognitions">
+                    <a href="https://rishimsengg.ac.in/about/Autonomous_Certificate.php" target="_blank" rel="noopener" class="ritw-accred-logo-link" title="UGC Autonomous Institution">
+                        <img src="/images/UGC_India_Logo.webp" alt="UGC Autonomous" class="ritw-accred-logo-img">
                     </a>
-                    <div class="ritw-brand-right">
-                        <div class="ritw-code-badge">
-                            <span class="ritw-code-label">TG EAPCET / ECET Code</span>
-                            <span class="ritw-code-val">RITW</span>
-                        </div>
-                        <a href="../admissions/index.html" class="ritw-header-cta">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>Admissions 2026–27</span>
-                        </a>
-                    </div>
+                    <a href="https://rishimsengg.ac.in/about/NAAC_Certificate.php" target="_blank" rel="noopener" class="ritw-accred-logo-link" title="NAAC 'A' Grade Accredited">
+                        <img src="/images/NAAC-A.png" alt="NAAC A Grade" class="ritw-accred-logo-img">
+                    </a>
+                    <a href="https://rishimsengg.ac.in/about/AICTE_Approval.php" target="_blank" rel="noopener" class="ritw-accred-logo-link" title="Approved by AICTE">
+                        <img src="/images/All_India_Council_for_Technical_Education_logo.webp" alt="AICTE" class="ritw-accred-logo-img">
+                    </a>
+                    <a href="https://jntuh.ac.in/" target="_blank" rel="noopener" class="ritw-accred-logo-link" title="Affiliated to JNTU Hyderabad">
+                        <img src="/images/JNTU_Hyderabad_logo.webp" alt="JNTU Hyderabad" class="ritw-accred-logo-img">
+                    </a>
+                    <a href="https://rishimsengg.ac.in/nirf.php" target="_blank" rel="noopener" class="ritw-accred-logo-link" title="NIRF Ranked Institution">
+                        <img src="/images/NIRF.webp" alt="NIRF Ranked" class="ritw-accred-logo-img">
+                    </a>
                 </div>
             </div>
-        </div>
-        <!-- ltn__header-middle-area end -->
 
-        <!-- header-bottom-area start -->
-
-        <div class="header-bottom-area ltn__border-top ltn__header-sticky  ltn__sticky-bg-white--- ltn__sticky-bg-secondary ltn__secondary-bg section-bg-1 menu-color-white d-none d-lg-block">
-
-            <div class="container">
-
-                <div class="row">
-
-                    <div class="col header-menu-column justify-content-center">
-
-                        <div class="sticky-logo">
-
-                            <div class="site-logo">
-
-                                <a href="../index.html"><img src="../images/RITW-LOGO.png" alt="RITW Logo" style="height: 44px; width: auto; object-fit: contain;"></a>
-
-                            </div>
-
-                        </div>
-
-                        <div class="header-menu header-menu-2">
-
-                            <nav>
-
-                                <div class="ltn__main-menu">
-
-                                    <ul>
-
-                                        <li><a href="https://rishimsengg.ac.in/#">Home</a></li>
-
-                                        <li class="menu-icon"><a href="#">About</a>
-
-                                        <ul class="mega-menu">
-
-                                            <li>
-
-                                                <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Logo_Flag_Color_Theme.php">Logo | Flag | Color | Theme</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/About_Rishi_College_Group_of_Institutions.php">About Rishi Group of Institutions</a></li>
-                                            <li><a href="https://rishimsengg.ac.in/about/Vision,_Mission_&_Quality_Policy.php">Vision, Mission & Quality Policy</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Objectives.php">Objectives</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Aspirations.php">Aspirations</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Institution_Development_Plan.php">Institution Development Plan</a></li>
-
-                                            
-
-                                                </ul>
-
-                                            </li>
-
-                                            <li>
-
-                                                <ul>
-
-                                            <li><a href="../about/index.html">About Our College "RITW"</a></li>
-                                            <li><a href="https://rishimsengg.ac.in/about/Chairman's_Desk.php">Chairman's Desk</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Secretary’s_Desk.php">Secretary's Desk</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Director_Desk.php">Director's Desk</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Principal's_Desk.php">Principal's Desk</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Governing_Council.php">Governing Council</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-                                            <li>
-
-                                                <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Organisation_Workflow.php">Organisation Workflow</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Academic_Advisory_Board.php">Academic Advisory Board</a></li>
-                                            
-
-                                            <li><a href="https://rishimsengg.ac.in/Approvals/AICTE.php">AICTE Documents</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Approvals/UGC.php">UGC Recognition</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/NAAC_Certificate.php">NAAC Accreditation</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Approvals/NBA.php">NBA Accreditation</a></li>
-
-                                            <!--li><a href="https://rishimsengg.ac.in/about/Audit_Statements.php">Audit Statements</a></li-->
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Ombudsperson.php">Ombudsperson</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-                                        </ul>
-
-                                        </li>
-
-
-
-                                        <li class="menu-icon">
-
-                                            <a href="#">Departments</a>
-
-                                            <ul>
-
-                                        <!--DEPARTMENT START-->
-
-                                            <li style="min-width: 260px !important">
-
-                                              <a href="https://rishimsengg.ac.in/#">Computer Science and Engineering <span class="float-right">>></span></a>
-
-                                              <ul class="submenu-grid">
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\About Dept.php">About Dept</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Vision & Mission.php">Vision & Mission</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Objectives.php">Objectives</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Work Culture.php">Work Culture</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Academic Calendar.php">Academic Calendar</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\HOD.php">HOD</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Faculty.php">Faculty</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Course Outcomes.php">Course Outcomes</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Program Outcomes.php">Program Outcomes</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\PEO's and PSO's.php">PEO's and PSO's</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Teaching and Learning Methodologies.php">Teaching And Learning Methodologies</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Dept Publications.php">Dept Publications</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Placements.php">Placements</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\R&D Wing.php">R&D Wing</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Library.php">Library</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\E-Classroom.php">E-Classroom</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Result Analysis.php">Result Analysis</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Slow Learners.php">Slow Learners</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Syllabus.php">Syllabus</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Labs.php">Labs</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\E Learning Resources.php">E Learning Resources</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Add-on.php">Add-on</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Projects.php">Projects</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\SWOT.php">SWOT</a></li>                                
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Gallery.php">Gallery</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Computer Science and Engineering\Contact.php">Contact</a></li>
-
-                                              </ul>
-
-                                            </li>
-
-                                            <!--DEPARTMENT END-->
-
-
-
-
-
-
-
-                                        <li style="min-width: 260px !important">
-
-                                              <a href="https://rishimsengg.ac.in/#">Information Technology <span class="float-right">>></span></a>
-
-                                              <ul class="submenu-grid">
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\About Dept.php">About Dept</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Vision & Mission.php">Vision & Mission</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Objectives.php">Objectives</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Work Culture.php">Work Culture</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Academic Calendar.php">Academic Calendar</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\HOD.php">HOD</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Faculty.php">Faculty</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Course Outcomes.php">Course Outcomes</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Program Outcomes.php">Program Outcomes</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Teaching and Learning Methodologies.php">Teaching And Learning Methodologies</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Dept Publications.php">Dept Publications</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Placements.php">Placements</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\R&D Wing.php">R&D Wing</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Library.php">Library</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\E-Classroom.php">E-Classroom</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Result Analysis.php">Result Analysis</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Slow Learners.php">Slow Learners</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Syllabus.php">Syllabus</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Labs.php">Labs</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Add-on.php">Add-on</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Projects.php">Projects</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\SWOT.php">SWOT</a></li>                                
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Gallery.php">Gallery</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Information Technology\Contact.php">Contact</a></li>
-
-                                              </ul>
-
-                                            </li>
-
-                                            <!--DEPARTMENT END-->
-
-
-
-
-
-                                        <!--DEPARTMENT START-->
-
-                                        <li style="min-width: 260px !important">
-
-                                              <a href="https://rishimsengg.ac.in/#">Electronics and Communication Engineering <span class="float-right">>></span></a>
-
-                                              <ul class="submenu-grid">
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\About Dept.php">About Dept</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Vision & Mission.php">Vision & Mission</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Objectives.php">Objectives</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Work Culture.php">Work Culture</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Academic Calendar.php">Academic Calendar</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\HOD.php">HOD</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Faculty.php">Faculty</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Course Outcomes.php">Course Outcomes</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Program Outcomes.php">Program Outcomes</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Teaching and Learning Methodologies.php">Teaching And Learning Methodologies</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Dept Publications.php">Dept Publications</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Placements.php">Placements</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\R&D Wing.php">R&D Wing</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Library.php">Library</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\E-Classroom.php">E-Classroom</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Result Analysis.php">Result Analysis</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Slow Learners.php">Slow Learners</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Syllabus.php">Syllabus</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Labs.php">Labs</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Add-on.php">Add-on</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Projects.php">Projects</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\SWOT.php">SWOT</a></li>                                
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Gallery.php">Gallery</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Electronics and Communication Engineering\Contact.php">Contact</a></li>
-
-                                              </ul>
-
-                                            </li>
-
-                                            <!--DEPARTMENT END-->
-
-
-
-
-
-                                        <li style="min-width: 260px !important">
-
-                                              <a href="https://rishimsengg.ac.in/#">Humanities and Sciences <span class="float-right">>></span></a>
-
-                                              <ul class="submenu-grid">
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\About Dept.php">About Dept</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Vision & Mission.php">Vision & Mission</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Objectives.php">Objectives</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Work Culture.php">Work Culture</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Academic Calendar.php">Academic Calendar</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\HOD.php">HOD</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Faculty.php">Faculty</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Course Outcomes.php">Course Outcomes</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Program Outcomes.php">Program Outcomes</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Teaching and Learning Methodologies.php">Teaching And Learning Methodologies</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Dept Publications.php">Dept Publications</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\R&D Wing.php">R&D Wing</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Library.php">Library</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\E-Classroom.php">E-Classroom</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Result Analysis.php">Result Analysis</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Slow Learners.php">Slow Learners</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Syllabus.php">Syllabus</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\E-Learning Resources.php">E Learning Resources</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Labs.php">Labs</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Add-on.php">Add-on</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\SWOT.php">SWOT</a></li>                                
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Gallery.php">Gallery</a></li>
-
-                                                <li style="min-width: 140px !important;"><a href="https://rishimsengg.ac.in/Departments\Humanities and Sciences\Contact.php">Contact</a></li>
-
-                                              </ul>
-
-                                            </li>
-
-                                            <!--DEPARTMENT END-->
-
-                                          </ul>
-
-                                        </li>
-
-
-
-
-
-                                        <li class="menu-icon"><a href="#">Admissions</a>
-
-                                            <ul>
-
-                                                <li><a href="https://rishimsengg.ac.in/Admissions\Admission_Process_and_Guidelines.php">Admission process and guidelines</a></li>
-
-                                                <li><a href="https://rishimsengg.ac.in/Admissions\Courses Offered and Intake.php">Courses Offered &amp; Intake</a></li>
-
-                                                <li><a href="https://rishimsengg.ac.in/Admissions\Admission Form.php">Admission Form</a></li>
-
-                                                <li><a href="https://rishimsengg.ac.in/Admissions\Admission Fee Structure.php">Admission Fee Structure</a></li>
-
-                                                <li><a href="https://telanganaepass.cgg.gov.in/" target="_blank">Scholarships</a></li>
-
-                                            </ul>
-
-                                        </li>
-
-
-
-                                        <li class="menu-icon"><a href="#">Facilities</a>
-
-                                        <ul class="mega-menu">
-
-                                            <!-- Column 1 -->
-
-                                            <li>
-
-                                                <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\infrastructure.php">Infrastructure</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Central_Library.php">Central Library</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Conventional_Library.php">Conventional Library</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Digital_Library.php">Digital Library</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\E-Class_Rooms.php">E-Class Rooms</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\IEEE-Kiosk.php">IEEE-Kiosk</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-
-
-                                            <!-- Column 2 -->
-
-                                            <li>
-
-                                                <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\NPTEL-Kiosk.php">NPTEL-Kiosk</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\MHRD-AICTE-UGC-NSDC-TASK-Kiosk.php">MHRD-AICTE-UGC-NSDC-TASK-Kiosk</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\AIML_Data_Science_Labs.php">AIML &amp; Data Science Labs</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Vibrant_Student_Clubs.php">Vibrant Student Clubs</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Seminar_Halls_Auditoriums.php">Seminar Halls &amp; Auditoriums</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Discussion_Chambers.php">Discussion Chambers</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-
-
-                                            <!-- Column 3 -->
-
-                                            <li>
-
-                                                <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Remedial_Kiosk.php">Remedial Kiosk</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Slow_Learners_Kiosk.php">Slow Learner’s Kiosk</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Transportation_Facility.php">Transportation Facility</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units\PhysicalEducation\Physical Education.php">Sports &amp; Games</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Medical_Safety_Center.php">Medical &amp; Safety Center</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Open_Gym.php">Open Gym</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-
-
-                                            <!-- Column 4 -->
-
-                                            <li>
-
-                                                <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Pure_Safe_RO_Plant.php">Pure &amp; Safe RO Plant</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Cafeteria.php">Cafeteria</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Social_Welfare_Services.php">Social Welfare Services</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Water_Harvesting.php">Water Harvesting</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Power_Backup.php">Power Backup</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/facilities\Others.php">Others</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-                                        </ul>
-
-                                        </li>
-
-
-
-
-
-                                        <li class="menu-icon"><a href="#">Academics</a>
-
-                                        <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/Academics/University Academic Calendar.php">University Academic Calendar</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Academics/Institution Academic Calendar.php">Institution Academic Calendar</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/about/Academic_Advisory_Board.php">Academic Core Committees</a></li>
-                                            <li><a href="https://rishimsengg.ac.in/Academics/CO'S and PO'S.php">CO'S & PO'S</a></li>
-
-                                            <li><a href="https://jntuhresults.in/" target="_blank">Results</a>
-
-                                        </ul>
-
-                                        </li>
-
-
-
-
-
-                                        <li class="menu-icon"><a href="#">Exam Branch</a>
-
-                                        <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/Exam Branch/Exam Branch.php">About Exam Branch & COE</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Exam Branch/Academic Calendar.php">Academic Calendar - JNTU-H</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Exam Branch/Punishment for Malpractice Case.php">Punishment for Malpractice Case</a></li>
-
-                                            <li><a href="https://exams.jntuh.ac.in/Portal/common/load.action" target="_blank">Exam Time Table - JNTU-H</a></li>
-
-                                            <!--li><a href="https://rishimsengg.ac.in/Exam Branch/Download Applications.php">Download Applications</a></li-->
-
-                                            <li><a href="https://rishimsengg.ac.in/Exam Branch/Procedure to apply for transcripts.php">Procedure to apply for transcripts</a></li>
-
-                                            <li><a href="https://jntuhresults.in/" target="_blank">Results</a>
-
-                                        </ul>
-
-                                        </li>
-
-
-
-                                        <li class="menu-icon"><a href="#">Functional Units</a>
-
-                                        <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/RTI_-_Right_to_Information.php">RTI - Right to Information</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/#">Alumni <span class="float-right"> >></span></a>
-
-                                                <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Association.php">Alumni Association</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Alumni/Distinguished Alumni.php">Distinguished Alumni</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Meets.php">Alumni Meets</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Talks.php">Alumni Talks</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Contribution.php">Alumni Contribution</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Alumni/Success Stories.php">Success Stories</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Registration Form.php">Alumni Registration Form</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Feeedback System.php">Feedback System</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Teaching_Staff.php">Technical Staff</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units/Non_Teaching_Staff.php">Non-Teaching Staff</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/Functional Units\PhysicalEducation\Physical Education.php">Physical Education & Sports</a></li>
-
-                                        </ul>
-
-                                        </li>
-
-
-
-
-
-                                       
-
-                                        <li class="menu-icon"><a href="#">Committees</a>
-
-                                            <ul class="mega-menu">
-
-                                                <!-- Column 1 -->
-
-                                                <li class="new">
-
-                                                    <ul>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Governing Body Committee.php">Governing Body Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Research And Development Cell.php">Research And Development Cell</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Financial Assistance Committee.php">Financial Assistance Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Student Training And Placement Cell.php">Student Training And Placement Cell</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Alumni Committee.php">Alumni Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Grievance Redressal Committee.php">Grievance Redressal Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Women Welfare Committee.php">Women Welfare Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Library and E-learning Committee.php">Library and E-learning Committee</a></li>
-
-                                                    </ul>
-
-                                                </li>
-
-
-
-                                                <!-- Column 2 -->
-
-                                                <li class="new">
-
-                                                    <ul>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Anti Sexual Harassment Committee.php">Anti Sexual Harassment Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Canteen Committee.php">Canteen Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Anti Ragging Committee.php">Anti Ragging Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/College Academic Committee.php">College Academic Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Sports And Games Committee.php">Sports And Games Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/SC ST CELL.php">SC/ST CELL</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/NSS Cell.php">NSS Cell</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Industry Institute Interaction Cell.php">Industry Institute Interaction Cell</a></li>
-
-                                                    </ul>
-
-                                                </li>
-
-
-
-                                                <!-- Column 3 -->
-
-                                                <li class="new">
-
-                                                    <ul>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Public Relations Committee.php">Public Relations Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Time-Table Committiee.php">Time-Table Committiee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/SDC Committee.php">SDC Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/IQAC Committee.php">IQAC Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Maintenance Committee.php">Maintenance Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Internal Complaints Committee.php">Internal Complaints Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/OBC Committee.php">OBC Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Minority Cell.php">Minority Cell</a></li>
-
-                                                    </ul>
-
-                                                </li>
-
-
-
-                                                <!-- Column 4 -->
-
-                                                <li class="new">
-
-                                                    <ul>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Admissions Committee.php">Admissions Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Attendance Monitoring Committee.php">Attendance Monitoring Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Cultural Committee.php">Cultural Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/ECO Clubs Committee.php">ECO Clubs Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Festivities Committee.php">Festivities Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Mentoring Committee.php">Mentoring Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Photography Committee.php">Photography Committee</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/Primary Health Centre.php">Primary Health Centre</a></li>
-
-                                                    </ul>
-
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-
-                                        
-
-                                        
-
-                                        <li class="menu-icon"><a href="#">NSS</a>
-
-                                        <ul>
-
-                                            <li><a href="https://rishimsengg.ac.in/NSS/About_NSS.php">About NSS</a></li>
-                                            <li><a href="https://rishimsengg.ac.in/NSS/About_NSS_Coordinator.php">About NSS Coordinator</a></li>
-                                            <li><a href="https://rishimsengg.ac.in/NSS/NSS_-_Committee_&_Activities_Overview.php">NSS Committee & Activities</a></li>
-                                            <li><a href="https://rishimsengg.ac.in/NSS/NSS_Events.php">NSS Events List</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/NSS/NSS_Gallery.php">NSS Gallery</a></li>
-
-                                            
-
-                                        </ul>
-
-                                        </li>
-
-                                        
-                                        <li><a href="https://rishimsengg.ac.in/NSS/NCC.php">NCC</a></li>
-                                        
-
-                                        
-
-                                        <li><a href="https://rishimsengg.ac.in/committees/Grievance%20Redressal%20Committee.php">Grievance Redressal Committee</a></li>
-
-
-
-                                        <li><a href="https://rishimsengg.ac.in/Functional Units/Feeedback System.php">Feedback System</a></li>
-
-
-
-                                        <li><a href="https://rishimsengg.ac.in/PCS.php">PCS</a></li>
-
-
-
-                                        <li class="menu-icon"><a href="#">Placements</a>
-
-
-
-                                                <ul>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/About Placement Cell at RITW.php">About Placement Cell</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Placement Officer.php">Head of Training and Placements and the Team</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Placement Cell Infrastructure.php">Placement Cell Infrastructure</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Ranking and Highlights.php">Rankings and Highlights</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Pre Placement Training.php">Pre Placement Training</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Center of Excellence.php">Center of Excellence (COE) programs - SAP Code Unnati</a></li>
-                                                    
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Center of Excellence - Honeywell.php">Center of Excellence (COE) programs - Honeywell</a></li>
-                                                    
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Incubation_Cell.php">Incubation Cell</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/MOU's and Partnership Programs.php">MoU’S and Partnership Programs</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Industrial Visits.php">Industrial Visits</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Internship_Programs.php">Internships</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/Top Companies Visited.php">Top Companies Visited</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/2026 and Upcoming Placement Drives.php">2026 and Upcoming Placement Drives</a></li>
-
-                                                    <li><a href="https://rishimsengg.ac.in/placements/2025 - Placements and Highlights.php">Placements - 2025 Highlights</a></li>
-
-                                                </ul>
-
-                                        </li>
-
-
-
-                                        <li class="menu-icon"><a href="#">NAAC</a>
-
-                                                    <ul>
-
-                                                        <li><a href="#">NAAC <span class="float-right">>></span></a>
-
-                                                            <ul>
-
-                                                        <li><a href="https://rishimsengg.ac.in/NAAC.php">NAAC CYCLE I</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/DVV.php">DVV CYCLE I</a></li>
-
-                                                            </ul>
-
-                                                        </li>
-
-                                                        <!--li><a href="https://rishimsengg.ac.in/#">AQAR <span class="float-right">>></span></a>
-
-                                                            <ul>
-
-                                                        <li><a href="https://rishimsengg.ac.in/#">AQAR (2023-2024)</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/#">AQAR (2022-2023)</a></li>
-
-                                                            </ul>
-
-                                                        </li-->
-
-                                                    </ul>
-
-                                        </li>
-
-
-
-                                        <li class="menu-icon"><a href="#">IQAC</a>
-
-                                                    <ul>
-
-                                                        <li><a href="https://rishimsengg.ac.in/IQAC/IQAC Policy.php">IQAC Policy</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/IQAC/Minutes of Meeting.php">Minutes of Meeting</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/IQAC/Functions.php">Functions</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/IQAC/Activities.php">Activities</a></li>
-
-                                                        <li class="new"><a href="https://rishimsengg.ac.in/committees/IQAC Committee.php">IQAC Committee</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Functional Units/Feeedback System.php">Students Satisfaction Survey</a></li>
-
-                                                    </ul>
-
-                                        </li>
-
-
-
-                                        <li class="menu-icon"><a href="#">R&D</a>
-
-                                                    <ul>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Research and Developement/Academic_Research_and_Development.php">Academic R&D</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Research and Developement/Code of Research in Ethics.php">Code of Research in Ethics</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Research and Developement/Collaborations.php">Collaborations</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Research and Developement/Publications.php">Publications</a></li>
-
-                                                        <!--li><a href="https://rishimsengg.ac.in/Research and Developement/">Authorized R&D Centres</a></li-->
-
-                                                        <!--li><a href="https://rishimsengg.ac.in/Research and Developement/">MOU’s</a></li-->
-
-                                                        <li><a href="https://rishimsengg.ac.in/Research and Developement/Incubation Center.php">Incubation Center</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Research and Developement/Industry Institution Interaction Cell.php">Industry Institution Interaction Cell</a></li>
-
-                                                    </ul>
-
-                                        </li>
-
-
-
-                                        <li><a href="https://rishimsengg.ac.in/EDC.php">EDC</a></li>
-
-
-
-                                        <li><a href="https://rishimsengg.ac.in/NIRF/NIRF.php">NIRF</a></li>
-
-
-
-                                        <li class="menu-icon"><a href="#">Public Documents</a>
-
-                                                    <ul>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Public_Documents/Code_of_Conduct.php">Code of Conduct</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Public_Documents/Students_Hand_Book.php">Students Hand Book</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Public_Documents/Self-Disclosure.php">Self-Discolure</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Public_Documents/Service_Rules.php">Service Rules</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Public_Documents/Brochure.php">Brochure</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Public_Documents/Catalogues.php">Catalogues</a></li>
-
-                                                        <!--li><a href="https://rishimsengg.ac.in/#">News Letters</a></li-->
-
-                                                        <li><a href="https://rishimsengg.ac.in/Public_Documents/Prospectus.php">Prospectus</a></li>
-
-                                                        <!--li><a href="https://rishimsengg.ac.in/#">Forms Download</a></li-->
-
-                                                    </ul>
-
-                                        </li>
-
-
-
-                                        <li class="menu-icon"><a href="#">Approvals</a>
-
-                                                    <ul>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Approvals/AICTE.php">AICTE</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Approvals/JNTU-H.php">JNTU-H</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Approvals/NAAC.php">NAAC</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Approvals/NBA.php">NBA</a></li>
-
-                                                        <li><a href="https://rishimsengg.ac.in/Approvals/UGC.php">UGC</a></li>
-
-                                                    </ul>
-
-                                        </li>
-
-
-
-                                        <li><a href="https://rishimsengg.ac.in/Careers.php">Careers</a>
-
-                                                  
-
-                                        </li>
-
-
-
-                                        <li class="menu-icon"><a href="#">News & Events</a>
-
-                                        <ul>
-
-                                            <li><a href="../PhotoGallery/Gallery.php">Gallery & Events</a></li>
-
-                                            <li><a href="https://rishimsengg.ac.in/PDFs/the_rishi_times/the-rishi-times.php">The Rishi Times <span style="font-size:.65em;background:#842db8;color:#fff;padding:1px 6px;border-radius:4px;margin-left:4px;vertical-align:middle;">New</span></a></li>
-
-                                        </ul>
-
-                                        </li>
-
-
-
-                                        <li><a href="../contact/index.html">Contact Us</a>
-
-                        
-
-                                        </li>
-
-                                    </ul>
-
-                                </div>
-
-                            </nav>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- header-bottom-area end -->
-
-    </header>
-
+        </header>
+    </div>
     <!-- HEADER AREA END -->
 
 
@@ -4188,308 +2963,7 @@ setTimeout(hideLoader, 1500);
 }
 .qe-tab-btn i { font-size: 13px; writing-mode: horizontal-tb; transform: rotate(90deg); }
 
-/* ── OVERLAY ─────────────────────────────────────── */
-.qe-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(10,0,30,.65);
-  z-index: 10000;
-  backdrop-filter: blur(6px);
-}
-
-/* ── MODAL ───────────────────────────────────────── */
-.qe-modal {
-  display: none;
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10001;
-  width: 96%;
-  max-width: 580px;
-  border-radius: 22px;
-  overflow: visible;
-  max-height: 92vh;
-  box-shadow: 0 32px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08);
-  animation: qeSlideIn .35s cubic-bezier(.34,1.56,.64,1) both;
-}
-.qe-modal-box {
-  background: #fff;
-  border-radius: 22px;
-  overflow-y: auto;
-  max-height: 92vh;
-}
-@keyframes qeSlideIn {
-  from { opacity:0; transform:translate(-50%,-46%) scale(.96); }
-  to   { opacity:1; transform:translate(-50%,-50%) scale(1); }
-}
-.qe-modal-box { background: #fff; }
-
-/* ── HEADER ─────────────────────────────────────── */
-.qe-header {
-  background: linear-gradient(135deg, #3b0070 0%, #5e0d8a 40%, #842db8 75%, #a855f7 100%);
-  padding: 22px 22px 16px;
-  position: relative;
-  overflow: visible;
-  border-radius: 22px 22px 0 0;
-}
-.qe-header::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 80% 20%, rgba(243,185,12,.18) 0%, transparent 60%),
-              radial-gradient(ellipse at 10% 80%, rgba(168,85,247,.25) 0%, transparent 50%);
-  pointer-events: none;
-}
-.qe-close {
-  position: absolute; top: 12px; right: 14px;
-  background: rgba(255,255,255,.18);
-  border: 1px solid rgba(255,255,255,.25);
-  color: #fff;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s;
-  line-height: 1; z-index: 2;
-}
-.qe-close:hover { background: rgba(255,255,255,.35); }
-
-.qe-header-top {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 14px;
-  position: relative; z-index: 1;
-}
-.qe-header-icon {
-  width: 52px; height: 52px;
-  background: rgba(255,255,255,.15);
-  border: 2px solid rgba(255,255,255,.3);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; color: #f3b90c;
-  flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(0,0,0,.2);
-}
-.qe-season-badge {
-  display: inline-block;
-  background: rgba(243,185,12,.25);
-  border: 1px solid rgba(243,185,12,.5);
-  color: #f3b90c;
-  font-size: 10px; font-weight: 800;
-  padding: 2px 10px; border-radius: 50px;
-  margin-bottom: 4px; letter-spacing: .8px;
-  text-transform: uppercase;
-}
-.qe-header h2 {
-  font-size: 1.25rem; font-weight: 900;
-  color: #fff !important; margin: 0 0 2px; line-height: 1.2;
-}
-.qe-sub { font-size: 11px; color: rgba(255,255,255,.75); margin: 0; }
-
-/* Accreditation badges */
-.qe-accred-row {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  position: relative; z-index: 1;
-}
-.qe-accred {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 10px; font-weight: 700;
-  padding: 3px 10px; border-radius: 50px;
-  letter-spacing: .3px; white-space: nowrap;
-}
-.qe-accred.naac  { background: rgba(243,185,12,.2); border:1px solid rgba(243,185,12,.5); color:#f3b90c; }
-.qe-accred.nba   { background: rgba(37,211,102,.15); border:1px solid rgba(37,211,102,.4); color:#4ade80; }
-.qe-accred.ugc   { background: rgba(168,85,247,.2); border:1px solid rgba(168,85,247,.4); color:#d8b4fe; }
-.qe-accred.aicte { background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); color:#fff; }
-
-/* ── FORM BODY ───────────────────────────────────── */
-.qe-form-body {
-  padding: 14px 18px 16px;
-  background: #fff;
-}
-
-.qe-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.qe-field { display: flex; flex-direction: column; }
-.qe-field-full { margin-bottom: 8px; }
-
-.qe-field label {
-  font-size: 10.5px; font-weight: 700; color: #444;
-  margin-bottom: 3px; display: flex; align-items: center; gap: 5px;
-}
-.qe-field label i { color: #842db8; font-size: 10px; }
-.qe-field label small { font-weight: 400; color: #aaa; font-size: 10px; }
-.req { color: #e74c3c; }
-
-.qe-field input,
-.qe-field select,
-.qe-field textarea {
-  padding: 7px 11px;
-  border: 1.5px solid #e8d5f5;
-  border-radius: 9px;
-  font-size: 12.5px;
-  outline: none;
-  transition: border-color .2s, box-shadow .2s, background .2s;
-  font-family: inherit;
-  background: #faf5ff;
-  color: #1a1a1a;
-  height: 36px;
-  line-height: 1.2;
-}
-.qe-field input:focus,
-.qe-field select:focus,
-.qe-field textarea:focus {
-  border-color: #842db8;
-  box-shadow: 0 0 0 3px rgba(132,45,184,.12);
-  background: #fff;
-}
-.qe-field input::placeholder { color: #c0a8d8; font-size: 12px; }
-.qe-field select { cursor: pointer; }
-
-/* Phone */
-.qe-phone-wrap { display: flex; gap: 6px; }
-.qe-prefix {
-  background: linear-gradient(135deg, #f3e2ff, #e8d5f5);
-  color: #842db8; font-weight: 800; font-size: 12px;
-  padding: 7px 10px; border-radius: 9px;
-  border: 1.5px solid #e8d5f5; flex-shrink: 0;
-  height: 36px; display: flex; align-items: center;
-}
-.qe-phone-wrap input { flex: 1; }
-
-/* Reason chips */
-.qe-reason-chips {
-  display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px;
-}
-.qe-chip {
-  padding: 4px 11px;
-  border: 1.5px solid #e8d5f5;
-  border-radius: 50px;
-  background: #faf5ff;
-  color: #555; font-size: 11px; font-weight: 600;
-  cursor: pointer; transition: all .2s;
-  font-family: inherit;
-}
-.qe-chip:hover { border-color: #842db8; color: #842db8; background: #f3e2ff; }
-.qe-chip.active {
-  background: linear-gradient(135deg, #842db8, #a855f7);
-  color: #fff; border-color: transparent;
-  box-shadow: 0 3px 10px rgba(132,45,184,.3);
-}
-
-/* Error */
-.qe-error {
-  background: #fff0f0; color: #c0392b;
-  padding: 8px 12px; border-radius: 8px;
-  font-size: 12px; margin-bottom: 10px;
-  border-left: 3px solid #e74c3c;
-  display: flex; align-items: center; gap: 6px;
-}
-
-/* Consent */
-.qe-disclaimer-wrap {
-  display: flex; align-items: flex-start; gap: 8px;
-  background: linear-gradient(135deg, #faf5ff, #f3e2ff);
-  border: 1px solid #e8d5f5;
-  border-radius: 9px; padding: 7px 10px;
-  margin-bottom: 10px;
-}
-.qe-disclaimer-wrap input[type="checkbox"] {
-  margin-top: 2px; flex-shrink: 0;
-  accent-color: #842db8; width: 13px; height: 13px; cursor: pointer;
-}
-.qe-disclaimer-wrap label {
-  font-size: 10.5px; color: #666; line-height: 1.5; cursor: pointer; margin: 0;
-}
-
-/* Buttons */
-.qe-btn-row {
-  display: flex; gap: 8px; margin-bottom: 10px;
-}
-.qe-submit-btn {
-  flex: 1;
-  background: linear-gradient(135deg, #5e0d8a, #842db8, #a855f7);
-  color: #fff; border: none;
-  padding: 11px 16px; border-radius: 10px;
-  font-size: 13.5px; font-weight: 800;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 7px;
-  transition: transform .15s, box-shadow .15s, opacity .2s;
-  box-shadow: 0 5px 18px rgba(132,45,184,.4);
-  letter-spacing: .3px;
-}
-.qe-submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(132,45,184,.5); }
-.qe-submit-btn:active { transform: translateY(0); }
-.qe-submit-btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
-
-.qe-wa-btn {
-  background: linear-gradient(135deg, #25D366, #1ebe5d);
-  color: #fff !important; text-decoration: none;
-  padding: 11px 16px; border-radius: 10px;
-  font-size: 13.5px; font-weight: 800;
-  display: flex; align-items: center; gap: 7px;
-  transition: transform .15s, box-shadow .15s;
-  box-shadow: 0 5px 18px rgba(37,211,102,.35);
-  white-space: nowrap;
-}
-.qe-wa-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,211,102,.45); }
-
-.qe-secure-note {
-  text-align: center; font-size: 10.5px; color: #aaa;
-  display: flex; align-items: center; justify-content: center; gap: 5px;
-  margin: 0;
-}
-.qe-secure-note i { color: #842db8; }
-
-/* Success */
-.qe-success-wrap { padding: 36px 28px; text-align: center; }
-.qe-success-icon {
-  width: 76px; height: 76px;
-  background: linear-gradient(135deg, #d4edda, #a8f0c0);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-  font-size: 2.2rem; color: #28a745;
-  box-shadow: 0 8px 24px rgba(40,167,69,.25);
-}
-.qe-success-wrap h3 { font-size: 1.3rem; font-weight: 900; color: #1a1a1a; margin-bottom: 6px; }
-.qe-success-wrap p  { font-size: 13px; color: #666; margin-bottom: 18px; }
-.qe-contact-info {
-  background: linear-gradient(135deg, #faf5ff, #f3e2ff);
-  border: 1px solid #e8d5f5;
-  border-radius: 12px; padding: 16px;
-  margin-bottom: 18px;
-  display: flex; flex-direction: column; gap: 10px; text-align: left;
-}
-.qe-contact-info a {
-  font-size: 13px; color: #842db8; text-decoration: none;
-  display: flex; align-items: center; gap: 8px; font-weight: 700;
-}
-.qe-contact-info a.wa-link { color: #25D366; }
-.qe-reset-btn {
-  background: linear-gradient(135deg, #842db8, #a855f7);
-  color: #fff; border: none;
-  padding: 10px 24px; border-radius: 8px;
-  font-weight: 800; cursor: pointer; font-size: 13px;
-  box-shadow: 0 4px 14px rgba(132,45,184,.35);
-}
-
-/* Responsive */
-@media (max-width: 560px) {
-  .qe-row { grid-template-columns: 1fr; gap: 10px; }
-  .qe-modal { max-width: 98%; border-radius: 18px; }
-  .qe-form-body { padding: 14px 16px 16px; }
-  .qe-header { padding: 18px 16px 14px; }
-  .qe-btn-row { flex-direction: column; }
-  .qe-accred-row { gap: 4px; }
-  .qe-accred { font-size: 9px; padding: 2px 8px; }
-}
+/* ── QUICK ENQUIRY & TABS DELEGATED TO RITW-THEME.CSS ── */
 </style>
 
 <script src="https://www.google.com/recaptcha/api.js?render=6Lf2pdEsAAAAAKCBrJ-DfFI6NUdsMbvJRbjKcGoO"></script>
@@ -4758,6 +3232,1951 @@ setTimeout(hideLoader, 1500);
     <script src="../js/search-index.js"></script>
     <script src="../js/search-local.js"></script>
     <script src="../js/enquiry-local.js"></script>
+
+
+<!-- =========================================================================
+     SREYAS-INSPIRED FULL-SCREEN TWO-PANE MEGA MENU OVERLAY
+     Reference: https://sreyas.ac.in/ Popup Navigation Design
+     Colors: Deep Dark Navy (#061826, #0A2540) & Emerald Green (#22AE6F / #159B62)
+     ========================================================================= -->
+<div id="ritwSreyasMegaOverlay" class="ritw-sreyas-overlay" aria-hidden="true">
+  <div class="ritw-sreyas-modal">
+    
+    <!-- Top Header Bar inside Modal -->
+    <!-- Body: 2-Pane Interactive Split -->
+    <div class="ritw-sreyas-body">
+      
+      <!-- Left Sidebar: Categories Navigation -->
+      <div class="ritw-sreyas-sidebar">
+        <ul class="ritw-sreyas-cat-list" role="tablist">
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn active" data-target="sreyas-pane-about" role="tab" aria-selected="true">
+              <span>About</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn " data-target="sreyas-pane-academics" role="tab" aria-selected="false">
+              <span>Academics</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn " data-target="sreyas-pane-departments" role="tab" aria-selected="false">
+              <span>Departments</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn " data-target="sreyas-pane-admissions" role="tab" aria-selected="false">
+              <span>Admissions</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn " data-target="sreyas-pane-placements" role="tab" aria-selected="false">
+              <span>Placements</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn " data-target="sreyas-pane-accreditation" role="tab" aria-selected="false">
+              <span>Accreditation</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn " data-target="sreyas-pane-campus-life" role="tab" aria-selected="false">
+              <span>Campus Life</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn " data-target="sreyas-pane-governance" role="tab" aria-selected="false">
+              <span>Governance</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item">
+            <button type="button" class="ritw-sreyas-cat-btn " data-target="sreyas-pane-media---connect" role="tab" aria-selected="false">
+              <span>Media & Connect</span>
+              <i class="fas fa-chevron-right ritw-sreyas-chevron"></i>
+            </button>
+          </li>
+          <li class="ritw-sreyas-cat-item sreyas-cat-portal" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(10, 37, 64, 0.08);">
+            <a href="portal/index.html" class="ritw-sreyas-cat-btn" style="background: linear-gradient(135deg, #22AE6F 0%, #159B62 100%); color: #ffffff !important; border-radius: 12px; font-weight: 700; text-decoration: none;">
+              <span><i class="fas fa-user-circle me-1"></i> Campus Portal</span>
+              <span class="ritw-link-arrow" style="color: #ffffff;">↗</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right Panel: High-Contrast Dark Card with Sub-Links -->
+      <div class="ritw-sreyas-content-card">
+        <div class="ritw-sreyas-pane active" id="sreyas-pane-about" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">About <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-3">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">The Institution</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Logo_Flag_Color_Theme.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Logo | Flag | Color | Theme</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/About_Rishi_College_Group_of_Institutions.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About Rishi Group of Institutions</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Vision,_Mission_&_Quality_Policy.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Vision, Mission & Quality Policy</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Objectives.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Objectives</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Aspirations.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Aspirations</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Institution_Development_Plan.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Institution Development Plan</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="about/index.html" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About Our College "RITW"</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Leadership & Governance</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Chairman's_Desk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Chairman's Desk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Secretary’s_Desk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Secretary's Desk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Director_Desk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Director's Desk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Principal's_Desk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Principal's Desk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Governing_Council.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Governing Council</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Organisation_Workflow.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Organisation Workflow</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Academic_Advisory_Board.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academic Advisory Board</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Approvals/AICTE.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">AICTE Documents</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Institutional Approvals</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/Approvals/UGC.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">UGC Recognition</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/NAAC_Certificate.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NAAC Accreditation</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Approvals/NBA.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NBA Accreditation</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Audit_Statements.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Audit Statements</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Ombudsperson.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Ombudsperson</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Public Documents</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Public_Documents/Code_of_Conduct.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Code of Conduct</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Public_Documents/Students_Hand_Book.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Students Hand Book</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ritw-sreyas-pane " id="sreyas-pane-academics" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">Academics <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-2">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Academic Framework</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academics</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Academics/University Academic Calendar.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">University Academic Calendar</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Academics/Institution Academic Calendar.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Institution Academic Calendar</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/about/Academic_Advisory_Board.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academic Core Committees</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Academics/CO'S and PO'S.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">CO'S & PO'S</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Examination Branch & COE</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://jntuhresults.in/" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Results</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Exam Branch</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Exam Branch/Exam Branch.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About Exam Branch & COE</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Exam Branch/Academic Calendar.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academic Calendar - JNTU-H</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Exam Branch/Punishment for Malpractice Case.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Punishment for Malpractice Case</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://exams.jntuh.ac.in/Portal/common/load.action" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Exam Time Table - JNTU-H</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Exam Branch/Download Applications.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Download Applications</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ritw-sreyas-pane " id="sreyas-pane-departments" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">Departments <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-4">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Computer Science & Engg</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Departments</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Computer Science and Engineering >></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/About Dept.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About Dept</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Vision & Mission.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Vision & Mission</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Objectives.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Objectives</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Work Culture.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Work Culture</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Academic Calendar.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academic Calendar</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/HOD.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">HOD</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Faculty.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Faculty</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Course Outcomes.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Course Outcomes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Program Outcomes.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Program Outcomes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/PEO's and PSO's.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">PEO's and PSO's</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Teaching and Learning Methodologies.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Teaching And Learning Methodologies</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Dept Publications.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Dept Publications</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Placements.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Placements</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/R&D Wing.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">R&D Wing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Library.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Library</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/E-Classroom.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">E-Classroom</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Result Analysis.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Result Analysis</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Slow Learners.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Slow Learners</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Syllabus.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Syllabus</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Labs.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Labs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/E Learning Resources.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">E Learning Resources</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Add-on.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Add-on</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Projects.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Projects</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/SWOT.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">SWOT</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Information Technology</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Gallery.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Gallery</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Computer Science and Engineering/Contact.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Contact</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Information Technology >></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/About Dept.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About Dept</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Vision & Mission.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Vision & Mission</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Objectives.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Objectives</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Work Culture.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Work Culture</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Academic Calendar.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academic Calendar</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/HOD.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">HOD</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Faculty.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Faculty</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Course Outcomes.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Course Outcomes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Program Outcomes.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Program Outcomes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Teaching and Learning Methodologies.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Teaching And Learning Methodologies</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Dept Publications.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Dept Publications</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Placements.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Placements</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/R&D Wing.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">R&D Wing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Library.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Library</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/E-Classroom.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">E-Classroom</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Result Analysis.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Result Analysis</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Slow Learners.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Slow Learners</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Syllabus.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Syllabus</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Labs.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Labs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Add-on.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Add-on</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Projects.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Projects</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/SWOT.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">SWOT</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Gallery.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Gallery</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Electronics & Comm (ECE)</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Information Technology/Contact.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Contact</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Electronics and Communication Engineering >></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/About Dept.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About Dept</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Vision & Mission.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Vision & Mission</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Objectives.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Objectives</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Work Culture.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Work Culture</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Academic Calendar.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academic Calendar</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/HOD.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">HOD</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Faculty.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Faculty</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Course Outcomes.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Course Outcomes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Program Outcomes.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Program Outcomes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Teaching and Learning Methodologies.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Teaching And Learning Methodologies</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Dept Publications.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Dept Publications</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Placements.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Placements</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/R&D Wing.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">R&D Wing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Library.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Library</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/E-Classroom.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">E-Classroom</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Result Analysis.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Result Analysis</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Slow Learners.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Slow Learners</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Syllabus.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Syllabus</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Labs.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Labs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Add-on.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Add-on</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Projects.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Projects</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/SWOT.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">SWOT</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Gallery.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Gallery</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Electronics and Communication Engineering/Contact.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Contact</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Humanities & Sciences</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Humanities and Sciences >></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/About Dept.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About Dept</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Vision & Mission.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Vision & Mission</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Objectives.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Objectives</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Work Culture.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Work Culture</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Academic Calendar.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academic Calendar</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/HOD.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">HOD</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Faculty.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Faculty</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Course Outcomes.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Course Outcomes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Program Outcomes.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Program Outcomes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Teaching and Learning Methodologies.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Teaching And Learning Methodologies</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Dept Publications.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Dept Publications</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/R&D Wing.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">R&D Wing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Library.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Library</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/E-Classroom.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">E-Classroom</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Result Analysis.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Result Analysis</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Slow Learners.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Slow Learners</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Syllabus.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Syllabus</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/E-Learning Resources.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">E Learning Resources</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Labs.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Labs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Add-on.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Add-on</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/SWOT.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">SWOT</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Gallery.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Gallery</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Departments/Humanities and Sciences/Contact.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Contact</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ritw-sreyas-pane " id="sreyas-pane-admissions" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">Admissions <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-1">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Direct Links</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Admissions</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Admissions/Admission_Process_and_Guidelines.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Admission process and guidelines</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Admissions/Courses Offered and Intake.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Courses Offered &amp; Intake</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Admissions/Admission Form.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Admission Form</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Admissions/Admission Fee Structure.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Admission Fee Structure</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://telanganaepass.cgg.gov.in/" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Scholarships</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ritw-sreyas-pane " id="sreyas-pane-placements" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">Placements <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-3">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Placement Cell</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/About Placement Cell at RITW.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About Placement Cell</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Placement Officer.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Head of Training and Placements and the Team</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Placement Cell Infrastructure.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Placement Cell Infrastructure</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Ranking and Highlights.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Rankings and Highlights</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Pre Placement Training.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Pre Placement Training</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Industry & CoE</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Center of Excellence.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Center of Excellence (COE) programs - SAP Code Unnati</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Center of Excellence - Honeywell.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Center of Excellence (COE) programs - Honeywell</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Incubation_Cell.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Incubation Cell</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/MOU's and Partnership Programs.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">MoU’S and Partnership Programs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Industrial Visits.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Industrial Visits</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Recruitment Drives</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Internship_Programs.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Internships</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/Top Companies Visited.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Top Companies Visited</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/2026 and Upcoming Placement Drives.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">2026 and Upcoming Placement Drives</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/placements/2025 - Placements and Highlights.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Placements - 2025 Highlights</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ritw-sreyas-pane " id="sreyas-pane-accreditation" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">Accreditation <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-4">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">NAAC & NIRF</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NAAC >></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/NAAC.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NAAC CYCLE I</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/DVV.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">DVV CYCLE I</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">AQAR >></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">AQAR (2023-2024)</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">AQAR (2022-2023)</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/NIRF/NIRF.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NIRF</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">IQAC Quality</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/IQAC/IQAC Policy.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">IQAC Policy</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/IQAC/Minutes of Meeting.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Minutes of Meeting</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/IQAC/Functions.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Functions</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/IQAC/Activities.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Activities</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/IQAC Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">IQAC Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Feeedback System.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Students Satisfaction Survey</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Research & Dev</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/Research and Developement/Academic_Research_and_Development.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Academic R&D</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Research and Developement/Code of Research in Ethics.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Code of Research in Ethics</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Research and Developement/Collaborations.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Collaborations</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Research and Developement/Publications.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Publications</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Research and Developement/" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Authorized R&D Centres</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Research and Developement/" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">MOU’s</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Research and Developement/Incubation Center.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Incubation Center</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Research and Developement/Industry Institution Interaction Cell.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Industry Institution Interaction Cell</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Approvals</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/Approvals/AICTE.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">AICTE</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Approvals/JNTU-H.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">JNTU-H</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Approvals/NAAC.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NAAC</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Approvals/NBA.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NBA</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Approvals/UGC.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">UGC</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ritw-sreyas-pane " id="sreyas-pane-campus-life" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">Campus Life <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-4">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Learning Spaces</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Facilities</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/infrastructure.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Infrastructure</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Central_Library.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Central Library</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Conventional_Library.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Conventional Library</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Digital_Library.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Digital Library</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/E-Class_Rooms.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">E-Class Rooms</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/IEEE-Kiosk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">IEEE-Kiosk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/NPTEL-Kiosk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NPTEL-Kiosk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/MHRD-AICTE-UGC-NSDC-TASK-Kiosk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">MHRD-AICTE-UGC-NSDC-TASK-Kiosk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/AIML_Data_Science_Labs.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">AIML &amp; Data Science Labs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Vibrant_Student_Clubs.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Vibrant Student Clubs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Seminar_Halls_Auditoriums.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Seminar Halls &amp; Auditoriums</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Student Amenities</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Discussion_Chambers.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Discussion Chambers</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Remedial_Kiosk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Remedial Kiosk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Slow_Learners_Kiosk.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Slow Learner’s Kiosk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Transportation_Facility.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Transportation Facility</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/PhysicalEducation/Physical Education.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Sports &amp; Games</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Medical_Safety_Center.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Medical &amp; Safety Center</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Open_Gym.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Open Gym</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Pure_Safe_RO_Plant.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Pure &amp; Safe RO Plant</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Cafeteria.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Cafeteria</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Social_Welfare_Services.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Social Welfare Services</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Water_Harvesting.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Water Harvesting</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Power_Backup.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Power Backup</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/facilities/Others.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Others</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Clubs & Wings</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/NSS/About_NSS.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About NSS</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/NSS/About_NSS_Coordinator.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">About NSS Coordinator</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/NSS/NSS_-_Committee_&_Activities_Overview.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NSS Committee & Activities</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/NSS/NSS_Events.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NSS Events List</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/NSS/NSS_Gallery.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NSS Gallery</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/NSS/NCC.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NCC</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/EDC.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">EDC</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/PCS.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">PCS</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Alumni & Staff</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/Exam Branch/Procedure to apply for transcripts.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Procedure to apply for transcripts</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://jntuhresults.in/" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Results</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Functional Units</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/RTI_-_Right_to_Information.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">RTI - Right to Information</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Alumni  >></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Association.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Alumni Association</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Alumni/Distinguished Alumni.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Distinguished Alumni</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Meets.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Alumni Meets</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Talks.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Alumni Talks</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Contribution.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Alumni Contribution</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Alumni/Success Stories.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Success Stories</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Alumni/Alumni Registration Form.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Alumni Registration Form</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ritw-sreyas-pane " id="sreyas-pane-governance" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">Governance <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-3">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Statutory & Welfare</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Grievance%20Redressal%20Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Grievance Redressal Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Feeedback System.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Feedback System</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Feeedback System.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Feedback System</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Teaching_Staff.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Technical Staff</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/Non_Teaching_Staff.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Non-Teaching Staff</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Functional Units/PhysicalEducation/Physical Education.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Physical Education & Sports</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Committees</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Governing Body Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Governing Body Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Research And Development Cell.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Research And Development Cell</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Financial Assistance Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Financial Assistance Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Student Training And Placement Cell.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Student Training And Placement Cell</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Alumni Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Alumni Committee</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Academic Operations</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Grievance Redressal Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Grievance Redressal Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Women Welfare Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Women Welfare Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Library and E-learning Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Library and E-learning Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Anti Sexual Harassment Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Anti Sexual Harassment Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Canteen Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Canteen Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Anti Ragging Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Anti Ragging Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/College Academic Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">College Academic Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Sports And Games Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Sports And Games Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/SC ST CELL.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">SC/ST CELL</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/NSS Cell.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">NSS Cell</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Industry Institute Interaction Cell.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Industry Institute Interaction Cell</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Public Relations Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Public Relations Committee</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Student Life & Cells</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Time-Table Committiee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Time-Table Committiee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/SDC Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">SDC Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/IQAC Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">IQAC Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Maintenance Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Maintenance Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Internal Complaints Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Internal Complaints Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/OBC Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">OBC Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Minority Cell.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Minority Cell</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Admissions Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Admissions Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Attendance Monitoring Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Attendance Monitoring Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Cultural Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Cultural Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/ECO Clubs Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">ECO Clubs Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Festivities Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Festivities Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Mentoring Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Mentoring Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Photography Committee.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Photography Committee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/committees/Primary Health Centre.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Primary Health Centre</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Public_Documents/Self-Disclosure.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Self-Discolure</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Public_Documents/Service_Rules.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Service Rules</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Public_Documents/Brochure.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Brochure</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Public_Documents/Catalogues.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Catalogues</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">News Letters</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Public_Documents/Prospectus.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Prospectus</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/#" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Forms Download</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ritw-sreyas-pane " id="sreyas-pane-media---connect" role="tabpanel">
+          <div class="ritw-sreyas-pane-header">
+            <h2 class="ritw-sreyas-pane-title">Media & Connect <span class="ritw-sreyas-title-line"></span></h2>
+          </div>
+          <div class="ritw-sreyas-pane-grid ritw-cols-1">
+            <div class="ritw-sreyas-pane-col">
+              <h3 class="ritw-sreyas-col-title">Direct Links</h3>
+              <ul class="ritw-sreyas-links">
+                <li>
+                  <a href="PhotoGallery/Gallery.php" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Gallery & Events</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/PDFs/the_rishi_times/the-rishi-times.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">The Rishi Times New</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://rishimsengg.ac.in/Careers.php" target="_blank" rel="noopener">
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Careers</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="contact/index.html" >
+                    <span class="ritw-link-arrow">↗</span>
+                    <span class="ritw-link-text">Contact Us</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script src="/js/ritw-nav-engine.js"></script>
 </body>
 
 </html>
