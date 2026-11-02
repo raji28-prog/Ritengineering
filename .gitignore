@@ -23,6 +23,8 @@ yarn-debug.log*
 # Verification & Test Artifacts
 screenshots/
 edge_user_data*/
+_backups/
+*.bak
 
 # Temporary Test & Scraping Scripts
 crop_analysis.js
