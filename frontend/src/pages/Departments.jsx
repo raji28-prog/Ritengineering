@@ -235,7 +235,55 @@ const DEPARTMENTS = [
       { name: 'VLSI & Microelectronics CAD Lab', desc: 'High-end EDA software suites for ASIC design, FPGA synthesis, and physical layout verification.', icon: 'fas fa-microchip' },
       { name: 'Embedded Systems & IoT Innovation Center', desc: 'ARM Cortex boards, sensor arrays, oscilloscope stations, and wireless testing equipment.', icon: 'fas fa-wifi' }
     ]
+  },
+  {
+    id: 'hns',
+    name: 'Humanities & Sciences (H&S)',
+    shortName: 'H&S',
+    intake: '1st Year Foundation',
+    established: '2009',
+    badge: 'CORE FOUNDATION',
+    hod: {
+      name: 'Head of Department, H&S',
+      degree: 'Ph.D. in Science & Humanities',
+      designation: 'Head of Department, Humanities & Sciences',
+      email: 'hns.hod@rishimsengg.ac.in',
+      phone: '+91-967-623-3050',
+      image: '/images/Dr.ARCHANA BABURAO PATIL.jpg',
+      message: 'Humanities and Sciences builds the mathematical dexterity, laboratory scientific rigor, linguistic confidence, and ethical fortitude of every first-year engineering scholar.'
+    },
+    about: 'The Department of Humanities and Sciences provides foundational education in Engineering Mathematics, Applied Physics, Engineering Chemistry, and Professional English, facilitating a seamless transition from intermediate education to advanced engineering.',
+    targets: [
+      'Conceptual mastery of linear algebra, calculus, and numerical computation.',
+      'Experimental proficiency in semiconductor physics, optics, and material chemistry.',
+      'Phonetic clarity, public speaking, and technical report writing via ELCS labs.',
+      'Environmental sensitization, constitutional values, and professional ethics.'
+    ],
+    futureApps: 'Computational modeling, material science synthesis, quantum optics, renewable energy research, and cross-cultural corporate communication.',
+    outcomes: [
+      'Apply mathematical and physical principles to model real-world engineering problems.',
+      'Demonstrate experimental accuracy in chemical and physical laboratory assays.',
+      'Communicate complex technical thoughts clearly in speech and technical documentation.'
+    ],
+    trends: [
+      'Computational Mathematics & Mathematical Modeling',
+      'Advanced Functional Nanomaterials & Green Chemistry',
+      'Digital Language Phonetics & Automated Speech Analysis'
+    ],
+    careers: [
+      'Applied R&D Scientist',
+      'Data Analytics & Quantitative Modeler',
+      'Higher Studies (M.S. / Ph.D. in Premier Universities)',
+      'Scientific Technical Officer'
+    ],
+    labs: [
+      { name: 'English Language Communication Skills (ELCS) Lab', desc: 'Computerized phonetic software suites for accent neutralization, listening comprehension, and interview readiness.', icon: 'fas fa-headset' },
+      { name: 'Engineering Physics Laboratory', desc: 'Spectrometers, laser diffraction apparatus, ultrasonic interferometers, and Hall effect experiments.', icon: 'fas fa-atom' },
+      { name: 'Engineering Chemistry Laboratory', desc: 'Digital spectrophotometers, conductometers, colorimeters, and analytical water-hardness assay kits.', icon: 'fas fa-flask' },
+      { name: 'Basic Engineering Workshop', desc: 'Hands-on fabrication bays for fitting, carpentry, electrical house wiring, and sheet metal fabrication.', icon: 'fas fa-hammer' }
+    ]
   }
+
 ];
 
 export default function Departments() {
@@ -243,7 +291,7 @@ export default function Departments() {
   const [userSelectedDeptId, setUserSelectedDeptId] = useState(null);
 
   const hash = location.hash.replace('#', '');
-  const isHashValid = ['aiml', 'ds', 'it', 'ece', 'cse'].includes(hash);
+  const isHashValid = ['aiml', 'ds', 'it', 'ece', 'cse', 'hns'].includes(hash);
 
   useEffect(() => {
     if (isHashValid) {
