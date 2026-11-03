@@ -118,6 +118,10 @@ app.get(['/about', '/about/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'about', 'index.html'), sendFileOpts);
 });
 
+app.get(['/academics', '/academics/*path'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'academics', 'index.html'), sendFileOpts);
+});
+
 app.get(['/departments', '/departments/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'departments', 'index.html'), sendFileOpts);
 });
@@ -128,6 +132,10 @@ app.get(['/admissions', '/admissions/*path'], (req, res) => {
 
 app.get(['/placements', '/placements/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'placements', 'index.html'), sendFileOpts);
+});
+
+app.get(['/announcements', '/announcements/*path'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'announcements', 'index.html'), sendFileOpts);
 });
 
 app.get(['/contact', '/contact/*path'], (req, res) => {
