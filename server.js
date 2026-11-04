@@ -148,6 +148,11 @@ app.get(['/contact', '/contact/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'contact', 'index.html'), sendFileOpts);
 });
 
+// Defensive catch for malformed /href= navigation
+app.get(['/href=', '/href=*path'], (req, res) => {
+    res.redirect('/');
+});
+
 
 // Static fallback for other root files
 app.use(express.static(__dirname, sendFileOpts));
