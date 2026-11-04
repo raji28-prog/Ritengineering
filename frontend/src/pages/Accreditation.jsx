@@ -24,7 +24,7 @@ const ACCREDITATIONS_DATA = [
     agency: 'National Assessment and Accreditation Council (UGC)',
     validity: 'Cycle-I Comprehensive Institutional Accreditation',
     icon: 'fas fa-award',
-    logo: '/images/NAAC-A.png',
+    logo: '/images/NAAC_Certificate_Rishi_MS_Institute_of_Engineering_and_Technology_for_Women.webp',
     desc: 'The prestigious NAAC "A" Grade affirms the highest institutional standards across curriculum delivery, faculty doctoral expertise, state-of-the-art research laboratories, student progression, and ethical governance.',
     highlights: [
       'High institutional CGPA reflecting pedagogical excellence and student satisfaction.',
@@ -87,14 +87,14 @@ const IQAC_MEMBERS = [
 ];
 
 const STATUTORY_DOWNLOADS = [
-  { title: "UGC Autonomous Conferment Notification Order", type: "PDF Document", size: "1.8 MB", date: "Official Order" },
-  { title: "NAAC 'A' Grade Accreditation Certificate & Peer Team Report", type: "PDF Document", size: "3.4 MB", date: "Cycle-I Report" },
-  { title: "NBA Accreditation Letters for B.Tech Programs", type: "PDF Document", size: "2.1 MB", date: "NBA Council" },
-  { title: "AICTE Extension of Approval (EOA) 2026–27", type: "PDF Document", size: "1.4 MB", date: "AICTE SCRO" },
-  { title: "AICTE Mandatory Disclosures 2026–27 (Full Blueprint)", type: "PDF Document", size: "4.8 MB", date: "Statutory PDF" },
-  { title: "NIRF Data Submission & Verified Metric Tables 2026", type: "PDF Document", size: "2.6 MB", date: "NIRF Ranking" },
-  { title: "IQAC Annual Quality Assurance Report (AQAR) 2025–26", type: "PDF Document", size: "3.2 MB", date: "IQAC Audit" },
-  { title: "JNTUH Permanent Affiliation & Ratification Orders", type: "PDF Document", size: "1.9 MB", date: "University Registrar" }
+  { title: "UGC Section 2(f) & Autonomous Conferment Order", type: "PDF Document", size: "409 KB", date: "Official UGC Order", url: "/PDFs/UGC-2f.pdf" },
+  { title: "NAAC 'A' Grade Accreditation Grade Sheet", type: "PDF Document", size: "502 KB", date: "Cycle-I Institutional Sheet", url: "/PDFs/Institutional_Grade_NAAC_A_Sheet.pdf" },
+  { title: "AICTE Extension of Approval (EOA) 2025–26", type: "PDF Document", size: "180 KB", date: "AICTE New Delhi", url: "/PDFs/AICTE_2025-2026.pdf" },
+  { title: "AICTE Extension of Approval (EOA) 2024–25", type: "PDF Document", size: "179 KB", date: "AICTE New Delhi", url: "/PDFs/AICTE_2024-2025.pdf" },
+  { title: "JNTUH Affiliation Proceedings 2024–25", type: "PDF Document", size: "298 KB", date: "JNTU Hyderabad", url: "/PDFs/JNTUH_2024-2025.pdf" },
+  { title: "JNTUH Affiliation Proceedings 2023–24", type: "PDF Document", size: "290 KB", date: "JNTU Hyderabad", url: "/PDFs/JNTUH_2023-2024.pdf" },
+  { title: "Institutional Development Plan (IDP)", type: "PDF Document", size: "211 KB", date: "RITW Strategic Blueprint", url: "/PDFs/RITW IDP.pdf" },
+  { title: "Official B.Tech Admission Form 2026–27", type: "PDF Document", size: "233 KB", date: "Admissions Directorate", url: "/PDFs/Admission-Form.pdf" }
 ];
 
 export default function Accreditation() {
@@ -360,10 +360,10 @@ export default function Accreditation() {
                 </div>
                 <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--fui-border-light)' }}>
                   <a 
-                    href="#download" 
+                    href={doc.url} 
+                    download
                     className="btn-cta btn-cta-navy" 
                     style={{ width: '100%', padding: '7px 12px', fontSize: '12px', textAlign: 'center', justifyContent: 'center' }}
-                    onClick={(e) => { e.preventDefault(); alert(`Downloading: ${doc.title}`); }}
                   >
                     <i className="fas fa-download" aria-hidden="true"></i>
                     <span>Download Official PDF</span>

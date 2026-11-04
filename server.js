@@ -136,6 +136,10 @@ app.get(['/placements', '/placements/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'placements', 'index.html'), sendFileOpts);
 });
 
+app.get(['/accreditation', '/accreditation/*path'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'accreditation', 'index.html'), sendFileOpts);
+});
+
 app.get(['/announcements', '/announcements/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'announcements', 'index.html'), sendFileOpts);
 });

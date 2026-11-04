@@ -184,6 +184,10 @@ export default function Admissions() {
                   <i className="fas fa-paper-plane" aria-hidden="true"></i>
                   <span>Submit Admission Enquiry</span>
                 </a>
+                <a href="/PDFs/Admission-Form.pdf" download className="btn-cta btn-cta-navy">
+                  <i className="fas fa-file-download" aria-hidden="true"></i>
+                  <span>Download Admission Form (PDF)</span>
+                </a>
                 <a
                   href="https://wa.me/919676233050?text=Hi%2C%20I%20want%20details%20about%20RITW%20Admissions%202026-27"
                   target="_blank"
