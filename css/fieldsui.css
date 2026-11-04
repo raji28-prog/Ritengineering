@@ -57,6 +57,98 @@
   --fui-trans-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Image Dimension Bounds Safeguards */
+img {
+  max-width: 100%;
+  height: auto;
+}
+img.fui-brand-logo, .fui-brand-logo {
+  max-height: 52px !important;
+  max-width: 220px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+.fui-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  text-decoration: none !important;
+}
+.fui-brand-text {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.fui-brand-title {
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: var(--fui-navy) !important;
+  line-height: 1.2 !important;
+}
+.fui-brand-sub {
+  font-size: 0.75rem !important;
+  color: var(--fui-text-muted) !important;
+  line-height: 1.2 !important;
+}
+.fui-navbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--fui-border) !important;
+  box-shadow: var(--fui-shadow-sm) !important;
+}
+.fui-navbar-inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 12px 0 !important;
+}
+.fui-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+.fui-nav-link {
+  color: var(--fui-navy) !important;
+  font-weight: 600 !important;
+  font-size: 0.92rem !important;
+  text-decoration: none !important;
+  padding: 6px 10px !important;
+  border-radius: var(--fui-radius-sm) !important;
+  transition: all var(--fui-trans-fast) !important;
+}
+.fui-nav-link:hover, .fui-nav-link.active {
+  color: var(--fui-emerald) !important;
+  background: var(--fui-emerald-tint) !important;
+}
+.fui-topbar {
+  background: var(--fui-navy-900) !important;
+  color: #e2e8f0 !important;
+  font-size: 0.8rem !important;
+  padding: 8px 0 !important;
+}
+.fui-topbar-inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+.fui-topbar-left, .fui-topbar-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+.fui-topbar-right a {
+  color: #e2e8f0 !important;
+  text-decoration: none !important;
+}
+.fui-topbar-portal {
+  background: var(--fui-emerald) !important;
+  color: #ffffff !important;
+  padding: 2px 10px !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+}
+
+
 /* ============================================================================
    GLOBAL CONTAINER & BASE TYPOGRAPHY FOR ALL CONTENT PAGES
    ============================================================================ */
