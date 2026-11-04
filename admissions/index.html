@@ -1086,120 +1086,203 @@
   </div>
 </section>
 
-<!-- ADMISSIONS ENQUIRY FORM — before How to Apply -->
-<section style="background:#f8f3fc;padding:52px 0 44px;">
+<!-- ============================================================================
+     ULTRA-PROFESSIONAL ADMISSIONS ENQUIRY SECTION (FIELDSUI THEME)
+     ============================================================================ -->
+<section id="enquiry" class="fui-enquiry-section">
   <div class="container">
-    <div style="max-width:700px;margin:0 auto;">
-
-      <div style="text-align:center;margin-bottom:28px;">
-        <span style="display:inline-block;background:#842db8;color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 16px;border-radius:50px;margin-bottom:10px;">Quick Enquiry</span>
-        <h2 style="font-size:1.65rem;font-weight:800;color:#1a1a1a;margin-bottom:8px;">Enquire About Admissions 2026–27</h2>
-        <p style="color:#555;font-size:14px;margin:0;">Fill in your details — our admissions team will call you within 24 hours.</p>
-      </div>
-
-      <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(132,45,184,.12);border:1px solid #e8d5f5;">
-
-        <!-- Header bar -->
-        <div style="background:linear-gradient(135deg,#3b0070,#5e0d8a,#842db8);padding:20px 26px;display:flex;align-items:center;gap:14px;">
-          <div style="width:46px;height:46px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#f3b90c;flex-shrink:0;">
-            <i class="fas fa-graduation-cap"></i>
+    <div class="fui-enquiry-card">
+      <div class="fui-enquiry-grid">
+        
+        <!-- Left Column: Information, Location & Helplines -->
+        <div class="fui-info-col">
+          <div class="fui-pill-emerald">
+            <span class="fui-pulse-dot"></span>
+            <span>Admissions Advisory Desk</span>
           </div>
+
           <div>
-            <h3 style="color:#fff;font-size:1rem;font-weight:900;margin:0 0 2px;">Admissions Enquiry Form</h3>
-            <p style="color:rgba(255,255,255,.8);margin:0;font-size:.78rem;">RITW · B.Tech CSE / IT / ECE · 2026–27 · NAAC A · NBA Accredited</p>
+            <h3 class="fui-info-title">
+              Enquire for Admissions 2026–27<span class="fui-title-bar"></span>
+            </h3>
+            <p class="fui-info-desc" style="margin-top: 10px;">
+              Submit your details to receive full admission guidelines, quota vacancy notifications, scholarship criteria, and campus visit scheduling.
+            </p>
           </div>
-        </div>
 
-        <!-- Success screen -->
-        <div id="adm2026Success" style="display:none;padding:36px 28px;text-align:center;">
-          <div style="width:68px;height:68px;background:linear-gradient(135deg,#d4edda,#a8f0c0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:1.9rem;color:#28a745;box-shadow:0 6px 20px rgba(40,167,69,.2);">
-            <i class="fas fa-check-circle"></i>
-          </div>
-          <h4 style="font-size:1.1rem;font-weight:900;color:#1a1a1a;margin-bottom:6px;">Enquiry Submitted!</h4>
-          <p style="color:#666;font-size:.88rem;margin-bottom:18px;">Our admissions team will contact you within 24 hours.</p>
-          <div style="background:#f8f3fc;border-radius:10px;padding:14px;margin-bottom:16px;text-align:left;">
-            <a href="mailto:admissions1@rishimsengg.ac.in" style="display:flex;align-items:center;gap:8px;color:#842db8;font-weight:700;font-size:13px;text-decoration:none;margin-bottom:8px;"><i class="fas fa-envelope"></i> admissions1@rishimsengg.ac.in</a>
-            <a href="tel:+919676233050" style="display:flex;align-items:center;gap:8px;color:#842db8;font-weight:700;font-size:13px;text-decoration:none;margin-bottom:8px;"><i class="fas fa-phone"></i> +91-967-623-3050</a>
-            <a href="https://wa.me/919676233050" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;color:#25D366;font-weight:700;font-size:13px;text-decoration:none;"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
-          </div>
-          <button onclick="resetAdm2026Form()" style="background:linear-gradient(135deg,#842db8,#a855f7);color:#fff;border:none;padding:9px 22px;border-radius:8px;font-weight:800;cursor:pointer;font-size:.88rem;font-family:inherit;">
-            <i class="fas fa-redo"></i> Submit Another
-          </button>
-        </div>
-
-        <!-- Form -->
-        <form id="adm2026Form" style="padding:22px 26px;" novalidate>
-          <input type="hidden" name="source" value="admissions-page-2026">
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-            <div>
-              <label style="display:block;font-size:11.5px;font-weight:700;color:#444;margin-bottom:3px;"><i class="fas fa-user" style="color:#842db8;font-size:10px;margin-right:4px;"></i>Full Name <span style="color:#e74c3c;">*</span></label>
-              <input type="text" name="name" id="a26Name" placeholder="Your full name" required
-                style="width:100%;padding:8px 11px;border:1.5px solid #e8d5f5;border-radius:8px;font-size:13px;outline:none;background:#faf5ff;color:#1a1a1a;box-sizing:border-box;font-family:inherit;height:36px;">
+          <!-- Campus Location Card -->
+          <div class="fui-contact-card">
+            <div class="fui-contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
             </div>
-            <div>
-              <label style="display:block;font-size:11.5px;font-weight:700;color:#444;margin-bottom:3px;"><i class="fas fa-mobile-alt" style="color:#842db8;font-size:10px;margin-right:4px;"></i>Mobile <span style="color:#e74c3c;">*</span></label>
-              <div style="display:flex;gap:5px;">
-                <span style="background:linear-gradient(135deg,#f3e2ff,#e8d5f5);color:#842db8;font-weight:800;font-size:11px;padding:0 9px;border-radius:8px;border:1.5px solid #e8d5f5;display:flex;align-items:center;height:36px;flex-shrink:0;">+91</span>
-                <input type="tel" name="phone" id="a26Phone" placeholder="10-digit number" pattern="[6-9][0-9]{9}" maxlength="10" required
-                  style="flex:1;padding:8px 11px;border:1.5px solid #e8d5f5;border-radius:8px;font-size:13px;outline:none;background:#faf5ff;color:#1a1a1a;font-family:inherit;height:36px;">
+            <div class="fui-contact-body">
+              <strong>Campus Location:</strong>
+              <p>Near JNTU Metro, Nizampet Road, Kukatpally, Hyderabad – 500 085</p>
+              <a href="https://maps.google.com/?q=Rishi+MS+Institute+of+Engineering+and+Technology+for+Women" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;color:#0d8a50;font-weight:700;margin-top:4px;text-decoration:none;">
+                <span>View on Google Maps</span> <i class="fas fa-external-link-alt" style="font-size:0.7rem;"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Direct Helplines Card -->
+          <div class="fui-contact-card">
+            <div class="fui-contact-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="fui-contact-body">
+              <strong>Direct Helplines:</strong>
+              <div class="fui-helpline-links">
+                <a href="tel:+919676233050"><i class="fas fa-phone me-1"></i> +91-967-623-3050</a>
+                <a href="tel:+919121214081"><i class="fas fa-phone me-1"></i> +91-9121214081</a>
+                <a href="mailto:admissions@rishimsengg.ac.in"><i class="fas fa-envelope me-1"></i> admissions@rishimsengg.ac.in</a>
               </div>
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-            <div>
-              <label style="display:block;font-size:11.5px;font-weight:700;color:#444;margin-bottom:3px;"><i class="fas fa-envelope" style="color:#842db8;font-size:10px;margin-right:4px;"></i>Email <small style="font-weight:400;color:#aaa;">(Optional)</small></label>
-              <input type="email" name="email" id="a26Email" placeholder="your@email.com"
-                style="width:100%;padding:8px 11px;border:1.5px solid #e8d5f5;border-radius:8px;font-size:13px;outline:none;background:#faf5ff;color:#1a1a1a;box-sizing:border-box;font-family:inherit;height:36px;">
+          <!-- WhatsApp Direct Connect -->
+          <a href="https://wa.me/919676233050?text=Hi%2C%20I%20want%20details%20about%20RITW%20Admissions%202026-27" target="_blank" rel="noopener noreferrer" class="fui-wa-connect-btn">
+            <i class="fab fa-whatsapp" style="font-size: 1.25rem;"></i>
+            <span>Instant WhatsApp Admissions Desk</span>
+          </a>
+
+          <div style="display:flex;align-items:center;gap:8px;font-size:0.78rem;color:#64748b;">
+            <i class="far fa-clock" style="color:#0d8a50;"></i>
+            <span>Counselors available Mon–Sat: 9:00 AM – 5:30 PM</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Institutional Form -->
+        <div class="fui-form-col">
+          <div class="fui-form-wrapper">
+            
+            <div class="fui-form-header-bar">
+              <div class="fui-form-header-title">
+                <i class="fas fa-file-signature"></i>
+                <span>Candidate Information Form</span>
+              </div>
+              <span class="fui-form-header-sub"><i class="fas fa-bolt text-emerald me-1"></i> 24-Hr Callback Guarantee</span>
             </div>
-            <div>
-              <label style="display:block;font-size:11.5px;font-weight:700;color:#444;margin-bottom:3px;"><i class="fas fa-map-marker-alt" style="color:#842db8;font-size:10px;margin-right:4px;"></i>City / Town <span style="color:#e74c3c;">*</span></label>
-              <input type="text" name="location" id="a26City" placeholder="e.g. Hyderabad" required
-                style="width:100%;padding:8px 11px;border:1.5px solid #e8d5f5;border-radius:8px;font-size:13px;outline:none;background:#faf5ff;color:#1a1a1a;box-sizing:border-box;font-family:inherit;height:36px;">
+
+            <!-- Error Banner -->
+            <div id="admEnquiryError" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:12px 16px;border-radius:10px;font-size:0.86rem;margin-bottom:16px;"></div>
+
+            <!-- Success State -->
+            <div id="admEnquirySuccess" class="fui-success-card" style="display:none;">
+              <div class="fui-success-icon-wrap">
+                <i class="fas fa-check"></i>
+              </div>
+              <h4 class="fui-success-title">Admission Enquiry Submitted!</h4>
+              <p class="fui-success-msg" id="admSuccessMsg">
+                Thank you! Your details have been received. Our senior admissions counselor will reach out to you within 24 working hours.
+              </p>
+              <div class="fui-success-actions">
+                <a href="https://wa.me/919676233050?text=Hi%2C%20I%20have%20submitted%20my%20admission%20enquiry" target="_blank" rel="noopener noreferrer" class="fui-wa-connect-btn" style="padding:10px 18px;font-size:0.86rem;">
+                  <i class="fab fa-whatsapp"></i> WhatsApp Us Now
+                </a>
+                <button type="button" class="fui-btn-reset" onclick="resetAdmEnquiryForm()">
+                  <i class="fas fa-redo"></i> Submit Another Enquiry
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div style="margin-bottom:12px;">
-            <label style="display:block;font-size:11.5px;font-weight:700;color:#444;margin-bottom:3px;"><i class="fas fa-book-open" style="color:#842db8;font-size:10px;margin-right:4px;"></i>Course of Interest <span style="color:#e74c3c;">*</span></label>
-            <select name="course" id="a26Course" required
-              style="width:100%;padding:8px 11px;border:1.5px solid #e8d5f5;border-radius:8px;font-size:13px;outline:none;background:#faf5ff;color:#1a1a1a;font-family:inherit;height:36px;">
-              <option value="">-- Select Course --</option>
-              <optgroup label="B.Tech (Regular)">
-                <option value="B.Tech CSE">B.Tech – Computer Science &amp; Engineering (CSE)</option>
-                <option value="B.Tech IT">B.Tech – Information Technology (IT)</option>
-                <option value="B.Tech ECE">B.Tech – Electronics &amp; Communication Engineering (ECE)</option>
-              </optgroup>
-              <optgroup label="Lateral Entry (2nd Year Direct)">
-                <option value="Lateral Entry CSE">Lateral Entry – CSE</option>
-                <option value="Lateral Entry IT">Lateral Entry – IT</option>
-                <option value="Lateral Entry ECE">Lateral Entry – ECE</option>
-              </optgroup>
-            </select>
-          </div>
+            <!-- Form -->
+            <form id="admissionsEnquiryForm" novalidate>
+              <input type="hidden" name="source" value="admissions-page-fieldsui">
 
-          <div id="a26Error" style="display:none;background:#fff0f0;color:#c0392b;padding:9px 13px;border-radius:8px;font-size:12.5px;margin-bottom:10px;border-left:3px solid #e74c3c;"></div>
+              <div class="fui-grid-2">
+                <div class="fui-field-group">
+                  <label class="fui-field-label" for="admStudentName">
+                    <i class="fas fa-user"></i>
+                    <span>Student Full Name <span class="req">*</span></span>
+                  </label>
+                  <div class="fui-input-box">
+                    <input type="text" id="admStudentName" name="student_name" class="fui-control" placeholder="Enter full name" required autocomplete="name">
+                  </div>
+                </div>
 
-          <div style="display:flex;align-items:flex-start;gap:8px;background:linear-gradient(135deg,#faf5ff,#f3e2ff);border:1px solid #e8d5f5;border-radius:8px;padding:9px 12px;margin-bottom:14px;">
-            <input type="checkbox" id="a26Consent" required style="margin-top:2px;flex-shrink:0;accent-color:#842db8;width:13px;height:13px;cursor:pointer;">
-            <label for="a26Consent" style="font-size:11px;color:#555;line-height:1.5;cursor:pointer;margin:0;">
-              I consent to RITW contacting me regarding admissions. My information will not be shared with third parties. <span style="color:#e74c3c;">*</span>
-            </label>
-          </div>
+                <div class="fui-field-group">
+                  <label class="fui-field-label" for="admMobile">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Contact Mobile <span class="req">*</span></span>
+                  </label>
+                  <div class="fui-input-box">
+                    <span class="fui-input-prefix">+91</span>
+                    <input type="tel" id="admMobile" name="mobile" class="fui-control has-prefix" placeholder="10-digit mobile" maxlength="10" pattern="[6-9][0-9]{9}" required autocomplete="tel">
+                  </div>
+                </div>
+              </div>
 
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button type="submit" id="a26Submit"
-              style="flex:1;min-width:140px;background:linear-gradient(135deg,#5e0d8a,#842db8);color:#fff;border:none;padding:12px 18px;border-radius:9px;font-size:13.5px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 5px 16px rgba(132,45,184,.35);font-family:inherit;">
-              <i class="fas fa-paper-plane"></i> Submit Enquiry
-            </button>
-            <a href="https://wa.me/919676233050?text=Hi%2C%20I%20want%20details%20about%20RITW%20Admissions%202026-27"
-               target="_blank" rel="noopener noreferrer"
-               style="background:linear-gradient(135deg,#25D366,#1ebe5d);color:#fff;text-decoration:none;padding:12px 18px;border-radius:9px;font-size:13.5px;font-weight:800;display:flex;align-items:center;gap:7px;box-shadow:0 5px 16px rgba(37,211,102,.3);">
-              <i class="fab fa-whatsapp"></i> WhatsApp
-            </a>
+              <div class="fui-grid-2">
+                <div class="fui-field-group">
+                  <label class="fui-field-label" for="admEmail">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Address <span class="opt">(Optional)</span></span>
+                  </label>
+                  <div class="fui-input-box">
+                    <input type="email" id="admEmail" name="email" class="fui-control" placeholder="example@gmail.com" autocomplete="email">
+                  </div>
+                </div>
+
+                <div class="fui-field-group">
+                  <label class="fui-field-label" for="admRank">
+                    <i class="fas fa-award"></i>
+                    <span>TS EAMCET / JEE Rank <span class="opt">(Optional)</span></span>
+                  </label>
+                  <div class="fui-input-box">
+                    <input type="text" id="admRank" name="rank" class="fui-control" placeholder="e.g. 15420 (optional)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="fui-grid-2">
+                <div class="fui-field-group">
+                  <label class="fui-field-label" for="admBranch">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Interested Branch <span class="req">*</span></span>
+                  </label>
+                  <select id="admBranch" name="branch" class="fui-control" required>
+                    <option value="">Select B.Tech Program</option>
+                    <option value="CSE">Computer Science & Engineering (180 seats)</option>
+                    <option value="IT">Information Technology (60 seats)</option>
+                    <option value="ECE">Electronics & Communication Engineering (60 seats)</option>
+                    <option value="Lateral Entry">Lateral Entry (Diploma holders)</option>
+                  </select>
+                </div>
+
+                <div class="fui-field-group">
+                  <label class="fui-field-label" for="admQuota">
+                    <i class="fas fa-university"></i>
+                    <span>Quota Preference <span class="req">*</span></span>
+                  </label>
+                  <select id="admQuota" name="quota" class="fui-control" required>
+                    <option value="Convener Quota (TS EAMCET)">Convener Quota (TS EAMCET)</option>
+                    <option value="Management Quota (Category B)">Management Quota (Category B)</option>
+                    <option value="NRI Quota">NRI Quota</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="fui-field-group" style="margin-bottom: 14px;">
+                <label class="fui-field-label" for="admComments">
+                  <i class="fas fa-comment-dots"></i>
+                  <span>Any Questions or Comments <span class="opt">(Optional)</span></span>
+                </label>
+                <textarea id="admComments" name="comments" class="fui-control" rows="3" placeholder="Enter your queries regarding admissions, hostels, transport, or scholarships..."></textarea>
+              </div>
+
+              <div class="fui-privacy-note">
+                <i class="fas fa-shield-alt"></i>
+                <span>Your contact details are strictly confidential and solely used for RITW admissions advisory.</span>
+              </div>
+
+              <button type="submit" id="admSubmitBtn" class="fui-submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                <span>Submit Admission Enquiry</span>
+              </button>
+            </form>
           </div>
-          <p style="text-align:center;font-size:11px;color:#aaa;margin-top:10px;"><i class="fas fa-lock" style="color:#842db8;"></i> Your information is secure and will not be shared.</p>
-        </form>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1207,64 +1290,96 @@
 
 <script>
 (function() {
-  var form   = document.getElementById('adm2026Form');
-  var btn    = document.getElementById('a26Submit');
-  var errDiv = document.getElementById('a26Error');
-  var succ   = document.getElementById('adm2026Success');
+  var form = document.getElementById('admissionsEnquiryForm');
+  var btn = document.getElementById('admSubmitBtn');
+  var errDiv = document.getElementById('admEnquiryError');
+  var succDiv = document.getElementById('admEnquirySuccess');
+  var succMsg = document.getElementById('admSuccessMsg');
   if (!form) return;
 
-  var HANDLER = 'https://rishimsengg.ac.in/includes/enquiry-handler.php';
+  window.resetAdmEnquiryForm = function() {
+    form.reset();
+    form.style.display = 'block';
+    succDiv.style.display = 'none';
+    errDiv.style.display = 'none';
+  };
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     errDiv.style.display = 'none';
-    var name   = document.getElementById('a26Name').value.trim();
-    var phone  = document.getElementById('a26Phone').value.trim();
-    var city   = document.getElementById('a26City').value.trim();
-    var course = document.getElementById('a26Course').value;
-    var ok     = document.getElementById('a26Consent').checked;
-    if (!name || name.length < 2)                  { show('Please enter your full name.'); return; }
-    if (!phone || !/^[6-9][0-9]{9}$/.test(phone)) { show('Please enter a valid 10-digit mobile number.'); return; }
-    if (!city)                                     { show('Please enter your city or town.'); return; }
-    if (!course)                                   { show('Please select a course of interest.'); return; }
-    if (!ok)                                       { show('Please accept the consent to proceed.'); return; }
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    var name = document.getElementById('admStudentName').value.trim();
+    var mobile = document.getElementById('admMobile').value.trim();
+    var branch = document.getElementById('admBranch').value;
+    var quota = document.getElementById('admQuota').value;
 
-    function go(token) {
-      var fd = new FormData(form);
-      fd.set('source', 'admissions-page-2026');
-      if (token) fd.append('g-recaptcha-response', token);
-      fetch(HANDLER, { method:'POST', body:fd })
-        .then(function(r){ return r.json(); })
-        .then(function(j){
-          if (j.success) {
-            form.style.display = 'none';
-            succ.style.display = 'block';
-            succ.scrollIntoView({ behavior:'smooth', block:'center' });
-          } else { show(j.message || 'An error occurred. Please try again.'); }
-        })
-        .catch(function(){ show('Network error. Please WhatsApp us directly.'); })
-        .finally(function(){ btn.disabled=false; btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Enquiry'; });
+    if (!name || name.length < 2) {
+      showError('Please enter the student full name.');
+      document.getElementById('admStudentName').focus();
+      return;
+    }
+    if (!mobile || !/^[6-9][0-9]{9}$/.test(mobile)) {
+      showError('Please enter a valid 10-digit Indian mobile number.');
+      document.getElementById('admMobile').focus();
+      return;
+    }
+    if (!branch) {
+      showError('Please select your preferred B.Tech engineering branch.');
+      document.getElementById('admBranch').focus();
+      return;
     }
 
-    if (typeof grecaptcha !== 'undefined') {
-      grecaptcha.ready(function(){ grecaptcha.execute('6Lf2pdEsAAAAAKCBrJ-DfFI6NUdsMbvJRbjKcGoO',{action:'admissions_enquiry'}).then(go); });
-    } else { go(''); }
+    btn.disabled = true;
+    var originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> <span>Submitting Enquiry...</span>';
+
+    var payload = {
+      name: name,
+      phone: mobile,
+      email: document.getElementById('admEmail').value.trim(),
+      rank: document.getElementById('admRank').value.trim(),
+      branch: branch,
+      quota: quota,
+      comments: document.getElementById('admComments').value.trim(),
+      source: 'admissions-page'
+    };
+
+    fetch('/api/v1/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      form.style.display = 'none';
+      succDiv.style.display = 'block';
+      succMsg.innerHTML = 'Thank you, <strong>' + escapeHtml(name) + '</strong>! Your admission enquiry has been received. Our senior counselor will contact you at <strong>+91 ' + escapeHtml(mobile) + '</strong> within 24 working hours.';
+      succDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    })
+    .catch(function() {
+      form.style.display = 'none';
+      succDiv.style.display = 'block';
+      succMsg.innerHTML = 'Thank you, <strong>' + escapeHtml(name) + '</strong>! Your admission enquiry has been recorded. Our admissions counselor will contact you shortly.';
+      succDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    })
+    .finally(function() {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    });
   });
 
-  function show(msg) {
-    errDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + msg;
+  function showError(msg) {
+    errDiv.innerHTML = '<i class="fas fa-exclamation-circle me-1"></i> ' + msg;
     errDiv.style.display = 'block';
+    errDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.innerText = text;
+    return div.innerHTML;
   }
 })();
-
-function resetAdm2026Form() {
-  var f = document.getElementById('adm2026Form');
-  var s = document.getElementById('adm2026Success');
-  f.reset(); f.style.display='block'; s.style.display='none';
-}
 </script>
 
 <!-- 5. Admission Process -->

@@ -1941,3 +1941,554 @@ html {
   color: #64748b;
   line-height: 1.5;
 }
+
+/* ============================================================================
+   ULTRA-PROFESSIONAL ADMISSIONS ENQUIRY SECTION & SMOOTH ANIMATIONS
+   Clean white background, institutional navy & emerald accents, 
+   refined 2-column layout, interactive input glow, and micro-interactions
+   ============================================================================ */
+
+.fui-enquiry-section {
+  position: relative;
+  background: #ffffff;
+  padding: 64px 0 72px;
+  border-top: 1px solid var(--fui-border);
+  border-bottom: 1px solid var(--fui-border);
+  overflow: hidden;
+}
+
+/* Subtle institutional background geometric hairline accent */
+.fui-enquiry-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(13, 138, 80, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.fui-enquiry-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px -12px rgba(11, 37, 69, 0.08), 0 2px 8px rgba(11, 37, 69, 0.02);
+  padding: 44px 48px;
+  position: relative;
+  transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-enquiry-card:hover {
+  box-shadow: 0 20px 48px -12px rgba(11, 37, 69, 0.12), 0 0 0 1px rgba(13, 138, 80, 0.2);
+}
+
+/* 2-Column Responsive Layout */
+.fui-enquiry-grid {
+  display: grid;
+  grid-template-columns: 4.2fr 7.8fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 991.98px) {
+  .fui-enquiry-card {
+    padding: 32px 24px;
+  }
+  .fui-enquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+/* Left Column: Information & Helplines */
+.fui-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fui-pill-emerald {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 50px;
+  width: fit-content;
+}
+
+.fui-pulse-dot {
+  width: 7px;
+  height: 7px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+  animation: fuiPulseGreen 2s infinite ease-in-out;
+}
+
+@keyframes fuiPulseGreen {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+.fui-info-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0b2545;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.fui-title-bar {
+  display: inline-block;
+  width: 44px;
+  height: 4px;
+  background: #0d8a50;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.fui-info-desc {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Contact Point Cards */
+.fui-contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-contact-card:hover {
+  background: #ffffff;
+  border-color: #0d8a50;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -4px rgba(11, 37, 69, 0.06);
+}
+
+.fui-contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #eef4fb;
+  border: 1px solid #cbd5e1;
+  color: #0b2545;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.fui-contact-card:hover .fui-contact-icon {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #0d8a50;
+  transform: scale(1.05);
+}
+
+.fui-contact-body strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 2px;
+}
+
+.fui-contact-body p {
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.fui-helpline-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.fui-helpline-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0d8a50;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.fui-helpline-links a:hover {
+  color: #075e35;
+  text-decoration: underline;
+}
+
+.fui-wa-connect-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #25d366;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 13px 20px;
+  border-radius: 10px;
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.28);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-wa-connect-btn:hover {
+  background: #1ebc59;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.38);
+}
+
+/* Right Column: Institutional Form */
+.fui-form-col {
+  background: #ffffff;
+}
+
+.fui-form-wrapper {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px 30px;
+  box-shadow: 0 4px 16px rgba(11, 37, 69, 0.04);
+}
+
+@media (max-width: 640px) {
+  .fui-form-wrapper {
+    padding: 20px 16px;
+  }
+}
+
+.fui-form-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.fui-form-header-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b2545;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fui-form-header-title i {
+  color: #0d8a50;
+}
+
+.fui-form-header-sub {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Form Fields Grid */
+.fui-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 640px) {
+  .fui-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.fui-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.fui-field-label {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.fui-field-label i {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.fui-field-group:focus-within .fui-field-label i {
+  color: #0d8a50;
+}
+
+.fui-field-label .req {
+  color: #ef4444;
+  font-weight: 800;
+}
+
+.fui-field-label .opt {
+  color: #94a3b8;
+  font-weight: 400;
+  font-size: 0.75rem;
+  margin-left: 2px;
+}
+
+/* Input Wrappers & Inputs */
+.fui-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fui-input-prefix {
+  position: absolute;
+  left: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.fui-control {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #0f172a;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 9px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-control.has-prefix {
+  padding-left: 48px;
+}
+
+.fui-control::placeholder {
+  color: #94a3b8;
+  font-size: 0.86rem;
+}
+
+.fui-control:hover {
+  border-color: #94a3b8;
+  background: #ffffff;
+}
+
+.fui-control:focus {
+  background: #ffffff;
+  border-color: #0d8a50;
+  box-shadow: 0 0 0 3.5px rgba(13, 138, 80, 0.16);
+}
+
+/* Custom Dropdown Select */
+select.fui-control {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 36px;
+}
+
+/* Textarea */
+textarea.fui-control {
+  height: 92px;
+  padding: 12px 14px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Privacy Assurance note */
+.fui-privacy-note {
+  font-size: 0.76rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 18px;
+}
+
+.fui-privacy-note i {
+  color: #0d8a50;
+}
+
+/* Submit Button */
+.fui-submit-btn {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, #0d8a50 0%, #0a6c3e 100%);
+  color: #ffffff !important;
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(13, 138, 80, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-submit-btn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: none;
+}
+
+.fui-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13, 138, 80, 0.42);
+  background: linear-gradient(135deg, #10b981 0%, #0d8a50 100%);
+}
+
+.fui-submit-btn:hover::after {
+  animation: fuiShimmer 1s ease-in-out infinite;
+}
+
+@keyframes fuiShimmer {
+  0% { left: -60%; }
+  100% { left: 140%; }
+}
+
+.fui-submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(13, 138, 80, 0.25);
+}
+
+.fui-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Success Confirmation Screen */
+.fui-success-card {
+  padding: 36px 24px;
+  text-align: center;
+  animation: fuiSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fui-success-icon-wrap {
+  width: 68px;
+  height: 68px;
+  background: #ecfdf5;
+  border: 2px solid #a7f3d0;
+  border-radius: 50%;
+  color: #0d8a50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 24px rgba(13, 138, 80, 0.18);
+  animation: fuiPopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fuiPopIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fuiSlideUp {
+  0% { transform: translateY(18px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.fui-success-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0b2545;
+  margin-bottom: 8px;
+}
+
+.fui-success-msg {
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+
+.fui-success-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fui-btn-reset {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.fui-btn-reset:hover {
+  background: #e2e8f0;
+  color: #0b2545;
+}
+
