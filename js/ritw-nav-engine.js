@@ -11,7 +11,7 @@
  * - Campus Announcements modal controller
  * - Scroll-Reveal IntersectionObserver engine
  */
-(function() {
+(function () {
   'use strict';
 
   function initRITWNavigation() {
@@ -35,7 +35,7 @@
       // Focus first active category button
       var firstBtn = overlay.querySelector('.ritw-sreyas-cat-btn.active') || overlay.querySelector('.ritw-sreyas-cat-btn.is-active') || overlay.querySelector('.ritw-sreyas-cat-btn');
       if (firstBtn) {
-        setTimeout(function() { firstBtn.focus(); }, 150);
+        setTimeout(function () { firstBtn.focus(); }, 150);
       }
     }
 
@@ -49,7 +49,7 @@
     }
 
     // Toggle click on hamburger
-    toggleBtn.addEventListener('click', function(e) {
+    toggleBtn.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
       if (overlay.classList.contains('ritw-sreyas-active') || overlay.classList.contains('is-open')) {
@@ -61,21 +61,21 @@
 
     // Close button click
     if (closeBtn) {
-      closeBtn.addEventListener('click', function(e) {
+      closeBtn.addEventListener('click', function (e) {
         e.preventDefault();
         closeMenu();
       });
     }
 
     // Outside click dismiss
-    overlay.addEventListener('click', function(e) {
+    overlay.addEventListener('click', function (e) {
       if (e.target === overlay) {
         closeMenu();
       }
     });
 
     // Escape key dismiss
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && (overlay.classList.contains('ritw-sreyas-active') || overlay.classList.contains('is-open'))) {
         closeMenu();
       }
@@ -85,11 +85,11 @@
     var hoverIntentTimer = null;
 
     function activateCategory(targetId, clickedBtn) {
-      catButtons.forEach(function(b) {
+      catButtons.forEach(function (b) {
         b.classList.remove('active', 'is-active');
         b.setAttribute('aria-selected', 'false');
       });
-      panes.forEach(function(p) {
+      panes.forEach(function (p) {
         p.classList.remove('active', 'is-active');
       });
 
@@ -102,23 +102,23 @@
       }
     }
 
-    catButtons.forEach(function(btn) {
+    catButtons.forEach(function (btn) {
       var targetId = btn.getAttribute('data-target');
       if (!targetId) return;
 
-      btn.addEventListener('click', function(e) {
+      btn.addEventListener('click', function (e) {
         e.preventDefault();
         activateCategory(targetId, btn);
       });
 
-      btn.addEventListener('mouseenter', function() {
+      btn.addEventListener('mouseenter', function () {
         if (hoverIntentTimer) clearTimeout(hoverIntentTimer);
-        hoverIntentTimer = setTimeout(function() {
+        hoverIntentTimer = setTimeout(function () {
           activateCategory(targetId, btn);
         }, 120);
       });
 
-      btn.addEventListener('mouseleave', function() {
+      btn.addEventListener('mouseleave', function () {
         if (hoverIntentTimer) clearTimeout(hoverIntentTimer);
       });
     });
@@ -126,7 +126,7 @@
     // Keyboard Arrow Navigation inside category list
     var catList = overlay.querySelector('.ritw-sreyas-cat-list');
     if (catList) {
-      catList.addEventListener('keydown', function(e) {
+      catList.addEventListener('keydown', function (e) {
         var buttons = Array.from(catButtons);
         var idx = buttons.indexOf(document.activeElement);
         if (idx === -1) return;
@@ -196,9 +196,9 @@
         }
       }
 
-      navItems.forEach(function(item) {
-        item.addEventListener('mouseenter', function() { openPanel(item); });
-        item.addEventListener('mouseleave', function() {
+      navItems.forEach(function (item) {
+        item.addEventListener('mouseenter', function () { openPanel(item); });
+        item.addEventListener('mouseleave', function () {
           hoverTimer = setTimeout(closeActivePanel, 150);
         });
       });
@@ -208,14 +208,14 @@
   // Scroll-Reveal IntersectionObserver Engine
   function initScrollReveal() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.ritw-reveal, .ritw-reveal-left, .ritw-reveal-right, .ritw-stagger-parent').forEach(function(el) {
+      document.querySelectorAll('.ritw-reveal, .ritw-reveal-left, .ritw-reveal-right, .ritw-stagger-parent').forEach(function (el) {
         el.classList.add('is-visible');
       });
       return;
     }
 
-    var observer = new IntersectionObserver(function(entries, obs) {
-      entries.forEach(function(entry) {
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
           obs.unobserve(entry.target);
@@ -226,7 +226,7 @@
       threshold: 0.12
     });
 
-    document.querySelectorAll('.ritw-reveal, .ritw-reveal-left, .ritw-reveal-right, .ritw-stagger-parent').forEach(function(el) {
+    document.querySelectorAll('.ritw-reveal, .ritw-reveal-left, .ritw-reveal-right, .ritw-stagger-parent').forEach(function (el) {
       observer.observe(el);
     });
   }
@@ -250,7 +250,7 @@
       if (index < 0) index = items.length - 1;
       if (index >= items.length) index = 0;
 
-      items.forEach(function(item, idx) {
+      items.forEach(function (item, idx) {
         if (idx === index) {
           item.classList.add('active');
         } else {
@@ -258,7 +258,7 @@
         }
       });
 
-      dots.forEach(function(dot, idx) {
+      dots.forEach(function (dot, idx) {
         if (idx === index) {
           dot.classList.add('active');
           dot.setAttribute('aria-current', 'true');
@@ -292,7 +292,7 @@
     }
 
     if (prevBtn) {
-      prevBtn.addEventListener('click', function(e) {
+      prevBtn.addEventListener('click', function (e) {
         e.preventDefault();
         prevSlide();
         startAutoplay();
@@ -300,15 +300,15 @@
     }
 
     if (nextBtn) {
-      nextBtn.addEventListener('click', function(e) {
+      nextBtn.addEventListener('click', function (e) {
         e.preventDefault();
         nextSlide();
         startAutoplay();
       });
     }
 
-    dots.forEach(function(dot, idx) {
-      dot.addEventListener('click', function(e) {
+    dots.forEach(function (dot, idx) {
+      dot.addEventListener('click', function (e) {
         e.preventDefault();
         showSlide(idx);
         startAutoplay();
@@ -321,12 +321,12 @@
     // Touch Swipe Support
     var touchStartX = 0;
     var touchEndX = 0;
-    slider.addEventListener('touchstart', function(e) {
+    slider.addEventListener('touchstart', function (e) {
       touchStartX = e.changedTouches[0].screenX;
       stopAutoplay();
     }, { passive: true });
 
-    slider.addEventListener('touchend', function(e) {
+    slider.addEventListener('touchend', function (e) {
       touchEndX = e.changedTouches[0].screenX;
       var diff = touchStartX - touchEndX;
       if (Math.abs(diff) > 40) {
@@ -340,73 +340,59 @@
     startAutoplay();
   }
 
-  // Floating Announcements Tab & Modal
-  function initAnnouncementsModal() {
+  // Direct Page Navigation for Announcements (No popups, modals or overlays)
+  function initAnnouncementsNavigation() {
     var btn = document.getElementById('announcementsTabBtn');
-    var modal = document.getElementById('announcementsModal');
-    var closeBtn = document.getElementById('annModalClose');
-    var viewAllBtn = document.getElementById('annViewAllBtn');
-    if (!btn || !modal) return;
-
-    function openModal() {
-      modal.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      modal.classList.remove('is-open');
-      document.body.style.overflow = '';
-    }
-
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      openModal();
-    });
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function(e) {
+    if (btn) {
+      btn.addEventListener('click', function (e) {
         e.preventDefault();
-        closeModal();
+        window.location.href = '/announcements/';
       });
     }
 
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-        closeModal();
-      }
-    });
-
-    if (viewAllBtn) {
-      viewAllBtn.addEventListener('click', function(e) {
-        closeModal();
-        var annSection = document.getElementById('tab-announcements') || document.querySelector('.ritw-announcements-section');
-        if (annSection) {
-          setTimeout(function() {
-            annSection.scrollIntoView({ behavior: 'smooth' });
-          }, 150);
+    // Tap Interaction for Important Updates Cards on Mobile
+    var interactiveCards = document.querySelectorAll('.ritw-iu-card-interactive');
+    interactiveCards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
+          return;
+        }
+        var wasActive = card.classList.contains('is-active');
+        interactiveCards.forEach(function (c) {
+          c.classList.remove('is-active');
+          c.setAttribute('aria-expanded', 'false');
+        });
+        if (!wasActive) {
+          card.classList.add('is-active');
+          card.setAttribute('aria-expanded', 'true');
         }
       });
-    }
+
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          if (e.target === card) {
+            e.preventDefault();
+            card.click();
+          }
+        }
+      });
+    });
   }
 
   // Initialize all controllers on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       initRITWNavigation();
       initScrollReveal();
       initHeroCardSlider();
-      initAnnouncementsModal();
+      initAnnouncementsNavigation();
+      initDynamicAnnouncements();
     });
   } else {
     initRITWNavigation();
     initScrollReveal();
     initHeroCardSlider();
-    initAnnouncementsModal();
+    initAnnouncementsNavigation();
+    initDynamicAnnouncements();
   }
 })();
