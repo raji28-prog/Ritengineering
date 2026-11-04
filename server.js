@@ -175,7 +175,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start Server
-const server = app.listen(config.PORT, '0.0.0.0', () => {
+const server = app.listen(config.PORT, () => {
     console.log(`\n======================================================`);
     console.log(`  RITW Dynamic College Portal & CMS Server Running!`);
     console.log(`  Public Site:   http://localhost:${config.PORT}`);
@@ -185,3 +185,4 @@ const server = app.listen(config.PORT, '0.0.0.0', () => {
 });
 
 module.exports = { app, server };
+
