@@ -92,6 +92,8 @@ app.use('/img', express.static(path.join(__dirname, 'img'), sendFileOpts));
 app.use('/PhotoGallery', express.static(path.join(__dirname, 'PhotoGallery')));
 app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
 app.use('/webfonts', express.static(path.join(__dirname, 'webfonts')));
+app.use('/PDFs', express.static(path.join(__dirname, 'PDFs'), sendFileOpts));
+app.use('/Statements', express.static(path.join(__dirname, 'Statements'), sendFileOpts));
 
 // Admin Panel Static Serving
 app.use('/admin', express.static(path.join(__dirname, 'admin'), sendFileOpts));
