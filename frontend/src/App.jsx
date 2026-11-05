@@ -70,7 +70,18 @@ function LegacyRedirectHandler() {
       '/about#hostel': '/facilities#hostel',
       '/about#infrastructure': '/facilities#classrooms',
       '/about#library': '/facilities#library',
-      '/about#sports': '/facilities#sports'
+      '/about#sports': '/facilities#sports',
+      '/admissions/admission_process_and_guidelines.php': '/admissions#process',
+      '/admissions/courses%20offered%20and%20intake.php': '/admissions#intake',
+      '/admissions/admission%20form.php': '/admissions#admission-form',
+      '/admissions/admission%20fee%20structure.php': '/admissions#fee-structure',
+      '/admissions/fee%20structure.php': '/admissions#fee-structure',
+      '/admissions#fees': '/admissions#fee-structure',
+      '/admissions#fee': '/admissions#fee-structure',
+      '/admissions#courses': '/admissions#intake',
+      '/admissions#form': '/admissions#admission-form',
+      '/admissions#procedure': '/admissions#process',
+      '/admissions#checklist': '/admissions#certificates'
     };
 
     const key = `${lowerPath}${hash ? hash.toLowerCase() : ''}`;

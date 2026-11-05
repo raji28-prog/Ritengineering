@@ -128,7 +128,7 @@ app.get(['/departments', '/departments/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'departments', 'index.html'), sendFileOpts);
 });
 
-app.get(['/admissions', '/admissions/*path'], (req, res) => {
+app.get(['/admissions', '/admissions/*path', '/Admissions', '/Admissions/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'admissions', 'index.html'), sendFileOpts);
 });
 

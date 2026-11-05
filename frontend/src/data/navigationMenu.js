@@ -119,12 +119,23 @@ export const NAVIGATION_MENU = [
         heading: "Admissions 2026-27",
         icon: "fas fa-graduation-cap",
         links: [
-          { title: "Intake & Eligibility Criteria", path: "/admissions", isInternal: true },
+          { title: "Admissions Overview", path: "/admissions", isInternal: true },
+          { title: "Admission Process (Step-by-Step)", path: "/admissions#process", isInternal: true },
+          { title: "Admission Guidelines & Eligibility", path: "/admissions#guidelines", isInternal: true },
+          { title: "Courses Offered & Intake (540 Seats)", path: "/admissions#intake", isInternal: true },
+          { title: "Admission Application Form (PDF)", path: "/admissions#admission-form", isInternal: true }
+        ]
+      },
+      {
+        heading: "Quotas & Financials",
+        icon: "fas fa-rupee-sign",
+        links: [
+          { title: "Statutory Fee Structure", path: "/admissions#fee-structure", isInternal: true },
+          { title: "Scholarships & TS ePASS Reimbursement", path: "/admissions#scholarships", isInternal: true },
           { title: "TG EAPCET Convenor Quota (Code: RITW)", path: "/admissions#eapcet", isInternal: true },
           { title: "Management / NRI Quota Admissions", path: "/admissions#management", isInternal: true },
-          { title: "Fee Structure & TS Epass Scholarships", path: "/admissions#fees", isInternal: true },
           { title: "Required Certificates Checklist", path: "/admissions#certificates", isInternal: true },
-          { title: "Submit Admission Enquiry Online", path: "/admissions#enquiry-form", isInternal: true }
+          { title: "Submit Admission Enquiry Online", path: "/admissions#enquiry", isInternal: true }
         ]
       }
     ]

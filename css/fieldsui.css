@@ -2492,3 +2492,311 @@ textarea.fui-control {
   color: #0b2545;
 }
 
+
+/* ============================================================================
+   FIELDSUI ADMISSIONS REDESIGN - SPECIALIZED COMPONENTS
+   ============================================================================ */
+.fui-step-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+.fui-step-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 2px 8px rgba(11, 37, 69, 0.04);
+}
+.fui-step-card:hover {
+  transform: translateY(-3px);
+  border-color: #0d8a50;
+  box-shadow: 0 10px 20px -3px rgba(13, 138, 80, 0.1);
+}
+.fui-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: #0d8a50;
+  font-weight: 800;
+  font-size: 0.95rem;
+  border: 1.5px solid #a7f3d0;
+  margin-bottom: 14px;
+}
+.fui-step-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 8px;
+}
+.fui-step-desc {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fui-quota-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.fui-quota-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.04);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.fui-quota-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 24px -4px rgba(11, 37, 69, 0.08);
+}
+.fui-quota-card-convenor {
+  border-top: 4px solid #0d8a50;
+}
+.fui-quota-card-mgmt {
+  border-top: 4px solid #0b2545;
+}
+.fui-quota-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.fui-quota-pct {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0b2545;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.fui-quota-sub {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.fui-bank-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+}
+.fui-bank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+.fui-bank-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.fui-bank-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.fui-bank-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0b2545;
+}
+
+.fui-checklist-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.fui-checklist-table th {
+  background: #0b2545;
+  color: #ffffff;
+  padding: 14px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: none;
+}
+.fui-checklist-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 0.9rem;
+}
+.fui-checklist-table tr:last-child td {
+  border-bottom: none;
+}
+.fui-checklist-table tr:hover td {
+  background: #f8fafc;
+}
+
+.fui-scholarship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.fui-scholarship-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.04);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+.fui-scholarship-card:hover {
+  transform: translateY(-3px);
+  border-color: #0d8a50;
+  box-shadow: 0 12px 24px -4px rgba(13, 138, 80, 0.1);
+}
+.fui-sch-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.fui-sch-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #0d8a50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.fui-sch-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin: 0 0 4px;
+}
+.fui-sch-grant {
+  display: inline-block;
+  background: #eef4fb;
+  color: #0b2545;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.fui-sch-body {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 18px;
+}
+.fui-sch-criteria {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  color: #334155;
+  margin-bottom: 16px;
+}
+.fui-sch-criteria strong {
+  color: #0b2545;
+}
+
+.fui-contact-desk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+.fui-contact-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s ease;
+}
+.fui-contact-card:hover {
+  transform: translateY(-2px);
+  border-color: #0d8a50;
+  box-shadow: 0 8px 16px -2px rgba(11, 37, 69, 0.06);
+}
+.fui-contact-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #eef4fb;
+  color: #0b2545;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.fui-contact-card.emerald .fui-contact-icon {
+  background: #ecfdf5;
+  color: #0d8a50;
+}
+.fui-contact-info h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin: 0 0 4px;
+}
+.fui-contact-info p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0 0 6px;
+}
+.fui-contact-link {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0d8a50;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.fui-contact-link:hover {
+  text-decoration: underline;
+}
+
+/* Print Styles */
+@media print {
+  .fui-sticky-subnav, .fui-enquiry-section, .fui-hero-ctas, .fui-breadcrumb-strip {
+    display: none !important;
+  }
+  .fui-section {
+    padding: 20px 0 !important;
+  }
+}
