@@ -134,6 +134,10 @@ app.get(['/contact', '/contact/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'contact', 'index.html'), sendFileOpts);
 });
 
+app.get(['/announcements', '/announcements/*path'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'announcements', 'index.html'), sendFileOpts);
+});
+
 
 // Static fallback for other root files
 app.use(express.static(__dirname, sendFileOpts));

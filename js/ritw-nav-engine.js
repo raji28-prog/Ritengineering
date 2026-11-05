@@ -340,28 +340,11 @@
     startAutoplay();
   }
 
-  // Floating Announcements Tab & Modal
+  // Floating Announcements Tab Navigation (Direct Page Link)
   function initAnnouncementsModal() {
-    var btn = document.getElementById('announcementsTabBtn');
+    // Floating announcements button now navigates directly to /announcements/
     var modal = document.getElementById('announcementsModal');
-    var closeBtn = document.getElementById('annModalClose');
-    var viewAllBtn = document.getElementById('annViewAllBtn');
-    if (!btn || !modal) return;
-
-    function openModal() {
-      modal.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      modal.classList.remove('is-open');
-      document.body.style.overflow = '';
-    }
-
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      openModal();
-    });
+    if (!modal) return;
 
     if (closeBtn) {
       closeBtn.addEventListener('click', function(e) {
