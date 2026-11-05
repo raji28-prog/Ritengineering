@@ -341,6 +341,38 @@
   }
 
   // Direct Page Navigation for Announcements (No popups, modals or overlays)
+  
+  // Smooth scroll and tab activation for anchor links and URL hashes
+  function initHashNavigation() {
+    function scrollToHash() {
+      var hash = window.location.hash;
+      if (!hash) return;
+      var targetId = hash.replace('#', '');
+      var targetEl = document.getElementById(targetId) || document.querySelector('[name="' + targetId + '"]');
+      if (targetEl) {
+        // Activate any tab matching this anchor
+        var tabTrigger = document.querySelector('[data-target="#' + targetId + '"], [data-tab="' + targetId + '"], [href="#' + targetId + '"]');
+        if (tabTrigger && typeof tabTrigger.click === 'function') {
+          tabTrigger.click();
+        }
+        setTimeout(function () {
+          var headerOffset = 90;
+          var elementPosition = targetEl.getBoundingClientRect().top;
+          var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 120);
+      }
+    }
+
+    if (window.location.hash) {
+      setTimeout(scrollToHash, 250);
+    }
+    window.addEventListener('hashchange', scrollToHash);
+  }
+
   function initAnnouncementsNavigation() {
     var btn = document.getElementById('announcementsTabBtn');
     if (btn) {
@@ -386,6 +418,7 @@
       initScrollReveal();
       initHeroCardSlider();
       initAnnouncementsNavigation();
+      initHashNavigation();
       initDynamicAnnouncements();
     });
   } else {
@@ -393,6 +426,7 @@
     initScrollReveal();
     initHeroCardSlider();
     initAnnouncementsNavigation();
+      initHashNavigation();
     initDynamicAnnouncements();
   }
 })();
