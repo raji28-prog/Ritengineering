@@ -20,7 +20,7 @@ async function apiRequest(endpoint, options = {}) {
     }
 
     try {
-        const res = await fetch(endpoint, { credentials: 'same-origin', ...options, credentials: 'same-origin', headers });
+        const res = await fetch(endpoint, { credentials: 'same-origin', ...options, headers });
         const data = await res.json().catch(() => ({ success: false, message: 'Invalid response from server' }));
 
         if (res.status === 401) {
@@ -41,6 +41,7 @@ async function apiRequest(endpoint, options = {}) {
 // Toast Notifications
 function showToast(message, type = 'success') {
     const container = document.getElementById('toastContainer');
+    if (!container) return;
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     const icon = type === 'success' ? 'check-circle' : (type === 'error' ? 'exclamation-circle' : 'info-circle');
@@ -57,6 +58,7 @@ function showToast(message, type = 'success') {
 // Modal Helper
 function showModal(title, bodyHtml, footerButtonsHtml = '') {
     const container = document.getElementById('modalContainer');
+    if (!container) return;
     container.innerHTML = `
         <div class="modal-backdrop" onclick="if(event.target === this) closeModal()">
             <div class="modal-content">
@@ -72,13 +74,44 @@ function showModal(title, bodyHtml, footerButtonsHtml = '') {
 }
 
 function closeModal() {
-    document.getElementById('modalContainer').innerHTML = '';
+    const container = document.getElementById('modalContainer');
+    if (container) container.innerHTML = '';
 }
 
 // ══════════════════════════════════════════════════════════════
-// AUTHENTICATION
+// AUTHENTICATION & LOGIN SCREEN
 // ══════════════════════════════════════════════════════════════
+function togglePasswordVisibility() {
+    const input = document.getElementById('loginPassword');
+    const icon = document.getElementById('passwordToggleIcon');
+    if (!input || !icon) return;
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+    } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye';
+    }
+}
+
+function toggleMobileSidebar() {
+    const sidebar = document.getElementById('adminSidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (backdrop) backdrop.classList.toggle('active');
+}
+
+function closeMobileSidebar() {
+    const sidebar = document.getElementById('adminSidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    if (sidebar) sidebar.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('active');
+}
+
 async function checkAuthSession() {
+    initRouter();
+
     if (!authToken) {
         showLoginScreen();
         return;
@@ -98,20 +131,27 @@ async function checkAuthSession() {
 }
 
 function showLoginScreen() {
-    document.getElementById('loginView').style.display = 'flex';
-    document.getElementById('dashboardView').style.display = 'none';
+    const loginView = document.getElementById('loginView');
+    const dashboardView = document.getElementById('dashboardView');
+    if (loginView) loginView.style.display = 'flex';
+    if (dashboardView) dashboardView.style.display = 'none';
 }
 
 function showDashboardScreen() {
-    document.getElementById('loginView').style.display = 'none';
-    document.getElementById('dashboardView').style.display = 'flex';
+    const loginView = document.getElementById('loginView');
+    const dashboardView = document.getElementById('dashboardView');
+    if (loginView) loginView.style.display = 'none';
+    if (dashboardView) dashboardView.style.display = 'flex';
 
     if (currentUser) {
-        document.getElementById('sidebarUsername').textContent = currentUser.username;
-        document.getElementById('sidebarAvatar').textContent = currentUser.username.charAt(0).toUpperCase();
+        const nameEl = document.getElementById('sidebarUsername');
+        const avatarEl = document.getElementById('sidebarAvatar');
+        if (nameEl) nameEl.textContent = currentUser.username;
+        if (avatarEl) avatarEl.textContent = currentUser.username.charAt(0).toUpperCase();
     }
 
-    switchTab('dashboard');
+    // Route from initial hash or default to dashboard
+    handleHashRouting();
 }
 
 async function handleLogin(e) {
@@ -141,15 +181,15 @@ async function handleLogin(e) {
             showDashboardScreen();
             showToast('Welcome back, ' + currentUser.username);
         } else {
-            alertBox.textContent = data.message || 'Login failed. Please check your credentials.';
+            alertBox.textContent = data.message || 'Login failed. Please verify your credentials.';
             alertBox.style.display = 'flex';
         }
     } catch (err) {
-        alertBox.textContent = 'Server connection error. Please ensure server is running.';
+        alertBox.textContent = 'Server connection error. Please ensure the backend server is running.';
         alertBox.style.display = 'flex';
     } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Secure Sign In';
+        submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In to Admin Panel';
     }
 }
 
@@ -161,6 +201,7 @@ async function handleLogout() {
     authToken = null;
     localStorage.removeItem('ritw_admin_token');
     currentUser = null;
+    closeMobileSidebar();
     showLoginScreen();
     showToast('Logged out securely');
 }
@@ -169,20 +210,59 @@ function handleSessionExpired() {
     authToken = null;
     localStorage.removeItem('ritw_admin_token');
     currentUser = null;
+    closeMobileSidebar();
     showLoginScreen();
     showToast('Your session has expired. Please sign in again.', 'error');
 }
 
 // ══════════════════════════════════════════════════════════════
-// TAB SWITCHING
+// ROUTING & NAVIGATION
 // ══════════════════════════════════════════════════════════════
-function switchTab(tabName) {
+const VALID_TABS = [
+    'dashboard',
+    'pages',
+    'navigation',
+    'media',
+    'documents',
+    'departments',
+    'announcements',
+    'admissions',
+    'enquiries',
+    'settings'
+];
+
+function initRouter() {
+    window.addEventListener('hashchange', () => {
+        if (authToken && currentUser) {
+            handleHashRouting();
+        }
+    });
+}
+
+function handleHashRouting() {
+    let hash = window.location.hash.replace(/^#\/?/, '').trim();
+    if (!hash || !VALID_TABS.includes(hash)) {
+        hash = 'dashboard';
+    }
+    navigateTo(hash, false);
+}
+
+function navigateTo(tabName, updateHash = true) {
+    if (!VALID_TABS.includes(tabName)) {
+        tabName = 'dashboard';
+    }
     currentTab = tabName;
 
-    // Update sidebar active class
+    if (updateHash) {
+        window.location.hash = '#/' + tabName;
+    }
+
+    closeMobileSidebar();
+
+    // Update active sidebar link
     document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('onclick')?.includes(tabName)) {
+        if (link.getAttribute('data-tab') === tabName) {
             link.classList.add('active');
         }
     });
@@ -190,72 +270,95 @@ function switchTab(tabName) {
     // Hide all tab panes
     document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
 
-    // Show target tab
+    // Show target tab pane
     const targetPane = document.getElementById(`tab-${tabName}`);
     if (targetPane) targetPane.style.display = 'block';
 
     // Update topbar title
     const titles = {
         dashboard: 'Dashboard Overview',
-        pages: 'Pages Management',
-        navigation: 'Header Mega-Menu & Submenus',
-        sections: 'Homepage & Reusable Sections',
-        customFields: 'Custom Field Definitions',
+        pages: 'Page Manager',
+        navigation: 'Navigation Manager & Mega-Menu',
         media: 'Media Asset Library',
-        announcements: 'Flash News & Announcements',
-        settings: 'College Settings & Features',
-        enquiries: 'Student Admission Leads',
-        security: 'Security & Change Password'
+        documents: 'Institutional Document Manager',
+        departments: 'Academic Departments & Programs',
+        announcements: 'Announcements & Events Ticker',
+        admissions: 'Admissions 2026-27 & Placements',
+        enquiries: 'Admission Enquiry Manager',
+        settings: 'Institutional Website Settings'
     };
-    document.getElementById('pageTitle').textContent = titles[tabName] || 'Management Console';
+    const titleEl = document.getElementById('pageTitle');
+    if (titleEl) titleEl.textContent = titles[tabName] || 'Admin Console';
 
-    // Load data for active tab
+    // Load data for active section
     if (tabName === 'dashboard') loadDashboardOverview();
     else if (tabName === 'pages') loadPages();
     else if (tabName === 'navigation') loadNavigation();
-    else if (tabName === 'sections') loadSections();
-    else if (tabName === 'customFields') loadCustomFields();
     else if (tabName === 'media') loadMedia();
+    else if (tabName === 'documents') loadDocuments();
+    else if (tabName === 'departments') loadDepartments();
     else if (tabName === 'announcements') loadAnnouncements();
-    else if (tabName === 'settings') loadCollegeSettings();
+    else if (tabName === 'admissions') loadAdmissionsPlacements();
     else if (tabName === 'enquiries') loadEnquiries();
+    else if (tabName === 'settings') loadCollegeSettings();
 }
 
 // ══════════════════════════════════════════════════════════════
-// DASHBOARD OVERVIEW
+// 1. DASHBOARD OVERVIEW
 // ══════════════════════════════════════════════════════════════
 async function loadDashboardOverview() {
     try {
-        const [pagesRes, navRes, newsRes, enqRes, logsRes] = await Promise.all([
-            apiRequest('/api/v1/admin/pages'),
-            apiRequest('/api/v1/admin/navigation'),
-            apiRequest('/api/v1/admin/announcements'),
-            apiRequest('/api/v1/admin/enquiries'),
-            apiRequest('/api/v1/admin/audit-logs')
-        ]);
+        const summaryRes = await apiRequest('/api/v1/admin/dashboard/summary');
+        if (!summaryRes.success) return;
 
-        document.getElementById('statPages').textContent = pagesRes.pages ? pagesRes.pages.length : 0;
-        document.getElementById('statMenuItems').textContent = navRes.items ? navRes.items.length : 0;
-        document.getElementById('statNews').textContent = newsRes.announcements ? newsRes.announcements.length : 0;
-        document.getElementById('statEnquiries').textContent = enqRes.enquiries ? enqRes.enquiries.length : 0;
+        const { stats, recent_logs, system_info } = summaryRes;
+
+        const statPages = document.getElementById('statPages');
+        const statMenuItems = document.getElementById('statMenuItems');
+        const statNews = document.getElementById('statNews');
+        const statEnquiries = document.getElementById('statEnquiries');
+        const statMedia = document.getElementById('statMedia');
+        const statDocuments = document.getElementById('statDocuments');
+
+        if (statPages) statPages.textContent = stats.pages || 0;
+        if (statMenuItems) statMenuItems.textContent = stats.navigation_items || 0;
+        if (statNews) statNews.textContent = stats.announcements || 0;
+        if (statEnquiries) statEnquiries.textContent = stats.enquiries || 0;
+        if (statMedia) statMedia.textContent = stats.media_assets || 0;
+        if (statDocuments) statDocuments.textContent = stats.documents || 7; // Statutory certificates count
+
+        // Update sidebar badges
+        const newsBadge = document.getElementById('sidebarNewsCount');
+        if (newsBadge) {
+            newsBadge.textContent = stats.announcements || 0;
+            newsBadge.style.display = stats.announcements > 0 ? 'inline-block' : 'none';
+        }
+
+        const leadBadge = document.getElementById('sidebarLeadCount');
+        if (leadBadge) {
+            leadBadge.textContent = stats.new_enquiries || 0;
+            leadBadge.style.display = stats.new_enquiries > 0 ? 'inline-block' : 'none';
+        }
 
         // Render audit logs
         const logsBody = document.getElementById('auditLogsBody');
-        if (logsRes.logs && logsRes.logs.length > 0) {
-            logsBody.innerHTML = logsRes.logs.slice(0, 10).map(log => `
-                <tr>
-                    <td>${new Date(log.created_at).toLocaleString()}</td>
-                    <td><strong>${log.action}</strong></td>
-                    <td>${log.entity_type || '—'}</td>
-                    <td>${log.details || '—'}</td>
-                    <td><code>${log.ip_address}</code></td>
-                </tr>
-            `).join('');
-        } else {
-            logsBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: #8E8EA6;">No recent activity logs.</td></tr>';
+        if (logsBody) {
+            if (recent_logs && recent_logs.length > 0) {
+                logsBody.innerHTML = recent_logs.map(log => `
+                    <tr>
+                        <td>${new Date(log.created_at).toLocaleString()}</td>
+                        <td><strong style="color:var(--primary);">${escapeHtml(log.action)}</strong></td>
+                        <td>${escapeHtml(log.entity_type || '—')}</td>
+                        <td>${escapeHtml(log.details || '—')}</td>
+                        <td><code>${escapeHtml(log.ip_address || 'local')}</code></td>
+                    </tr>
+                `).join('');
+            } else {
+                logsBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: #8E8EA6; padding: 20px;">No recent activity logs.</td></tr>';
+            }
         }
     } catch (err) {
-        console.error('Error loading dashboard stats:', err);
+        console.error('Error loading dashboard summary:', err);
     }
 }
 
@@ -1018,6 +1121,173 @@ async function deleteMedia(id) {
 }
 
 // ══════════════════════════════════════════════════════════════
+// DOCUMENT MANAGER (PDFs & STATUTORY CERTIFICATES)
+// ══════════════════════════════════════════════════════════════
+async function loadDocuments() {
+    try {
+        const search = document.getElementById('docSearchInput')?.value.trim() || '';
+        const category = document.getElementById('docCategoryFilter')?.value || '';
+        let queryParams = [];
+        if (search) queryParams.push(`search=${encodeURIComponent(search)}`);
+        if (category) queryParams.push(`category=${encodeURIComponent(category)}`);
+
+        const endpoint = queryParams.length > 0 
+            ? `/api/v1/admin/documents?${queryParams.join('&')}` 
+            : '/api/v1/admin/documents';
+
+        const res = await apiRequest(endpoint);
+        cachedData.documents = res.documents || [];
+        const tbody = document.getElementById('documentsTableBody');
+
+        if (!tbody) return;
+
+        if (cachedData.documents.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 20px; color:var(--text-muted);">No documents found matching filters.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = cachedData.documents.map(doc => {
+            const badgeClass = doc.is_statutory ? 'badge-statutory' : 'badge-doc';
+            return `
+                <tr>
+                    <td>
+                        <div style="font-weight:600; color:var(--text-main); display:flex; align-items:center; gap:8px;">
+                            <i class="fas fa-file-pdf" style="color:#DC2626;"></i>
+                            ${escapeHtml(doc.title)}
+                        </div>
+                    </td>
+                    <td><span class="${badgeClass}">${escapeHtml(doc.category)}</span></td>
+                    <td>${escapeHtml(doc.issuer || 'RITW College')}</td>
+                    <td>${escapeHtml(doc.academic_year || 'Current')}</td>
+                    <td><span class="badge" style="background:#ECFDF5; color:#065F46; font-size:11px;">${escapeHtml(doc.status || 'Active')}</span></td>
+                    <td>
+                        <a href="${escapeHtml(doc.file_url)}" target="_blank" class="btn btn-secondary btn-sm" style="padding:4px 8px;" title="View Document">
+                            <i class="fas fa-external-link-alt"></i> View / Download
+                        </a>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+async function handleDocUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.includes('pdf')) {
+        showToast('Only PDF documents are supported for upload in Document Manager.', 'error');
+        e.target.value = '';
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('alt_text', file.name.replace(/\.[^/.]+$/, ''));
+
+    try {
+        showToast('Uploading institutional document...', 'info');
+        const res = await apiRequest('/api/v1/admin/media/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (res.success) {
+            showToast('Document uploaded successfully!');
+            loadDocuments();
+            loadDashboardOverview();
+        }
+    } catch (err) {
+        showToast(err.message, 'error');
+    } finally {
+        e.target.value = '';
+    }
+}
+
+// ══════════════════════════════════════════════════════════════
+// DEPARTMENTS & ACADEMICS
+// ══════════════════════════════════════════════════════════════
+async function loadDepartments() {
+    try {
+        const res = await apiRequest('/api/v1/admin/departments');
+        cachedData.departments = res.departments || [];
+        const container = document.getElementById('departmentsGrid');
+
+        if (!container) return;
+
+        container.innerHTML = cachedData.departments.map(dept => `
+            <div class="dept-card">
+                <div class="dept-header">
+                    <span class="dept-badge">${escapeHtml(dept.code)}</span>
+                    <span class="badge" style="background:#ECFDF5; color:#065F46; font-size:11px;">${escapeHtml(dept.accreditation)}</span>
+                </div>
+                <div class="dept-title">${escapeHtml(dept.name)}</div>
+                <div class="dept-meta">
+                    <strong>Degree:</strong> ${escapeHtml(dept.degree)}<br>
+                    <strong>Intake:</strong> ${dept.intake} Students / Year<br>
+                    <strong>Head of Dept:</strong> ${escapeHtml(dept.hod)}<br>
+                    <strong>Contact:</strong> <code>${escapeHtml(dept.email)}</code>
+                </div>
+                <div class="dept-labs">
+                    <strong>Key Laboratories:</strong>
+                    <ul>
+                        ${dept.labs.map(lab => `<li>${escapeHtml(lab)}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+        `).join('');
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+// ══════════════════════════════════════════════════════════════
+// ADMISSIONS & PLACEMENTS
+// ══════════════════════════════════════════════════════════════
+async function loadAdmissionsPlacements() {
+    try {
+        const res = await apiRequest('/api/v1/admin/admissions-placements');
+        if (!res.success) return;
+
+        const { admissions, placements } = res;
+
+        // Render Seat Matrix Table
+        const matrixBody = document.getElementById('admissionsSeatMatrixBody');
+        if (matrixBody && admissions.seat_matrix) {
+            matrixBody.innerHTML = admissions.seat_matrix.map(row => {
+                const convenor = Math.round(row.seats * 0.7);
+                const management = row.seats - convenor;
+                return `
+                    <tr>
+                        <td><strong>${escapeHtml(row.branch)}</strong></td>
+                        <td><code>${escapeHtml(row.code)}</code></td>
+                        <td><span class="badge" style="background:#ECEAF7; color:var(--primary); font-size:12px;">${row.seats} Seats</span></td>
+                        <td>${convenor} Seats</td>
+                        <td>${management} Seats</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Render Recruiters Grid
+        const recruitersGrid = document.getElementById('recruitersGrid');
+        if (recruitersGrid && placements.top_recruiters) {
+            recruitersGrid.innerHTML = placements.top_recruiters.map(rec => `
+                <div style="background:#F8FAFC; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:14px; text-align:center;">
+                    <div style="font-weight:700; color:var(--text-main); font-size:14px; margin-bottom:4px;">${escapeHtml(rec.name)}</div>
+                    <div style="font-size:11.5px; color:var(--secondary); font-weight:600;">${escapeHtml(rec.type)}</div>
+                    <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">${escapeHtml(rec.role)}</div>
+                </div>
+            `).join('');
+        }
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+// ══════════════════════════════════════════════════════════════
 // ANNOUNCEMENTS & FLASH NEWS
 // ══════════════════════════════════════════════════════════════
 async function loadAnnouncements() {
@@ -1222,32 +1492,50 @@ async function saveCollegeSettings(e) {
 // ══════════════════════════════════════════════════════════════
 async function loadEnquiries() {
     try {
+        const statusFilter = document.getElementById('enquiryStatusFilter')?.value || '';
         const res = await apiRequest('/api/v1/admin/enquiries');
-        const enquiries = res.enquiries || [];
+        let enquiries = res.enquiries || [];
         const tbody = document.getElementById('enquiriesTableBody');
 
+        if (!tbody) return;
+
+        if (statusFilter) {
+            enquiries = enquiries.filter(e => e.status === statusFilter);
+        }
+
         if (enquiries.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No admission enquiries recorded yet.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 24px; color:var(--text-muted);">No admission enquiries found.</td></tr>';
             return;
         }
 
-        tbody.innerHTML = enquiries.map(e => `
-            <tr>
-                <td><span style="font-size:12px; color:var(--text-muted);">${new Date(e.created_at).toLocaleDateString()}</span></td>
-                <td><strong>${escapeHtml(e.full_name)}</strong></td>
-                <td><a href="mailto:${escapeHtml(e.email)}">${escapeHtml(e.email)}</a></td>
-                <td><a href="tel:${escapeHtml(e.phone)}">${escapeHtml(e.phone)}</a></td>
-                <td>${escapeHtml(e.course_interested || 'General')}</td>
-                <td><span style="font-size:12.5px;">${escapeHtml(e.message || '—')}</span></td>
-                <td>
-                    <select class="form-control" style="padding: 4px 8px; font-size: 12px; width: 110px;" onchange="updateEnquiryStatus(${e.id}, this.value)">
-                        <option value="new" ${e.status === 'new' ? 'selected' : ''}>New</option>
-                        <option value="contacted" ${e.status === 'contacted' ? 'selected' : ''}>Contacted</option>
-                        <option value="closed" ${e.status === 'closed' ? 'selected' : ''}>Closed</option>
-                    </select>
-                </td>
-            </tr>
-        `).join('');
+        tbody.innerHTML = enquiries.map(e => {
+            const cleanPhone = (e.phone || '').replace(/[^0-9]/g, '');
+            const waUrl = cleanPhone ? `https://wa.me/91${cleanPhone}?text=Hello%20${encodeURIComponent(e.full_name)},%20thank%20you%20for%20contacting%20RITW%20Engineering%20College.` : '#';
+            return `
+                <tr>
+                    <td><span style="font-size:12px; color:var(--text-muted);">${new Date(e.created_at).toLocaleDateString()}</span></td>
+                    <td><strong>${escapeHtml(e.full_name)}</strong></td>
+                    <td><a href="mailto:${escapeHtml(e.email)}" style="color:var(--primary); font-size:13px;">${escapeHtml(e.email)}</a></td>
+                    <td><a href="tel:${escapeHtml(e.phone)}" style="font-weight:600; color:var(--text-main); font-size:13px;">${escapeHtml(e.phone)}</a></td>
+                    <td><span class="badge" style="background:#ECEAF7; color:var(--primary); font-size:11px;">${escapeHtml(e.course_interested || 'General')}</span></td>
+                    <td><span style="font-size:12px; color:var(--text-muted); max-width:200px; display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(e.message || '—')}</span></td>
+                    <td>
+                        <select class="form-control" style="padding: 4px 8px; font-size: 11.5px; width: 105px;" onchange="updateEnquiryStatus(${e.id}, this.value)">
+                            <option value="new" ${e.status === 'new' ? 'selected' : ''}>New</option>
+                            <option value="contacted" ${e.status === 'contacted' ? 'selected' : ''}>Contacted</option>
+                            <option value="closed" ${e.status === 'closed' ? 'selected' : ''}>Closed</option>
+                        </select>
+                    </td>
+                    <td>
+                        ${cleanPhone ? `
+                            <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-success btn-sm" style="padding:4px 8px; font-size:11.5px;" title="Chat on WhatsApp">
+                                <i class="fab fa-whatsapp"></i> Chat
+                            </a>
+                        ` : '—'}
+                    </td>
+                </tr>
+            `;
+        }).join('');
     } catch (err) {
         showToast(err.message, 'error');
     }
