@@ -299,35 +299,174 @@
                 </div>
 
                 <!-- ══════════════════════════════════════════════════
-                     2. SECTION: PAGE MANAGER
+                     2. SECTION: PAGE MANAGER (HYBRID CMS)
                      ══════════════════════════════════════════════════ -->
                 <div id="tab-pages" class="tab-pane" style="display: none;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>Website Pages Inventory</h2>
-                            <button class="btn btn-success btn-sm" onclick="openCreatePageModal()">
-                                <i class="fas fa-plus"></i> Create New Page
-                            </button>
+                    
+                    <!-- 2A. PAGES INVENTORY LIST VIEW -->
+                    <div id="pagesListView">
+                        <!-- HEADER & ACTIONS -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <div class="card-header">
+                                <div>
+                                    <h2 style="margin-bottom: 4px;"><i class="fas fa-file-alt" style="color: var(--primary);"></i> Visual Page Manager</h2>
+                                    <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Manage public website pages directly without coding. Organize by main menu, edit sections, preview changes, and publish live.</p>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-secondary btn-sm" onclick="loadPages()" title="Refresh List">
+                                        <i class="fas fa-sync-alt"></i> Refresh
+                                    </button>
+                                    <button class="btn btn-success btn-sm" onclick="openCreatePageModal()">
+                                        <i class="fas fa-plus"></i> Add New Page
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- MAIN MENU GROUP TABS -->
+                            <div class="cms-menu-tabs-bar">
+                                <button class="cms-menu-tab-btn active" data-group="ALL" onclick="selectMenuGroup('ALL')">
+                                    <i class="fas fa-th-large"></i> All Pages (<span id="countAllPages">0</span>)
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Home" onclick="selectMenuGroup('Home')">
+                                    <i class="fas fa-home"></i> Home
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="About" onclick="selectMenuGroup('About')">
+                                    <i class="fas fa-university"></i> About
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Academics" onclick="selectMenuGroup('Academics')">
+                                    <i class="fas fa-graduation-cap"></i> Academics
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Departments" onclick="selectMenuGroup('Departments')">
+                                    <i class="fas fa-laptop-code"></i> Departments
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Placements" onclick="selectMenuGroup('Placements')">
+                                    <i class="fas fa-briefcase"></i> Placements
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Admissions" onclick="selectMenuGroup('Admissions')">
+                                    <i class="fas fa-user-graduate"></i> Admissions
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Contact" onclick="selectMenuGroup('Contact')">
+                                    <i class="fas fa-envelope"></i> Contact
+                                </button>
+                            </div>
+
+                            <div class="card-body" style="padding-top: 14px; padding-bottom: 14px;">
+                                <!-- SEARCH & FILTER BAR -->
+                                <div class="cms-filter-bar">
+                                    <div style="position: relative; flex: 1; min-width: 240px; max-width: 320px;">
+                                        <input type="text" id="pageSearchInput" class="form-control" placeholder="Search pages by title, URL or slug..." oninput="filterPages()" style="padding-left: 34px;">
+                                        <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 13px;"></i>
+                                    </div>
+                                    <select id="pageStatusFilter" class="form-control" onchange="filterPages()" style="max-width: 160px;">
+                                        <option value="">All Statuses</option>
+                                        <option value="published">Published</option>
+                                        <option value="draft">Draft (Unpublished)</option>
+                                        <option value="archived">Archived</option>
+                                    </select>
+                                    
+                                    <!-- VIEW SWITCHER (Cards vs Table) -->
+                                    <div class="cms-view-toggle">
+                                        <button type="button" id="btnViewCards" class="cms-view-btn active" onclick="switchPageViewMode('cards')" title="Visual Cards View">
+                                            <i class="fas fa-th-large"></i> Cards
+                                        </button>
+                                        <button type="button" id="btnViewTable" class="cms-view-btn" onclick="switchPageViewMode('table')" title="List Table View">
+                                            <i class="fas fa-list"></i> Table
+                                        </button>
+                                    </div>
+
+                                    <div id="pagesCountPill" class="cms-count-pill">Showing 0 pages</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Page Title</th>
-                                            <th>Slug / URL</th>
-                                            <th>Status</th>
-                                            <th>Template</th>
-                                            <th>Sections</th>
-                                            <th>Sort Order</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="pagesTableBody"></tbody>
-                                </table>
+
+                        <!-- 2A-1. VISUAL CARDS GRID VIEW -->
+                        <div id="pagesCardGrid" class="cms-pages-grid">
+                            <!-- Populated dynamically via renderPagesGrid() -->
+                        </div>
+
+                        <!-- 2A-2. DATA TABLE VIEW (Alternative) -->
+                        <div id="pagesTableView" class="card" style="display: none;">
+                            <div class="card-body" style="padding: 0;">
+                                <div class="table-responsive">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Page Title & Menu Group</th>
+                                                <th>Public URL Route</th>
+                                                <th>Status</th>
+                                                <th>Sections</th>
+                                                <th>Disk Sync</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pagesTableBody">
+                                            <tr><td colspan="6" style="text-align:center; padding: 24px;">Loading pages inventory...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- 2B. HYBRID CONTENT EDITOR VIEW (Inline Workspace) -->
+                    <div id="pageEditorView" style="display: none;">
+                        
+                        <!-- STICKY EDITOR HEADER TOOLBAR -->
+                        <div class="cms-editor-header">
+                            <div class="cms-editor-title-wrap">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="closePageEditor()">
+                                    <i class="fas fa-arrow-left"></i> Back to Pages
+                                </button>
+                                <div style="display: flex; flex-direction: column; gap: 3px;">
+                                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                        <h2 id="editorPageHeading" style="margin: 0; font-size: 17px; font-weight: 700; color: var(--text-main);">Page Content</h2>
+                                        <span id="editorMenuGroupBadge" class="cms-menu-pill">About</span>
+                                        <span id="editorStatusBadge" class="badge badge-published">Published</span>
+                                    </div>
+                                    <a id="editorPublicUrlLink" href="#" target="_blank" style="font-size: 12px; color: var(--primary); text-decoration: none; font-family: monospace; display: inline-flex; align-items: center; gap: 4px;">
+                                        <span id="editorPublicUrlText">/</span> <i class="fas fa-external-link-alt" style="font-size: 10px;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="cms-editor-actions">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="openPageSettingsFromEditor()" title="Page-level Title, Slug, SEO and Template">
+                                    <i class="fas fa-sliders-h"></i> Page Settings
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="addNewSectionToEditor()" title="Add a new content block">
+                                    <i class="fas fa-plus"></i> Add Section
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="savePageDraft()" title="Save edits to draft without publishing">
+                                    <i class="fas fa-save"></i> Save Draft
+                                </button>
+                                <button type="button" class="btn btn-info btn-sm" onclick="openPagePreview()" style="background:#2563EB; color:#fff; border-color:#2563EB;" title="Interactive live preview">
+                                    <i class="fas fa-eye"></i> Preview
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="publishPageFromEditor()" title="Publish all changes to live public site">
+                                    <i class="fas fa-paper-plane"></i> Publish Live
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- SECTION EDITOR WORKSPACE -->
+                        <div class="card" style="margin-bottom: 24px;">
+                            <div class="card-header" style="background:#FAFAFC;">
+                                <div>
+                                    <h3 style="margin:0; font-size:15px; color:var(--text-main);"><i class="fas fa-layer-group" style="color: var(--primary);"></i> Modular Content Sections (<span id="editorSecCountBadge">0</span>)</h3>
+                                    <p style="margin:2px 0 0; font-size:12.5px; color:var(--text-muted);">
+                                        Each card represents an authentic section on the live website. Click <strong>Edit Section</strong> to customize headings, rich text, media, documents, and links.
+                                    </p>
+                                </div>
+                                <button type="button" class="btn btn-success btn-sm" onclick="addNewSectionToEditor()">
+                                    <i class="fas fa-plus"></i> Add Section
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="editorSectionsContainer"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <!-- ══════════════════════════════════════════════════
