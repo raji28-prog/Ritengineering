@@ -1,184 +1,426 @@
 /**
- * RITW Dynamic Navigation & Mega-Menu Kinetic Engine
- * Inspired by Sreyas smooth pop-down transitions & fluid interaction dynamics.
- * Features: Viewport auto-clamping, 150ms hover-intent, ARIA management,
- * keyboard accessibility (Esc/Arrows), touch-tap toggling, resize/scroll synchronization.
+ * RITW Dynamic Navigation & Sreyas Two-Pane Mega-Menu Engine
+ * Matches exact Sreyas interaction reference:
+ * - Hamburger-to-X toggle on header
+ * - Large rounded 2-pane popup panel below header
+ * - Left categories vertical list with smooth hover & click switching
+ * - Right dark navy multi-column card
+ * - Keyboard (Esc), outside click dismissal, and mobile responsiveness
+ * - Viewport-aware boundary clamping algorithm with 150ms hover-intent for primary nav
+ * - Hero card carousel slider controller (6 widescreen slides, auto-advance, dots, arrows)
+ * - Campus Announcements modal controller
+ * - Scroll-Reveal IntersectionObserver engine
  */
 (function() {
   'use strict';
 
   function initRITWNavigation() {
-    var nav = document.querySelector('.ritw-primary-nav');
-    if (!nav) return;
+    var overlay = document.getElementById('ritwSreyasMegaOverlay');
+    var toggleBtn = document.getElementById('ritwSreyasToggleBtn');
+    var catButtons = document.querySelectorAll('.ritw-sreyas-cat-btn[data-target]');
+    var panes = document.querySelectorAll('.ritw-sreyas-pane');
 
-    var navItems = nav.querySelectorAll('.ritw-nav-item.ritw-has-dropdown');
-    var activePanel = null;
-    var activeTrigger = null;
-    var hoverTimer = null;
-    var gutter = 16; // minimum pixels from browser edge
+    if (!overlay || !toggleBtn) return;
 
-    // Viewport-aware boundary clamping algorithm
-    function clampPanel(item, panel) {
-      if (!panel || !item) return;
-      var itemRect = item.getBoundingClientRect();
-      var panelWidth = panel.offsetWidth;
-      var viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+    var modal = overlay.querySelector('.ritw-sreyas-modal');
+    var closeBtn = document.getElementById('ritwSreyasCloseBtn');
 
-      // Desired center alignment with trigger
-      var idealLeft = itemRect.left + (itemRect.width / 2) - (panelWidth / 2);
+    function openMenu() {
+      overlay.classList.add('ritw-sreyas-active', 'is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      toggleBtn.classList.add('is-active', 'active');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
 
-      // Clamp within viewport
-      if (idealLeft + panelWidth > viewportWidth - gutter) {
-        idealLeft = viewportWidth - panelWidth - gutter;
+      // Focus first active category button
+      var firstBtn = overlay.querySelector('.ritw-sreyas-cat-btn.active') || overlay.querySelector('.ritw-sreyas-cat-btn.is-active') || overlay.querySelector('.ritw-sreyas-cat-btn');
+      if (firstBtn) {
+        setTimeout(function() { firstBtn.focus(); }, 150);
       }
-      if (idealLeft < gutter) {
-        idealLeft = gutter;
-      }
-
-      // Convert to relative offset from parent item
-      var relativeLeft = idealLeft - itemRect.left;
-      panel.style.left = Math.round(relativeLeft) + 'px';
     }
 
-    // Open a mega-menu panel
-    function openPanel(item) {
-      if (hoverTimer) {
-        clearTimeout(hoverTimer);
-        hoverTimer = null;
-      }
-
-      var panel = item.querySelector('.ritw-mega-panel');
-      var trigger = item.querySelector('.ritw-nav-link');
-      if (!panel || !trigger) return;
-
-      if (activePanel && activePanel !== panel) {
-        closeActivePanel();
-      }
-
-      clampPanel(item, panel);
-      panel.classList.add('ritw-panel-open');
-      trigger.setAttribute('aria-expanded', 'true');
-      activePanel = panel;
-      activeTrigger = trigger;
+    function closeMenu() {
+      overlay.classList.remove('ritw-sreyas-active', 'is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      toggleBtn.classList.remove('is-active', 'active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      toggleBtn.focus();
     }
 
-    // Close active mega-menu panel
-    function closeActivePanel() {
-      if (!activePanel) return;
-      activePanel.classList.remove('ritw-panel-open');
-      if (activeTrigger) {
-        activeTrigger.setAttribute('aria-expanded', 'false');
+    // Toggle click on hamburger
+    toggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (overlay.classList.contains('ritw-sreyas-active') || overlay.classList.contains('is-open')) {
+        closeMenu();
+      } else {
+        openMenu();
       }
-      activePanel = null;
-      activeTrigger = null;
-    }
-
-    // Schedule delayed close with 150ms HoverIntent buffer
-    function scheduleClose() {
-      if (hoverTimer) clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(function() {
-        closeActivePanel();
-      }, 150);
-    }
-
-    // Bind event handlers for desktop hover, focus, and touch
-    navItems.forEach(function(item) {
-      var trigger = item.querySelector('.ritw-nav-link');
-      var panel = item.querySelector('.ritw-mega-panel');
-      if (!trigger || !panel) return;
-
-      // Mouse Events
-      item.addEventListener('mouseenter', function() {
-        openPanel(item);
-      });
-
-      item.addEventListener('mouseleave', function() {
-        scheduleClose();
-      });
-
-      // Keyboard Focus-within
-      item.addEventListener('focusin', function() {
-        openPanel(item);
-      });
-
-      item.addEventListener('focusout', function(e) {
-        if (!item.contains(e.relatedTarget)) {
-          closeActivePanel();
-        }
-      });
-
-      // Touch / Tap support
-      trigger.addEventListener('click', function(e) {
-        // If on touch device or small screen
-        if (window.matchMedia('(hover: none)').matches || window.innerWidth < 992) {
-          if (!panel.classList.contains('ritw-panel-open')) {
-            e.preventDefault();
-            openPanel(item);
-          }
-        }
-      });
     });
 
-    // Global keyboard navigation: Escape & Arrow keys
-    document.addEventListener('keydown', function(e) {
-      if (!activePanel) return;
-
-      if (e.key === 'Escape' || e.key === 'Esc') {
+    // Close button click
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        var triggerToFocus = activeTrigger;
-        closeActivePanel();
-        if (triggerToFocus) triggerToFocus.focus();
-        return;
-      }
+        closeMenu();
+      });
+    }
 
-      // Arrow navigation within open panel
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        var links = Array.from(activePanel.querySelectorAll('a'));
-        var currentIndex = links.indexOf(document.activeElement);
-        if (currentIndex !== -1) {
-          e.preventDefault();
-          var nextIndex = e.key === 'ArrowDown'
-            ? (currentIndex + 1) % links.length
-            : (currentIndex - 1 + links.length) % links.length;
-          links[nextIndex].focus();
-        } else if (links.length > 0) {
-          e.preventDefault();
-          links[0].focus();
-        }
+    // Outside click dismiss
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        closeMenu();
       }
     });
 
-    // Close when tapping outside
-    document.addEventListener('click', function(e) {
-      if (activePanel && !activePanel.contains(e.target) && !e.target.closest('.ritw-nav-item')) {
-        closeActivePanel();
+    // Escape key dismiss
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && (overlay.classList.contains('ritw-sreyas-active') || overlay.classList.contains('is-open'))) {
+        closeMenu();
       }
     });
 
-    // Window resize & scroll synchronization (re-clamp open panel smoothly)
-    var ticking = false;
-    function syncPosition() {
-      if (!ticking) {
-        window.requestAnimationFrame(function() {
-          if (activePanel && activeTrigger) {
-            var item = activeTrigger.closest('.ritw-nav-item');
-            if (item) clampPanel(item, activePanel);
-          }
-          ticking = false;
-        });
-        ticking = true;
+    // Category Tab Switching (supports both click and smooth hover-intent)
+    var hoverIntentTimer = null;
+
+    function activateCategory(targetId, clickedBtn) {
+      catButtons.forEach(function(b) {
+        b.classList.remove('active', 'is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      panes.forEach(function(p) {
+        p.classList.remove('active', 'is-active');
+      });
+
+      clickedBtn.classList.add('active', 'is-active');
+      clickedBtn.setAttribute('aria-selected', 'true');
+
+      var targetPane = document.getElementById(targetId);
+      if (targetPane) {
+        targetPane.classList.add('active', 'is-active');
       }
     }
 
-    window.addEventListener('resize', syncPosition, { passive: true });
-    window.addEventListener('scroll', syncPosition, { passive: true });
+    catButtons.forEach(function(btn) {
+      var targetId = btn.getAttribute('data-target');
+      if (!targetId) return;
+
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        activateCategory(targetId, btn);
+      });
+
+      btn.addEventListener('mouseenter', function() {
+        if (hoverIntentTimer) clearTimeout(hoverIntentTimer);
+        hoverIntentTimer = setTimeout(function() {
+          activateCategory(targetId, btn);
+        }, 120);
+      });
+
+      btn.addEventListener('mouseleave', function() {
+        if (hoverIntentTimer) clearTimeout(hoverIntentTimer);
+      });
+    });
+
+    // Keyboard Arrow Navigation inside category list
+    var catList = overlay.querySelector('.ritw-sreyas-cat-list');
+    if (catList) {
+      catList.addEventListener('keydown', function(e) {
+        var buttons = Array.from(catButtons);
+        var idx = buttons.indexOf(document.activeElement);
+        if (idx === -1) return;
+
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          var nextIdx = (idx + 1) % buttons.length;
+          buttons[nextIdx].focus();
+          buttons[nextIdx].click();
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          var prevIdx = (idx - 1 + buttons.length) % buttons.length;
+          buttons[prevIdx].focus();
+          buttons[prevIdx].click();
+        }
+      });
+    }
+
+    // Kinetic viewport-aware boundary clamping for primary nav dropdowns
+    var nav = document.querySelector('.ritw-primary-nav');
+    if (nav) {
+      var navItems = nav.querySelectorAll('.ritw-nav-item.ritw-has-dropdown');
+      var activePanel = null;
+      var activeTrigger = null;
+      var hoverTimer = null;
+      var gutter = 16;
+
+      function clampPanel(panel, item) {
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.transform = '';
+
+        var rect = panel.getBoundingClientRect();
+        var itemRect = item.getBoundingClientRect();
+        var vw = document.documentElement.clientWidth || window.innerWidth;
+
+        var idealLeft = itemRect.left + (itemRect.width / 2) - (rect.width / 2);
+        var minLeft = gutter;
+        var maxLeft = vw - rect.width - gutter;
+
+        var targetLeft = Math.max(minLeft, Math.min(idealLeft, maxLeft));
+        var offsetFromItem = targetLeft - itemRect.left;
+        panel.style.left = Math.round(offsetFromItem) + 'px';
+      }
+
+      function openPanel(item) {
+        if (hoverTimer) clearTimeout(hoverTimer);
+        var trigger = item.querySelector('.ritw-nav-link');
+        var panel = item.querySelector('.ritw-mega-panel');
+        if (!panel) return;
+
+        if (activePanel && activePanel !== panel) {
+          activePanel.parentElement.classList.remove('ritw-active');
+        }
+
+        item.classList.add('ritw-active');
+        clampPanel(panel, item);
+        activePanel = panel;
+        activeTrigger = trigger;
+      }
+
+      function closeActivePanel() {
+        if (activePanel) {
+          activePanel.parentElement.classList.remove('ritw-active');
+          activePanel = null;
+          activeTrigger = null;
+        }
+      }
+
+      navItems.forEach(function(item) {
+        item.addEventListener('mouseenter', function() { openPanel(item); });
+        item.addEventListener('mouseleave', function() {
+          hoverTimer = setTimeout(closeActivePanel, 150);
+        });
+      });
+    }
   }
 
-  // Initialize on DOM ready
+  // Scroll-Reveal IntersectionObserver Engine
+  function initScrollReveal() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.ritw-reveal, .ritw-reveal-left, .ritw-reveal-right, .ritw-stagger-parent').forEach(function(el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function(entries, obs) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.12
+    });
+
+    document.querySelectorAll('.ritw-reveal, .ritw-reveal-left, .ritw-reveal-right, .ritw-stagger-parent').forEach(function(el) {
+      observer.observe(el);
+    });
+  }
+
+  // Hero Card Carousel Slider Controller (Widescreen 6-Slide Carousel)
+  function initHeroCardSlider() {
+    var slider = document.getElementById('heroCardSlider');
+    if (!slider) return;
+
+    var items = slider.querySelectorAll('.ritw-hero-slide-item');
+    var dots = slider.querySelectorAll('.ritw-hero-carousel-dots button');
+    var prevBtn = slider.querySelector('.carousel-control-prev');
+    var nextBtn = slider.querySelector('.carousel-control-next');
+    if (!items.length) return;
+
+    var currentIndex = 0;
+    var timer = null;
+    var interval = 5000;
+
+    function showSlide(index) {
+      if (index < 0) index = items.length - 1;
+      if (index >= items.length) index = 0;
+
+      items.forEach(function(item, idx) {
+        if (idx === index) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      dots.forEach(function(dot, idx) {
+        if (idx === index) {
+          dot.classList.add('active');
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.classList.remove('active');
+          dot.removeAttribute('aria-current');
+        }
+      });
+
+      currentIndex = index;
+    }
+
+    function nextSlide() {
+      showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentIndex - 1);
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      timer = setInterval(nextSlide, interval);
+    }
+
+    function stopAutoplay() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        prevSlide();
+        startAutoplay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        nextSlide();
+        startAutoplay();
+      });
+    }
+
+    dots.forEach(function(dot, idx) {
+      dot.addEventListener('click', function(e) {
+        e.preventDefault();
+        showSlide(idx);
+        startAutoplay();
+      });
+    });
+
+    slider.addEventListener('mouseenter', stopAutoplay);
+    slider.addEventListener('mouseleave', startAutoplay);
+
+    // Touch Swipe Support
+    var touchStartX = 0;
+    var touchEndX = 0;
+    slider.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoplay();
+    }, { passive: true });
+
+    slider.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      var diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) nextSlide();
+        else prevSlide();
+      }
+      startAutoplay();
+    }, { passive: true });
+
+    showSlide(0);
+    startAutoplay();
+  }
+
+  // Floating Announcements Tab Navigation (Direct Page Link)
+  function initHashNavigation() {
+    function scrollToHash() {
+      var hash = window.location.hash;
+      if (!hash) return;
+      var targetId = hash.replace('#', '');
+      var targetEl = document.getElementById(targetId) || document.querySelector('[name="' + targetId + '"]');
+      if (targetEl) {
+        var tabTrigger = document.querySelector('[data-target="#' + targetId + '"], [data-tab="' + targetId + '"], [href="#' + targetId + '"]');
+        if (tabTrigger && typeof tabTrigger.click === 'function') {
+          tabTrigger.click();
+        }
+        setTimeout(function () {
+          var headerOffset = 90;
+          var elementPosition = targetEl.getBoundingClientRect().top;
+          var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 120);
+      }
+    }
+
+    if (window.location.hash) {
+      setTimeout(scrollToHash, 250);
+    }
+    window.addEventListener('hashchange', scrollToHash);
+  }
+
+  function initAnnouncementsModal() {
+    // Floating announcements button now navigates directly to /announcements/
+    var modal = document.getElementById('announcementsModal');
+    if (!modal) return;
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeModal();
+      });
+    }
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+
+    if (viewAllBtn) {
+      viewAllBtn.addEventListener('click', function(e) {
+        closeModal();
+        var annSection = document.getElementById('tab-announcements') || document.querySelector('.ritw-announcements-section');
+        if (annSection) {
+          setTimeout(function() {
+            annSection.scrollIntoView({ behavior: 'smooth' });
+          }, 150);
+        }
+      });
+    }
+  }
+
+  // Initialize all controllers on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initRITWNavigation);
+    document.addEventListener('DOMContentLoaded', function() {
+      initRITWNavigation();
+      initScrollReveal();
+      initHeroCardSlider();
+      initAnnouncementsModal();
+      initHashNavigation();
+    });
   } else {
     initRITWNavigation();
+    initScrollReveal();
+    initHeroCardSlider();
+    initAnnouncementsModal();
+    initHashNavigation();
   }
 })();
-
