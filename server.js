@@ -293,6 +293,55 @@ app.get(['/contact', '/contact/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'contact', 'index.html'), sendFileOpts);
 });
 
+// Robust Universal Redirect Catcher for all legacy PHP, space-encoded, or mistyped URLs
+app.use((req, res, next) => {
+    let p = '';
+    try {
+        p = decodeURIComponent(req.path).toLowerCase();
+    } catch {
+        p = req.path.toLowerCase();
+    }
+
+    if (p.includes('calendar')) {
+        if (p.includes('institution')) return res.redirect(302, '/academics#institution-calendar');
+        return res.redirect(302, '/academics#university-calendar');
+    }
+    if (p.includes('academic')) {
+        if (p.includes('curriculum') || p.includes('syllabus') || p.includes('syllabi')) return res.redirect(302, '/academics#curriculum');
+        if (p.includes('result') || p.includes('exam')) return res.redirect(302, '/academics#examinations');
+        if (p.includes('committee')) return res.redirect(302, '/academics#committees');
+        return res.redirect(302, '/academics');
+    }
+    if (p.includes('placement')) {
+        if (p.includes('company') || p.includes('companies')) return res.redirect(302, '/placements#companies');
+        if (p.includes('record') || p.includes('highlight') || p.includes('drive')) return res.redirect(302, '/placements#records');
+        if (p.includes('training') || p.includes('internship')) return res.redirect(302, '/placements#training');
+        if (p.includes('officer') || p.includes('team') || p.includes('cell')) return res.redirect(302, '/placements#about-cell');
+        return res.redirect(302, '/placements');
+    }
+    if (p.includes('admission')) {
+        if (p.includes('fee')) return res.redirect(302, '/admissions#fee-structure');
+        if (p.includes('course') || p.includes('intake') || p.includes('seat')) return res.redirect(302, '/admissions#courses');
+        if (p.includes('form') || p.includes('download')) return res.redirect(302, '/admissions#download-form');
+        if (p.includes('enquiry')) return res.redirect(302, '/admissions#enquiry');
+        return res.redirect(302, '/admissions');
+    }
+    if (p.includes('department')) {
+        if (p.includes('cse') || p.includes('computer')) return res.redirect(302, '/departments/cse');
+        if (p.includes('it') || p.includes('information')) return res.redirect(302, '/departments/it');
+        if (p.includes('ece') || p.includes('electronic')) return res.redirect(302, '/departments/ece');
+        if (p.includes('hns') || p.includes('humanit') || p.includes('science')) return res.redirect(302, '/departments/hns');
+        return res.redirect(302, '/departments');
+    }
+    if (p.endsWith('.php')) {
+        if (p.includes('about') || p.includes('vision') || p.includes('mission') || p.includes('desk') || p.includes('council')) {
+            return res.redirect(302, '/about');
+        }
+        return res.redirect(302, '/');
+    }
+    next();
+});
+
 // Static fallback for other root files
 app.use(express.static(__dirname, sendFileOpts));
 
