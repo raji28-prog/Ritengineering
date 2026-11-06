@@ -1,0 +1,2802 @@
+/* ============================================================================
+   FIELDSUI REDESIGN THEME FOR RITW CONTENT PAGES
+   Applies to all RITW content pages opening from the Mega Menu:
+   .about-page, .academics-page, .governance-page, .accreditation-page,
+   .examinations-page, .departments-page, .admissions-page, .placements-page,
+   .campuslife-page, .facilities-page, .research-page, .contact-page
+   - Clean white background as primary theme
+   - Minimal dark navy (#0B2545) and emerald green (#0D8A50) accents
+   - Avoid excessive colors, gradients and dark backgrounds
+   - Professional typography, whitespace, alignment, modern cards and grids
+   - Smooth scroll-reveal animations, subtle hover effects, mobile responsive
+   ============================================================================ */
+
+:root {
+  --fui-white: #ffffff;
+  --fui-canvas: #ffffff;
+  --fui-subtle: #f8fafc;
+  --fui-subtle-alt: #f1f5f9;
+  
+  /* Primary Institutional Palette */
+  --fui-navy-900: #07172c;
+  --fui-navy: #0b2545;
+  --fui-navy-light: #163e72;
+  --fui-navy-tint: #eef4fb;
+  --fui-navy-border: #cbd5e1;
+  
+  /* Emerald Green Accents */
+  --fui-emerald-dark: #0a6c3e;
+  --fui-emerald: #0d8a50;
+  --fui-emerald-light: #10b981;
+  --fui-emerald-tint: #ecfdf5;
+  --fui-emerald-border: #a7f3d0;
+  
+  /* Neutral Slate Typography */
+  --fui-text-title: #0b2545;
+  --fui-text-body: #1e293b;
+  --fui-text-muted: #64748b;
+  --fui-text-soft: #94a3b8;
+  
+  /* Borders & Shadows */
+  --fui-border: #e2e8f0;
+  --fui-border-light: #f1f5f9;
+  --fui-shadow-xs: 0 1px 2px rgba(11, 37, 69, 0.04);
+  --fui-shadow-sm: 0 2px 6px -1px rgba(11, 37, 69, 0.06), 0 1px 3px rgba(11, 37, 69, 0.04);
+  --fui-shadow-md: 0 8px 20px -4px rgba(11, 37, 69, 0.08), 0 2px 6px -1px rgba(11, 37, 69, 0.04);
+  --fui-shadow-hover: 0 14px 28px -6px rgba(11, 37, 69, 0.12), 0 4px 10px -2px rgba(11, 37, 69, 0.06);
+  
+  /* Radii */
+  --fui-radius-sm: 6px;
+  --fui-radius-md: 10px;
+  --fui-radius-lg: 14px;
+  --fui-radius-xl: 18px;
+  --fui-radius-full: 9999px;
+  
+  /* Transitions */
+  --fui-trans-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --fui-trans-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Image Dimension Bounds Safeguards */
+img {
+  max-width: 100%;
+  height: auto;
+}
+img.fui-brand-logo, .fui-brand-logo {
+  max-height: 52px !important;
+  max-width: 220px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+.fui-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  text-decoration: none !important;
+}
+.fui-brand-text {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.fui-brand-title {
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: var(--fui-navy) !important;
+  line-height: 1.2 !important;
+}
+.fui-brand-sub {
+  font-size: 0.75rem !important;
+  color: var(--fui-text-muted) !important;
+  line-height: 1.2 !important;
+}
+.fui-navbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--fui-border) !important;
+  box-shadow: var(--fui-shadow-sm) !important;
+}
+.fui-navbar-inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 12px 0 !important;
+}
+.fui-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+.fui-nav-link {
+  color: var(--fui-navy) !important;
+  font-weight: 600 !important;
+  font-size: 0.92rem !important;
+  text-decoration: none !important;
+  padding: 6px 10px !important;
+  border-radius: var(--fui-radius-sm) !important;
+  transition: all var(--fui-trans-fast) !important;
+}
+.fui-nav-link:hover, .fui-nav-link.active {
+  color: var(--fui-emerald) !important;
+  background: var(--fui-emerald-tint) !important;
+}
+.fui-topbar {
+  background: var(--fui-navy-900) !important;
+  color: #e2e8f0 !important;
+  font-size: 0.8rem !important;
+  padding: 8px 0 !important;
+}
+.fui-topbar-inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+.fui-topbar-left, .fui-topbar-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+.fui-topbar-right a {
+  color: #e2e8f0 !important;
+  text-decoration: none !important;
+}
+.fui-topbar-portal {
+  background: var(--fui-emerald) !important;
+  color: #ffffff !important;
+  padding: 2px 10px !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+}
+
+
+/* ============================================================================
+   GLOBAL CONTAINER & BASE TYPOGRAPHY FOR ALL CONTENT PAGES
+   ============================================================================ */
+.about-page,
+.academics-page,
+.governance-page,
+.accreditation-page,
+.examinations-page,
+.departments-page,
+.admissions-page,
+.placements-page,
+.campuslife-page,
+.facilities-page,
+.research-page,
+.contact-page {
+  background-color: var(--fui-white);
+  color: var(--fui-text-body);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.about-page .container,
+.academics-page .container,
+.governance-page .container,
+.accreditation-page .container,
+.examinations-page .container,
+.departments-page .container,
+.admissions-page .container,
+.placements-page .container,
+.campuslife-page .container,
+.facilities-page .container,
+.research-page .container,
+.contact-page .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================================
+   1. CLEAN WHITE PAGE HEADER BANNER (NO DARK GRADIENTS)
+   ============================================================================ */
+.about-page .page-header-banner,
+.academics-page .page-header-banner,
+.governance-page .page-header-banner,
+.accreditation-page .page-header-banner,
+.examinations-page .page-header-banner,
+.departments-page .page-header-banner,
+.admissions-page .page-header-banner,
+.placements-page .page-header-banner,
+.campuslife-page .page-header-banner,
+.facilities-page .page-header-banner,
+.research-page .page-header-banner,
+.contact-page .page-header-banner {
+  background: #ffffff !important;
+  color: var(--fui-text-body) !important;
+  padding: 44px 0 36px !important;
+  position: relative !important;
+  border-bottom: 1px solid var(--fui-border) !important;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.02) !important;
+}
+
+/* Subtle decorative hairline grid accent */
+.about-page .page-header-banner::before,
+.academics-page .page-header-banner::before,
+.governance-page .page-header-banner::before,
+.accreditation-page .page-header-banner::before,
+.examinations-page .page-header-banner::before,
+.departments-page .page-header-banner::before,
+.admissions-page .page-header-banner::before,
+.placements-page .page-header-banner::before,
+.campuslife-page .page-header-banner::before,
+.facilities-page .page-header-banner::before,
+.research-page .page-header-banner::before,
+.contact-page .page-header-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(var(--fui-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Breadcrumbs */
+.about-page .breadcrumbs,
+.academics-page .breadcrumbs,
+.governance-page .breadcrumbs,
+.accreditation-page .breadcrumbs,
+.examinations-page .breadcrumbs,
+.departments-page .breadcrumbs,
+.admissions-page .breadcrumbs,
+.placements-page .breadcrumbs,
+.campuslife-page .breadcrumbs,
+.facilities-page .breadcrumbs,
+.research-page .breadcrumbs,
+.contact-page .breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--fui-text-muted);
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.about-page .breadcrumbs a,
+.academics-page .breadcrumbs a,
+.governance-page .breadcrumbs a,
+.accreditation-page .breadcrumbs a,
+.examinations-page .breadcrumbs a,
+.departments-page .breadcrumbs a,
+.admissions-page .breadcrumbs a,
+.placements-page .breadcrumbs a,
+.campuslife-page .breadcrumbs a,
+.facilities-page .breadcrumbs a,
+.research-page .breadcrumbs a,
+.contact-page .breadcrumbs a {
+  color: var(--fui-navy) !important;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--fui-trans-fast);
+}
+
+.about-page .breadcrumbs a:hover,
+.academics-page .breadcrumbs a:hover,
+.governance-page .breadcrumbs a:hover,
+.accreditation-page .breadcrumbs a:hover,
+.examinations-page .breadcrumbs a:hover,
+.departments-page .breadcrumbs a:hover,
+.admissions-page .breadcrumbs a:hover,
+.placements-page .breadcrumbs a:hover,
+.campuslife-page .breadcrumbs a:hover,
+.facilities-page .breadcrumbs a:hover,
+.research-page .breadcrumbs a:hover,
+.contact-page .breadcrumbs a:hover {
+  color: var(--fui-emerald) !important;
+  text-decoration: underline;
+}
+
+.about-page .breadcrumbs i,
+.academics-page .breadcrumbs i,
+.governance-page .breadcrumbs i,
+.accreditation-page .breadcrumbs i,
+.examinations-page .breadcrumbs i,
+.departments-page .breadcrumbs i,
+.admissions-page .breadcrumbs i,
+.placements-page .breadcrumbs i,
+.campuslife-page .breadcrumbs i,
+.facilities-page .breadcrumbs i,
+.research-page .breadcrumbs i,
+.contact-page .breadcrumbs i {
+  font-size: 10px;
+  color: var(--fui-text-soft) !important;
+}
+
+.about-page .breadcrumbs .current,
+.academics-page .breadcrumbs .current,
+.governance-page .breadcrumbs .current,
+.accreditation-page .breadcrumbs .current,
+.examinations-page .breadcrumbs .current,
+.departments-page .breadcrumbs .current,
+.admissions-page .breadcrumbs .current,
+.placements-page .breadcrumbs .current,
+.campuslife-page .breadcrumbs .current,
+.facilities-page .breadcrumbs .current,
+.research-page .breadcrumbs .current,
+.contact-page .breadcrumbs .current {
+  color: var(--fui-emerald-dark) !important;
+  font-weight: 700;
+  background: var(--fui-emerald-tint);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Eyebrow Badge */
+.about-page .page-badge,
+.academics-page .page-badge,
+.governance-page .page-badge,
+.accreditation-page .page-badge,
+.examinations-page .page-badge,
+.departments-page .page-badge,
+.admissions-page .page-badge,
+.placements-page .page-badge,
+.campuslife-page .page-badge,
+.facilities-page .page-badge,
+.research-page .page-badge,
+.contact-page .page-badge {
+  background: var(--fui-emerald-tint) !important;
+  color: var(--fui-emerald-dark) !important;
+  border: 1px solid var(--fui-emerald-border) !important;
+  padding: 4px 14px;
+  border-radius: var(--fui-radius-full);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.about-page .page-badge::before,
+.academics-page .page-badge::before,
+.governance-page .page-badge::before,
+.accreditation-page .page-badge::before,
+.examinations-page .page-badge::before,
+.departments-page .page-badge::before,
+.admissions-page .page-badge::before,
+.placements-page .page-badge::before,
+.campuslife-page .page-badge::before,
+.facilities-page .page-badge::before,
+.research-page .page-badge::before,
+.contact-page .page-badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fui-emerald);
+}
+
+/* Title & Subtitle */
+.about-page .page-title,
+.academics-page .page-title,
+.governance-page .page-title,
+.accreditation-page .page-title,
+.examinations-page .page-title,
+.departments-page .page-title,
+.admissions-page .page-title,
+.placements-page .page-title,
+.campuslife-page .page-title,
+.facilities-page .page-title,
+.research-page .page-title,
+.contact-page .page-title {
+  font-size: 34px !important;
+  font-weight: 800 !important;
+  color: var(--fui-navy) !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 12px !important;
+}
+
+.about-page .page-subtitle,
+.academics-page .page-subtitle,
+.governance-page .page-subtitle,
+.accreditation-page .page-subtitle,
+.examinations-page .page-subtitle,
+.departments-page .page-subtitle,
+.admissions-page .page-subtitle,
+.placements-page .page-subtitle,
+.campuslife-page .page-subtitle,
+.facilities-page .page-subtitle,
+.research-page .page-subtitle,
+.contact-page .page-subtitle {
+  font-size: 16px !important;
+  color: var(--fui-text-muted) !important;
+  max-width: 840px;
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+/* Quick Authority Pill Strip */
+.fui-header-stats-strip {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--fui-border);
+}
+
+.fui-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--fui-subtle);
+  border: 1px solid var(--fui-border);
+  padding: 5px 12px;
+  border-radius: var(--fui-radius-full);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--fui-navy);
+}
+
+.fui-stat-pill i {
+  color: var(--fui-emerald);
+  font-size: 12px;
+}
+
+/* ============================================================================
+   2. FROSTED WHITE STICKY SUBNAV BAR
+   ============================================================================ */
+.about-page .page-subnav-bar,
+.academics-page .page-subnav-bar,
+.governance-page .page-subnav-bar,
+.accreditation-page .page-subnav-bar,
+.examinations-page .page-subnav-bar,
+.departments-page .page-subnav-bar,
+.admissions-page .page-subnav-bar,
+.placements-page .page-subnav-bar,
+.campuslife-page .page-subnav-bar,
+.facilities-page .page-subnav-bar,
+.research-page .page-subnav-bar,
+.contact-page .page-subnav-bar {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid var(--fui-border) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 990 !important;
+  box-shadow: 0 2px 8px rgba(11, 37, 69, 0.03) !important;
+}
+
+.subnav-inner {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  gap: 6px;
+  padding: 6px 0;
+  scrollbar-width: none;
+}
+
+.subnav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.subnav-link {
+  padding: 10px 16px !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: var(--fui-text-muted) !important;
+  white-space: nowrap !important;
+  border-radius: var(--fui-radius-full) !important;
+  text-decoration: none !important;
+  transition: all var(--fui-trans-fast) !important;
+  border: 1px solid transparent !important;
+}
+
+.subnav-link:hover {
+  color: var(--fui-navy) !important;
+  background: var(--fui-subtle) !important;
+  border-color: var(--fui-border) !important;
+}
+
+.subnav-link.active {
+  color: var(--fui-emerald-dark) !important;
+  background: var(--fui-emerald-tint) !important;
+  border-color: var(--fui-emerald-border) !important;
+  font-weight: 700 !important;
+}
+
+/* ============================================================================
+   3. SECTION HEADERS & LABELS
+   ============================================================================ */
+.section-header {
+  margin-bottom: 36px;
+  text-align: left;
+}
+
+.section-badge {
+  display: inline-block !important;
+  background: var(--fui-emerald-tint) !important;
+  color: var(--fui-emerald-dark) !important;
+  border: 1px solid var(--fui-emerald-border) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  padding: 3px 10px !important;
+  border-radius: var(--fui-radius-full) !important;
+  margin-bottom: 10px !important;
+}
+
+.section-title {
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  color: var(--fui-navy) !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 8px !important;
+  line-height: 1.25 !important;
+}
+
+.section-subtitle {
+  font-size: 15px !important;
+  color: var(--fui-text-muted) !important;
+  max-width: 720px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Standardized Page Sections */
+.page-content-section {
+  padding: 56px 0 !important;
+  background: var(--fui-white) !important;
+  border-bottom: 1px solid var(--fui-border-light) !important;
+}
+
+.statutory-section {
+  padding: 56px 0 !important;
+  background: var(--fui-subtle) !important;
+  border-bottom: 1px solid var(--fui-border-light) !important;
+}
+
+/* ============================================================================
+   4. CARDS & INFORMATION BOXES
+   ============================================================================ */
+.cells-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.cell-card,
+.gov-card,
+.acc-card {
+  background: #ffffff !important;
+  border-radius: var(--fui-radius-md) !important;
+  padding: 24px !important;
+  border: 1px solid var(--fui-border) !important;
+  box-shadow: var(--fui-shadow-xs) !important;
+  transition: all var(--fui-trans-smooth) !important;
+}
+
+.cell-card:hover,
+.gov-card:hover,
+.acc-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: var(--fui-emerald) !important;
+  box-shadow: var(--fui-shadow-md) !important;
+}
+
+.cell-icon,
+.gov-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--fui-radius-md);
+  background: var(--fui-emerald-tint);
+  color: var(--fui-emerald);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+.cell-title,
+.gov-title,
+.acc-card-title {
+  font-size: 16.5px !important;
+  font-weight: 800 !important;
+  color: var(--fui-navy) !important;
+  margin-bottom: 8px !important;
+}
+
+.cell-desc,
+.gov-desc,
+.acc-card-desc {
+  font-size: 13.2px !important;
+  color: var(--fui-text-muted) !important;
+  line-height: 1.6 !important;
+  margin: 0;
+}
+
+/* Department badge / Code badge */
+.dept-badge {
+  background: var(--fui-navy-tint) !important;
+  color: var(--fui-navy) !important;
+  border: 1px solid var(--fui-navy-border) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 2px 8px !important;
+  border-radius: 4px !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+
+/* Accreditations Specific */
+.accreditations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.acc-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.acc-card-logo {
+  height: 44px;
+  width: auto;
+  max-width: 100px;
+  object-fit: contain;
+}
+
+.acc-authority-tag {
+  font-size: 11px !important;
+  color: var(--fui-navy) !important;
+  background: var(--fui-navy-tint) !important;
+  border: 1px solid var(--fui-navy-border);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: right;
+  line-height: 1.35;
+}
+
+/* ============================================================================
+   5. GOVERNANCE: ORGANOGRAM & WORKFLOW
+   ============================================================================ */
+.governance-page .fui-organogram-wrap {
+  background: #ffffff;
+  border-radius: var(--fui-radius-xl);
+  padding: 36px;
+  border: 1px solid var(--fui-border);
+  box-shadow: var(--fui-shadow-sm);
+  text-align: center;
+}
+
+.governance-page .fui-org-node-top {
+  display: inline-block;
+  background: var(--fui-navy);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 15.5px;
+  box-shadow: var(--fui-shadow-sm);
+}
+
+.governance-page .fui-org-connector {
+  width: 2px;
+  height: 24px;
+  background: var(--fui-emerald);
+  margin: 0 auto;
+}
+
+.governance-page .fui-org-node-mid {
+  display: inline-block;
+  background: var(--fui-emerald-tint);
+  color: var(--fui-emerald-dark);
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 14.5px;
+  border: 1px solid var(--fui-emerald-border);
+}
+
+.governance-page .fui-org-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.governance-page .fui-org-card {
+  background: var(--fui-subtle);
+  border: 1px solid var(--fui-border);
+  border-radius: 8px;
+  padding: 18px;
+  text-align: center;
+  transition: all var(--fui-trans-smooth);
+}
+
+.governance-page .fui-org-card:hover {
+  background: #ffffff;
+  border-color: var(--fui-emerald);
+  transform: translateY(-2px);
+  box-shadow: var(--fui-shadow-sm);
+}
+
+.governance-page .fui-org-card i {
+  font-size: 20px;
+  color: var(--fui-navy);
+  margin-bottom: 8px;
+}
+
+/* ============================================================================
+   6. EXAMINATIONS: RESULTS PORTAL & MALPRACTICE TABLE
+   ============================================================================ */
+.examinations-page .fui-results-search-card {
+  max-width: 780px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid var(--fui-border);
+  border-radius: var(--fui-radius-xl);
+  padding: 40px;
+  box-shadow: var(--fui-shadow-sm);
+  text-align: center;
+}
+
+.examinations-page .search-input {
+  padding: 12px 18px;
+  border: 1.5px solid var(--fui-border);
+  border-radius: var(--fui-radius-md);
+  font-size: 14px;
+  color: var(--fui-navy);
+  background: var(--fui-subtle);
+  transition: all var(--fui-trans-fast);
+  outline: none;
+}
+
+.examinations-page .search-input:focus {
+  border-color: var(--fui-emerald);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--fui-emerald-tint);
+}
+
+.examinations-page .fui-result-display {
+  background: #ffffff;
+  border: 1px solid var(--fui-emerald-border);
+  border-left: 4px solid var(--fui-emerald);
+  border-radius: var(--fui-radius-md);
+  padding: 24px;
+  text-align: left;
+  margin-top: 24px;
+  box-shadow: var(--fui-shadow-sm);
+}
+
+/* Tables */
+.fui-table-wrap {
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: var(--fui-radius-lg);
+  border: 1px solid var(--fui-border);
+  box-shadow: var(--fui-shadow-sm);
+}
+
+.fui-grading-table,
+.fui-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13.5px;
+}
+
+.fui-grading-table thead tr,
+.fui-data-table thead tr {
+  background: var(--fui-subtle);
+  border-bottom: 1px solid var(--fui-border);
+}
+
+.fui-grading-table th,
+.fui-data-table th {
+  padding: 14px 20px;
+  font-weight: 800;
+  color: var(--fui-navy);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fui-grading-table td,
+.fui-data-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--fui-border-light);
+  color: var(--fui-text-body);
+}
+
+.fui-grading-table tbody tr:hover,
+.fui-data-table tbody tr:hover {
+  background: var(--fui-emerald-tint);
+}
+
+/* ============================================================================
+   7. MODERN BUTTONS & CTAS
+   ============================================================================ */
+.btn-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 11px 22px !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  border-radius: var(--fui-radius-md) !important;
+  text-decoration: none !important;
+  transition: all var(--fui-trans-smooth) !important;
+  cursor: pointer !important;
+}
+
+.btn-cta-navy {
+  background: var(--fui-navy) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--fui-navy) !important;
+}
+
+.btn-cta-navy:hover {
+  background: var(--fui-navy-light) !important;
+  border-color: var(--fui-navy-light) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--fui-shadow-md) !important;
+}
+
+.btn-cta-green {
+  background: var(--fui-emerald) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--fui-emerald) !important;
+}
+
+.btn-cta-green:hover {
+  background: var(--fui-emerald-dark) !important;
+  border-color: var(--fui-emerald-dark) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--fui-shadow-md) !important;
+}
+
+.hero-btn-secondary {
+  background: #ffffff !important;
+  color: var(--fui-navy) !important;
+  border: 1px solid var(--fui-border) !important;
+}
+
+.hero-btn-secondary:hover {
+  background: var(--fui-subtle) !important;
+  border-color: var(--fui-navy-border) !important;
+  color: var(--fui-navy) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ============================================================================
+   8. SMOOTH SCROLL-REVEAL & STAGGER ANIMATIONS
+   ============================================================================ */
+.fui-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.fui-reveal.fui-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.fui-delay-1 { transition-delay: 50ms; }
+.fui-delay-2 { transition-delay: 100ms; }
+.fui-delay-3 { transition-delay: 150ms; }
+.fui-delay-4 { transition-delay: 200ms; }
+.fui-delay-5 { transition-delay: 250ms; }
+.fui-delay-6 { transition-delay: 300ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fui-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================================
+   9. RESPONSIVENESS
+   ============================================================================ */
+@media (max-width: 992px) {
+  .about-split-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header-banner {
+    padding: 30px 0 24px !important;
+  }
+  
+  .page-title {
+    font-size: 25px !important;
+  }
+  
+  .page-subtitle {
+    font-size: 14.5px !important;
+  }
+  
+  .section-title {
+    font-size: 23px !important;
+  }
+}
+
+/* ============================================================================
+   ADDITIONAL ENHANCED FIELDSUI STYLING FOR CONTENT PAGES (ABOUT & ACADEMICS)
+   ============================================================================ */
+
+.fui-page-wrapper {
+  background: #ffffff !important;
+  color: #1e293b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+.fui-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Breadcrumb Strip */
+.fui-breadcrumb-strip {
+  padding: 14px 0;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+.fui-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+.fui-breadcrumb-list a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.fui-breadcrumb-list a:hover {
+  color: #0d8a50;
+}
+.fui-breadcrumb-separator {
+  color: #cbd5e1;
+  font-size: 0.75rem;
+}
+.fui-breadcrumb-current {
+  color: #0b2545;
+  font-weight: 600;
+}
+
+/* Page Hero */
+.fui-hero-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 56px 0 44px 0;
+  position: relative;
+}
+.fui-hero-badge-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.fui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.fui-badge-navy {
+  background: #eef4fb;
+  color: #0b2545;
+  border: 1px solid #cbd5e1;
+}
+.fui-badge-emerald {
+  background: #ecfdf5;
+  color: #0d8a50;
+  border: 1px solid #a7f3d0;
+}
+.fui-badge-gold {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.fui-hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0b2545;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+.fui-hero-subtitle {
+  font-size: 1.125rem;
+  color: #475569;
+  max-width: 860px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* Hero Stats Strip */
+.fui-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.fui-stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px -1px rgba(11, 37, 69, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.fui-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: #0d8a50;
+  box-shadow: 0 6px 16px -2px rgba(13, 138, 80, 0.1);
+}
+.fui-stat-number {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0b2545;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.fui-stat-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Sticky Floating Subnav */
+.fui-sticky-subnav {
+  position: sticky;
+  top: 70px;
+  z-index: 95;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.03);
+}
+.fui-subnav-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 0;
+  scrollbar-width: none;
+}
+.fui-subnav-scroll::-webkit-scrollbar {
+  display: none;
+}
+.fui-subnav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.fui-subnav-item:hover {
+  background: #f1f5f9;
+  color: #0b2545;
+}
+.fui-subnav-item.active {
+  background: #ecfdf5;
+  color: #0d8a50;
+  border-color: #a7f3d0;
+}
+
+/* Section Containers */
+.fui-section {
+  padding: 64px 0;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+.fui-section-alt {
+  background: #f8fafc;
+}
+.fui-section-header {
+  margin-bottom: 36px;
+}
+.fui-section-header.text-center {
+  text-align: center;
+}
+.fui-section-badge {
+  display: inline-block;
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: #0d8a50;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.fui-section-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0b2545;
+  letter-spacing: -0.015em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fui-section-header.text-center .fui-section-title {
+  justify-content: center;
+}
+.fui-section-title::after {
+  content: "";
+  display: inline-block;
+  width: 36px;
+  height: 3px;
+  background: #0d8a50;
+  border-radius: 2px;
+}
+.fui-section-subtitle {
+  font-size: 1rem;
+  color: #64748b;
+  max-width: 780px;
+  margin: 0;
+}
+.fui-section-header.text-center .fui-section-subtitle {
+  margin: 0 auto;
+}
+
+/* Generic Cards & Grids */
+.fui-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.fui-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.fui-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.fui-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.fui-card:hover {
+  transform: translateY(-4px);
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 24px -4px rgba(11, 37, 69, 0.08);
+}
+.fui-card-emerald-accent {
+  border-top: 3px solid #0d8a50;
+}
+.fui-card-navy-accent {
+  border-top: 3px solid #0b2545;
+}
+
+.fui-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fui-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #0d8a50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.fui-card-icon-navy {
+  background: #eef4fb;
+  color: #0b2545;
+}
+.fui-card-body {
+  font-size: 0.95rem;
+  color: #334155;
+  line-height: 1.65;
+}
+
+/* Memorial Section */
+.fui-memorial-wrapper {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 4px 20px -2px rgba(11, 37, 69, 0.04);
+}
+.fui-portrait-frame {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(11, 37, 69, 0.15);
+  margin: 0 auto;
+  background: #f8fafc;
+}
+.fui-portrait-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Leadership Executive Cards */
+.fui-exec-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.fui-exec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -4px rgba(11, 37, 69, 0.09);
+  border-color: #cbd5e1;
+}
+.fui-exec-top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+.fui-exec-photo-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #0d8a50;
+  flex-shrink: 0;
+  background: #f1f5f9;
+}
+.fui-exec-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fui-exec-info {
+  flex: 1;
+}
+.fui-exec-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 4px;
+}
+.fui-exec-role {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0d8a50;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+.fui-exec-qualification {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+.fui-exec-bio {
+  font-size: 0.925rem;
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* Modern Document / Approval Downloads Card */
+.fui-doc-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.fui-doc-card:hover {
+  border-color: #0d8a50;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -2px rgba(11, 37, 69, 0.06);
+}
+.fui-doc-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.fui-doc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.fui-doc-icon-green {
+  background: #ecfdf5;
+  color: #0d8a50;
+}
+.fui-doc-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0b2545;
+  margin-bottom: 2px;
+}
+.fui-doc-meta {
+  font-size: 0.775rem;
+  color: #64748b;
+}
+.fui-doc-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #0b2545;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.fui-doc-card:hover .fui-doc-btn {
+  background: #0d8a50;
+  color: #ffffff;
+}
+
+/* Modern Table */
+.fui-table-container {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.03);
+}
+.fui-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+.fui-table th {
+  background: #0b2545;
+  color: #ffffff;
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: none;
+}
+.fui-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  vertical-align: middle;
+}
+.fui-table tbody tr:hover {
+  background: #f8fafc;
+}
+.fui-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Button styles */
+.fui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.fui-btn-primary {
+  background: #0b2545;
+  color: #ffffff;
+}
+.fui-btn-primary:hover {
+  background: #163e72;
+  color: #ffffff;
+}
+.fui-btn-emerald {
+  background: #0d8a50;
+  color: #ffffff;
+}
+.fui-btn-emerald:hover {
+  background: #0a6c3e;
+  color: #ffffff;
+}
+.fui-btn-outline {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0b2545;
+}
+.fui-btn-outline:hover {
+  border-color: #0d8a50;
+  color: #0d8a50;
+  background: #ecfdf5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+  .fui-grid-3, .fui-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fui-hero-title {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 767.98px) {
+  .fui-grid-2, .fui-grid-3, .fui-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .fui-hero-title {
+    font-size: 1.7rem;
+  }
+  .fui-exec-top {
+    flex-direction: column;
+    text-align: center;
+  }
+  .fui-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fui-section {
+    padding: 40px 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 135px;
+}
+
+/* ============================================================================
+   FIELDSUI DEPARTMENT PORTAL STYLES (CSE, IT, ECE, H&S)
+   ============================================================================ */
+
+.fui-dept-nav-wrapper {
+  background: #ffffff;
+  border-bottom: 2px solid #e2e8f0;
+  position: sticky;
+  top: 70px;
+  z-index: 90;
+  box-shadow: 0 4px 12px -2px rgba(11, 37, 69, 0.05);
+}
+
+.fui-dept-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 12px 0;
+  scrollbar-width: none;
+}
+.fui-dept-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.fui-dept-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0b2545;
+  font-weight: 700;
+  font-size: 0.925rem;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+.fui-dept-tab-btn:hover {
+  background: #ffffff;
+  border-color: #0d8a50;
+  color: #0d8a50;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 138, 80, 0.1);
+}
+.fui-dept-tab-btn.active {
+  background: #0b2545;
+  color: #ffffff;
+  border-color: #0b2545;
+  box-shadow: 0 4px 14px rgba(11, 37, 69, 0.2);
+}
+.fui-dept-tab-btn.active .fui-tab-badge {
+  background: #0d8a50;
+  color: #ffffff;
+}
+.fui-tab-badge {
+  font-size: 0.725rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #475569;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Department Sub-Navigation Sidebar */
+.fui-dept-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  padding: 40px 0 80px 0;
+}
+@media (max-width: 991.98px) {
+  .fui-dept-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fui-dept-sidebar {
+  position: sticky;
+  top: 140px;
+  height: fit-content;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 20px -2px rgba(11, 37, 69, 0.04);
+}
+.fui-dept-sidebar-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0b2545;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fui-dept-sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.fui-dept-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.fui-dept-sidebar-link:hover {
+  background: #f8fafc;
+  color: #0d8a50;
+  padding-left: 16px;
+}
+.fui-dept-sidebar-link.active {
+  background: #ecfdf5;
+  color: #0d8a50;
+  font-weight: 700;
+  border-left: 3px solid #0d8a50;
+}
+.fui-dept-sidebar-link i {
+  font-size: 0.8rem;
+  width: 16px;
+  text-align: center;
+  color: #94a3b8;
+}
+.fui-dept-sidebar-link.active i {
+  color: #0d8a50;
+}
+
+/* Department Content Panels */
+.fui-dept-panel {
+  display: none;
+}
+.fui-dept-panel.active {
+  display: block;
+}
+
+/* HOD Showcase Banner */
+.fui-hod-showcase {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px -2px rgba(11, 37, 69, 0.05);
+  margin-bottom: 32px;
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+@media (max-width: 767.98px) {
+  .fui-hod-showcase {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+.fui-hod-photo-frame {
+  width: 140px;
+  height: 140px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 3px solid #0d8a50;
+  box-shadow: 0 8px 20px -4px rgba(13, 138, 80, 0.2);
+  flex-shrink: 0;
+  background: #f8fafc;
+}
+.fui-hod-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fui-hod-details {
+  flex: 1;
+}
+.fui-hod-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0b2545;
+  margin-bottom: 4px;
+}
+.fui-hod-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0d8a50;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.fui-hod-meta {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+.fui-hod-quote {
+  font-size: 0.925rem;
+  color: #334155;
+  line-height: 1.6;
+  font-style: italic;
+  background: #f8fafc;
+  border-left: 3px solid #0d8a50;
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 14px;
+}
+.fui-hod-contact-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.fui-contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0b2545;
+  background: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.fui-contact-pill:hover {
+  background: #ecfdf5;
+  color: #0d8a50;
+}
+
+/* Department Section Card */
+.fui-dept-sub-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 30px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.03);
+  scroll-margin-top: 150px;
+}
+.fui-dept-sub-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.fui-dept-sub-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #0d8a50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.fui-dept-sub-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0b2545;
+  margin: 0;
+}
+
+/* Faculty Table */
+.fui-faculty-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.fui-faculty-table th {
+  background: #0b2545;
+  color: #ffffff;
+  padding: 12px 16px;
+  font-size: 0.825rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+.fui-faculty-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.875rem;
+  color: #334155;
+  vertical-align: middle;
+}
+.fui-faculty-table tr:hover td {
+  background: #f8fafc;
+}
+.fui-faculty-designation {
+  font-weight: 600;
+  color: #0d8a50;
+}
+
+/* Labs Showcase Grid */
+.fui-labs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 767.98px) {
+  .fui-labs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.fui-lab-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.25s ease;
+}
+.fui-lab-card:hover {
+  background: #ffffff;
+  border-color: #0d8a50;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px -2px rgba(11, 37, 69, 0.08);
+}
+.fui-lab-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fui-lab-card-desc {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.55;
+}
+
+/* Company Grid & Placement Cards */
+.fui-company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+.fui-company-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 76px;
+  transition: all 0.25s ease;
+}
+.fui-company-card:hover {
+  border-color: #0d8a50;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(11, 37, 69, 0.08);
+}
+.fui-company-card img {
+  max-width: 100%;
+  max-height: 46px;
+  object-fit: contain;
+}
+
+.fui-infra-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 991.98px) {
+  .fui-infra-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .fui-infra-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.fui-infra-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.fui-infra-card:hover {
+  border-color: #0d8a50;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -4px rgba(11, 37, 69, 0.1);
+}
+.fui-infra-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.fui-infra-card-body {
+  padding: 16px 20px;
+}
+.fui-infra-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 6px;
+}
+.fui-infra-desc {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* ============================================================================
+   ULTRA-PROFESSIONAL ADMISSIONS ENQUIRY SECTION & SMOOTH ANIMATIONS
+   Clean white background, institutional navy & emerald accents, 
+   refined 2-column layout, interactive input glow, and micro-interactions
+   ============================================================================ */
+
+.fui-enquiry-section {
+  position: relative;
+  background: #ffffff;
+  padding: 64px 0 72px;
+  border-top: 1px solid var(--fui-border);
+  border-bottom: 1px solid var(--fui-border);
+  overflow: hidden;
+}
+
+/* Subtle institutional background geometric hairline accent */
+.fui-enquiry-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(13, 138, 80, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.fui-enquiry-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px -12px rgba(11, 37, 69, 0.08), 0 2px 8px rgba(11, 37, 69, 0.02);
+  padding: 44px 48px;
+  position: relative;
+  transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-enquiry-card:hover {
+  box-shadow: 0 20px 48px -12px rgba(11, 37, 69, 0.12), 0 0 0 1px rgba(13, 138, 80, 0.2);
+}
+
+/* 2-Column Responsive Layout */
+.fui-enquiry-grid {
+  display: grid;
+  grid-template-columns: 4.2fr 7.8fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 991.98px) {
+  .fui-enquiry-card {
+    padding: 32px 24px;
+  }
+  .fui-enquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+/* Left Column: Information & Helplines */
+.fui-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fui-pill-emerald {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 50px;
+  width: fit-content;
+}
+
+.fui-pulse-dot {
+  width: 7px;
+  height: 7px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+  animation: fuiPulseGreen 2s infinite ease-in-out;
+}
+
+@keyframes fuiPulseGreen {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+.fui-info-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0b2545;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.fui-title-bar {
+  display: inline-block;
+  width: 44px;
+  height: 4px;
+  background: #0d8a50;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.fui-info-desc {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Contact Point Cards */
+.fui-contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-contact-card:hover {
+  background: #ffffff;
+  border-color: #0d8a50;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -4px rgba(11, 37, 69, 0.06);
+}
+
+.fui-contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #eef4fb;
+  border: 1px solid #cbd5e1;
+  color: #0b2545;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.fui-contact-card:hover .fui-contact-icon {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #0d8a50;
+  transform: scale(1.05);
+}
+
+.fui-contact-body strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 2px;
+}
+
+.fui-contact-body p {
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.fui-helpline-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.fui-helpline-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0d8a50;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.fui-helpline-links a:hover {
+  color: #075e35;
+  text-decoration: underline;
+}
+
+.fui-wa-connect-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #25d366;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 13px 20px;
+  border-radius: 10px;
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.28);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-wa-connect-btn:hover {
+  background: #1ebc59;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.38);
+}
+
+/* Right Column: Institutional Form */
+.fui-form-col {
+  background: #ffffff;
+}
+
+.fui-form-wrapper {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px 30px;
+  box-shadow: 0 4px 16px rgba(11, 37, 69, 0.04);
+}
+
+@media (max-width: 640px) {
+  .fui-form-wrapper {
+    padding: 20px 16px;
+  }
+}
+
+.fui-form-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.fui-form-header-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b2545;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fui-form-header-title i {
+  color: #0d8a50;
+}
+
+.fui-form-header-sub {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Form Fields Grid */
+.fui-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 640px) {
+  .fui-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.fui-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.fui-field-label {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.fui-field-label i {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.fui-field-group:focus-within .fui-field-label i {
+  color: #0d8a50;
+}
+
+.fui-field-label .req {
+  color: #ef4444;
+  font-weight: 800;
+}
+
+.fui-field-label .opt {
+  color: #94a3b8;
+  font-weight: 400;
+  font-size: 0.75rem;
+  margin-left: 2px;
+}
+
+/* Input Wrappers & Inputs */
+.fui-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fui-input-prefix {
+  position: absolute;
+  left: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.fui-control {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #0f172a;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 9px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-control.has-prefix {
+  padding-left: 48px;
+}
+
+.fui-control::placeholder {
+  color: #94a3b8;
+  font-size: 0.86rem;
+}
+
+.fui-control:hover {
+  border-color: #94a3b8;
+  background: #ffffff;
+}
+
+.fui-control:focus {
+  background: #ffffff;
+  border-color: #0d8a50;
+  box-shadow: 0 0 0 3.5px rgba(13, 138, 80, 0.16);
+}
+
+/* Custom Dropdown Select */
+select.fui-control {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 36px;
+}
+
+/* Textarea */
+textarea.fui-control {
+  height: 92px;
+  padding: 12px 14px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Privacy Assurance note */
+.fui-privacy-note {
+  font-size: 0.76rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 18px;
+}
+
+.fui-privacy-note i {
+  color: #0d8a50;
+}
+
+/* Submit Button */
+.fui-submit-btn {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, #0d8a50 0%, #0a6c3e 100%);
+  color: #ffffff !important;
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(13, 138, 80, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-submit-btn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: none;
+}
+
+.fui-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13, 138, 80, 0.42);
+  background: linear-gradient(135deg, #10b981 0%, #0d8a50 100%);
+}
+
+.fui-submit-btn:hover::after {
+  animation: fuiShimmer 1s ease-in-out infinite;
+}
+
+@keyframes fuiShimmer {
+  0% { left: -60%; }
+  100% { left: 140%; }
+}
+
+.fui-submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(13, 138, 80, 0.25);
+}
+
+.fui-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Success Confirmation Screen */
+.fui-success-card {
+  padding: 36px 24px;
+  text-align: center;
+  animation: fuiSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fui-success-icon-wrap {
+  width: 68px;
+  height: 68px;
+  background: #ecfdf5;
+  border: 2px solid #a7f3d0;
+  border-radius: 50%;
+  color: #0d8a50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 24px rgba(13, 138, 80, 0.18);
+  animation: fuiPopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fuiPopIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fuiSlideUp {
+  0% { transform: translateY(18px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.fui-success-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0b2545;
+  margin-bottom: 8px;
+}
+
+.fui-success-msg {
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+
+.fui-success-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fui-btn-reset {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.fui-btn-reset:hover {
+  background: #e2e8f0;
+  color: #0b2545;
+}
+
+
+/* ============================================================================
+   FIELDSUI ADMISSIONS REDESIGN - SPECIALIZED COMPONENTS
+   ============================================================================ */
+.fui-step-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+.fui-step-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 2px 8px rgba(11, 37, 69, 0.04);
+}
+.fui-step-card:hover {
+  transform: translateY(-3px);
+  border-color: #0d8a50;
+  box-shadow: 0 10px 20px -3px rgba(13, 138, 80, 0.1);
+}
+.fui-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: #0d8a50;
+  font-weight: 800;
+  font-size: 0.95rem;
+  border: 1.5px solid #a7f3d0;
+  margin-bottom: 14px;
+}
+.fui-step-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 8px;
+}
+.fui-step-desc {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fui-quota-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.fui-quota-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.04);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.fui-quota-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 24px -4px rgba(11, 37, 69, 0.08);
+}
+.fui-quota-card-convenor {
+  border-top: 4px solid #0d8a50;
+}
+.fui-quota-card-mgmt {
+  border-top: 4px solid #0b2545;
+}
+.fui-quota-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.fui-quota-pct {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0b2545;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.fui-quota-sub {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.fui-bank-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+}
+.fui-bank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+.fui-bank-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.fui-bank-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.fui-bank-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0b2545;
+}
+
+.fui-checklist-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.fui-checklist-table th {
+  background: #0b2545;
+  color: #ffffff;
+  padding: 14px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: none;
+}
+.fui-checklist-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 0.9rem;
+}
+.fui-checklist-table tr:last-child td {
+  border-bottom: none;
+}
+.fui-checklist-table tr:hover td {
+  background: #f8fafc;
+}
+
+.fui-scholarship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.fui-scholarship-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: 0 2px 10px rgba(11, 37, 69, 0.04);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+.fui-scholarship-card:hover {
+  transform: translateY(-3px);
+  border-color: #0d8a50;
+  box-shadow: 0 12px 24px -4px rgba(13, 138, 80, 0.1);
+}
+.fui-sch-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.fui-sch-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #0d8a50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.fui-sch-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin: 0 0 4px;
+}
+.fui-sch-grant {
+  display: inline-block;
+  background: #eef4fb;
+  color: #0b2545;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.fui-sch-body {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 18px;
+}
+.fui-sch-criteria {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  color: #334155;
+  margin-bottom: 16px;
+}
+.fui-sch-criteria strong {
+  color: #0b2545;
+}
+
+.fui-contact-desk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+.fui-contact-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s ease;
+}
+.fui-contact-card:hover {
+  transform: translateY(-2px);
+  border-color: #0d8a50;
+  box-shadow: 0 8px 16px -2px rgba(11, 37, 69, 0.06);
+}
+.fui-contact-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #eef4fb;
+  color: #0b2545;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.fui-contact-card.emerald .fui-contact-icon {
+  background: #ecfdf5;
+  color: #0d8a50;
+}
+.fui-contact-info h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin: 0 0 4px;
+}
+.fui-contact-info p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0 0 6px;
+}
+.fui-contact-link {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0d8a50;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.fui-contact-link:hover {
+  text-decoration: underline;
+}
+
+/* Print Styles */
+@media print {
+  .fui-sticky-subnav, .fui-enquiry-section, .fui-hero-ctas, .fui-breadcrumb-strip {
+    display: none !important;
+  }
+  .fui-section {
+    padding: 20px 0 !important;
+  }
+}
