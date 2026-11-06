@@ -2800,3 +2800,12 @@ textarea.fui-control {
     padding: 20px 0 !important;
   }
 }
+
+
+/* Suppress floating social bar */
+.floating-social-bar,
+.share-modal {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
