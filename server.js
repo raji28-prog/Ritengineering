@@ -302,6 +302,57 @@ app.get(['/contact', '/contact/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'contact', 'index.html'), sendFileOpts);
 });
 
+// 6. CAMPUS LIFE & FACILITIES - Redesigned Section & Legacy Redirects
+app.get(['/campus-life', '/campus-life/', '/campus-life/index.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'campus-life', 'index.html'), sendFileOpts);
+});
+app.get(['/facilities', '/facilities/', '/facilities/index.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'campus-life', 'index.html'), sendFileOpts);
+});
+
+// Legacy Facilities PHP redirects
+app.get(['/facilities/:file.php', '/Facilities/:file.php'], (req, res) => {
+    const p = req.path.toLowerCase();
+    if (p.includes('infrastructure')) return res.redirect(301, '/campus-life#infrastructure');
+    if (p.includes('central_library')) return res.redirect(301, '/campus-life#central-library');
+    if (p.includes('conventional_library')) return res.redirect(301, '/campus-life#conventional-library');
+    if (p.includes('digital_library')) return res.redirect(301, '/campus-life#digital-library');
+    if (p.includes('e-class_rooms') || p.includes('class')) return res.redirect(301, '/campus-life#e-class-rooms');
+    if (p.includes('aiml')) return res.redirect(301, '/campus-life#aiml-labs');
+    if (p.includes('seminar') || p.includes('auditorium')) return res.redirect(301, '/campus-life#seminar-halls');
+    if (p.includes('ieee')) return res.redirect(301, '/campus-life#ieee-kiosk');
+    if (p.includes('nptel')) return res.redirect(301, '/campus-life#nptel-kiosk');
+    if (p.includes('mhrd') || p.includes('task')) return res.redirect(301, '/campus-life#mhrd-kiosk');
+    if (p.includes('discussion')) return res.redirect(301, '/campus-life#discussion-chambers');
+    if (p.includes('remedial')) return res.redirect(301, '/campus-life#remedial-kiosk');
+    if (p.includes('slow_learner')) return res.redirect(301, '/campus-life#slow-learners-kiosk');
+    if (p.includes('transportation')) return res.redirect(301, '/campus-life#transport');
+    if (p.includes('sports') || p.includes('gym')) return res.redirect(301, '/campus-life#sports');
+    if (p.includes('ro_plant') || p.includes('pure')) return res.redirect(301, '/campus-life#ro-plant');
+    if (p.includes('cafeteria') || p.includes('canteen')) return res.redirect(301, '/campus-life#cafeteria');
+    if (p.includes('medical')) return res.redirect(301, '/campus-life#medical-safety');
+    if (p.includes('power_backup')) return res.redirect(301, '/campus-life#power-backup');
+    if (p.includes('water_harvesting')) return res.redirect(301, '/campus-life#water-harvesting');
+    if (p.includes('social_welfare')) return res.redirect(301, '/campus-life#social-welfare');
+    if (p.includes('vibrant') || p.includes('club')) return res.redirect(301, '/campus-life#clubs');
+    res.redirect(301, '/campus-life');
+});
+
+// Legacy NSS & Clubs redirects
+app.get(['/NSS/:file.php', '/nss/:file.php', '/NSS*path', '/nss*path'], (req, res) => {
+    const p = req.path.toLowerCase();
+    if (p.includes('coordinator')) return res.redirect(301, '/campus-life#nss-coordinator');
+    if (p.includes('event')) return res.redirect(301, '/campus-life#nss-events');
+    if (p.includes('gallery')) return res.redirect(301, '/campus-life#gallery');
+    if (p.includes('ncc')) return res.redirect(301, '/campus-life#ncc');
+    res.redirect(301, '/campus-life#nss');
+});
+app.get(['/EDC.php', '/edc.php'], (req, res) => res.redirect(301, '/campus-life#edc'));
+app.get(['/PCS.php', '/pcs.php'], (req, res) => res.redirect(301, '/campus-life#accessibility'));
+app.get(['/Functional%20Units/PhysicalEducation*path', '/Functional Units/PhysicalEducation*path'], (req, res) => res.redirect(301, '/campus-life#sports'));
+app.get(['/Functional%20Units/Alumni*path', '/Functional Units/Alumni*path'], (req, res) => res.redirect(301, '/campus-life#alumni'));
+app.get(['/Functional%20Units/RTI*path', '/Functional Units/RTI*path'], (req, res) => res.redirect(301, '/campus-life#rti'));
+
 // Defensive catch for malformed /href= navigation
 app.get(['/href=', '/href=*path'], (req, res) => {
     res.redirect('/');
