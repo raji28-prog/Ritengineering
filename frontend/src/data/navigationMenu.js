@@ -219,30 +219,47 @@ export const NAVIGATION_MENU = [
     isInternal: true,
     submenus: [
       {
-        heading: "Student Experience",
-        icon: "fas fa-users",
+        heading: "Learning Spaces",
+        icon: "fas fa-landmark",
         links: [
-          { title: "Student Experience Overview", path: "/campus-life#overview", isInternal: true },
-          { title: "Annual Cultural Fest 'Rishi Utsav'", path: "/campus-life#cultural", isInternal: true },
+          { title: "Infrastructure & Campus Quad", path: "/campus-life#infrastructure", isInternal: true },
+          { title: "Central, Conventional & Digital Libraries", path: "/campus-life#libraries", isInternal: true },
+          { title: "Smart E-Classrooms & AIML Labs", path: "/campus-life#classrooms-labs", isInternal: true },
+          { title: "Academic Kiosks (IEEE, NPTEL, TASK)", path: "/campus-life#kiosks", isInternal: true },
+          { title: "Seminar Halls & Auditoriums", path: "/campus-life#seminar-halls", isInternal: true }
+        ]
+      },
+      {
+        heading: "Student Amenities",
+        icon: "fas fa-coffee",
+        links: [
+          { title: "Pure RO Plant & Campus Cafeteria", path: "/campus-life#amenities", isInternal: true },
+          { title: "Medical & Safety Center", path: "/campus-life#medical-safety", isInternal: true },
+          { title: "Sports Complex & Open Gym", path: "/campus-life#sports", isInternal: true },
+          { title: "JNTU Metro & Bus Transportation", path: "/campus-life#transport", isInternal: true },
+          { title: "100% DG Power & Water Harvesting", path: "/campus-life#amenities", isInternal: true }
+        ]
+      },
+      {
+        heading: "Clubs & Wings",
+        icon: "fas fa-users-cog",
+        links: [
+          { title: "Vibrant Student Clubs (CSE, IT, ECE)", path: "/campus-life#clubs", isInternal: true },
+          { title: "Entrepreneurship Development (EDC)", path: "/campus-life#edc", isInternal: true },
+          { title: "National Service Scheme (NSS Cell)", path: "/campus-life#nss", isInternal: true },
+          { title: "NSS Events & Statutory Records", path: "/campus-life#nss-events", isInternal: true },
+          { title: "National Cadet Corps (NCC Wing)", path: "/campus-life#ncc", isInternal: true }
+        ]
+      },
+      {
+        heading: "Support & Gallery",
+        icon: "fas fa-camera-retro",
+        links: [
+          { title: "Barrier-Free Divyangjan Campus", path: "/campus-life#accessibility", isInternal: true },
+          { title: "RITW Global Alumni Association", path: "/campus-life#alumni", isInternal: true },
+          { title: "Official Transcripts & Records", path: "/campus-life#transcripts", isInternal: true },
+          { title: "Right to Information (RTI)", path: "/campus-life#rti", isInternal: true },
           { title: "Campus Photo Gallery", path: "/campus-life#gallery", isInternal: true }
-        ]
-      },
-      {
-        heading: "Technical Clubs",
-        icon: "fas fa-robot",
-        links: [
-          { title: "Google Developer Student Club (GDSC)", path: "/campus-life#clubs", isInternal: true },
-          { title: "CodeRishi Competitive Programming", path: "/campus-life#clubs", isInternal: true },
-          { title: "Robotics & IoT Innovation Hub", path: "/campus-life#clubs", isInternal: true }
-        ]
-      },
-      {
-        heading: "Community & Sports",
-        icon: "fas fa-heartbeat",
-        links: [
-          { title: "NSS & Rural Village Outreach", path: "/campus-life#nss", isInternal: true },
-          { title: "Women Empowerment Cell (WEC)", path: "/campus-life#wec", isInternal: true },
-          { title: "Sports Complex & Gymnasium", path: "/campus-life#sports", isInternal: true }
         ]
       }
     ]
