@@ -249,15 +249,16 @@ app.get('/about/chairman', (req, res) => res.redirect(302, '/about#chairman'));
 app.get('/about/secretary', (req, res) => res.redirect(302, '/about#secretary'));
 app.get('/about/director', (req, res) => res.redirect(302, '/about#director'));
 app.get('/about/principal', (req, res) => res.redirect(302, '/about#principal'));
-app.get('/about/governing-council', (req, res) => res.redirect(302, '/about#governing-council'));
-app.get('/about/workflow', (req, res) => res.redirect(302, '/about#workflow'));
-app.get('/about/academic-board', (req, res) => res.redirect(302, '/about#academic-board'));
+app.get('/about/governing-council', (req, res) => res.redirect(302, '/governance#governing-body'));
+app.get('/about/workflow', (req, res) => res.redirect(302, '/governance#organogram'));
+app.get('/about/academic-board', (req, res) => res.redirect(302, '/governance#academic-council'));
 app.get('/about/naac', (req, res) => res.redirect(302, '/about#naac'));
 app.get('/about/nba', (req, res) => res.redirect(302, '/about#nba'));
 app.get('/about/ugc', (req, res) => res.redirect(302, '/about#ugc'));
 app.get('/about/aicte', (req, res) => res.redirect(302, '/about#aicte'));
-app.get('/about/audit', (req, res) => res.redirect(302, '/about#audit'));
-app.get('/about/ombudsperson', (req, res) => res.redirect(302, '/about#ombudsperson'));
+app.get('/about/audit', (req, res) => res.redirect(302, '/governance#audit'));
+app.get('/about/ombudsperson', (req, res) => res.redirect(302, '/governance#ombudsperson'));
+app.get('/about/idp', (req, res) => res.redirect(302, '/governance#idp'));
 app.get(['/about/code-of-conduct', '/Public_Documents/Code_of_Conduct.php'], (req, res) => res.redirect(302, '/about#code-of-conduct'));
 app.get('/about/handbook', (req, res) => res.redirect(302, '/about#handbook'));
 
@@ -284,9 +285,17 @@ app.get(['/about', '/about/', '/about/index.html'], (req, res) => {
 });
 
 // Legacy Committees & External redirects
-app.get(['/committees/Admissions*path', '/committees/admissions*path'], (req, res) => res.redirect(301, '/admissions#enquiry'));
-app.get(['/committees/College%20Academic*path', '/committees/College Academic*path'], (req, res) => res.redirect(301, '/academics#committees'));
-app.get(['/committees/Student*path', '/committees/student*path'], (req, res) => res.redirect(301, '/placements#about-cell'));
+app.use(['/committees', '/Committees'], (req, res) => {
+    const p = (req.url || '').toLowerCase();
+    if (p.includes('governing')) return res.redirect(301, '/governance#governing-body');
+    if (p.includes('academic') || p.includes('college')) return res.redirect(301, '/governance#academic-council');
+    if (p.includes('student') || p.includes('placement')) return res.redirect(301, '/placements#about-cell');
+    if (p.includes('alumni')) return res.redirect(301, '/campus-life#alumni');
+    if (p.includes('sports')) return res.redirect(301, '/campus-life#sports');
+    if (p.includes('nss')) return res.redirect(301, '/campus-life#nss');
+    if (p.includes('admission')) return res.redirect(301, '/admissions#enquiry');
+    res.redirect(301, '/governance#committees');
+});
 app.get(['/Research*path', '/research*path'], (req, res) => res.redirect(301, '/academics#curriculum'));
 app.get(['/NSS*path', '/nss*path'], (req, res) => res.redirect(301, '/about#why-choose'));
 
@@ -352,6 +361,11 @@ app.get(['/PCS.php', '/pcs.php'], (req, res) => res.redirect(301, '/campus-life#
 app.get(['/Functional%20Units/PhysicalEducation*path', '/Functional Units/PhysicalEducation*path'], (req, res) => res.redirect(301, '/campus-life#sports'));
 app.get(['/Functional%20Units/Alumni*path', '/Functional Units/Alumni*path'], (req, res) => res.redirect(301, '/campus-life#alumni'));
 app.get(['/Functional%20Units/RTI*path', '/Functional Units/RTI*path'], (req, res) => res.redirect(301, '/campus-life#rti'));
+
+// 7. GOVERNANCE - Redesigned Section & Legacy Redirects
+app.get(['/governance', '/governance/', '/governance/index.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'governance', 'index.html'), sendFileOpts);
+});
 
 // Defensive catch for malformed /href= navigation
 app.get(['/href=', '/href=*path'], (req, res) => {
