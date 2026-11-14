@@ -116,11 +116,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'), sendFileOpts);
 });
 
-// Dedicated Announcements Route
-app.get(['/announcements', '/announcements/*path'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'announcements', 'index.html'), sendFileOpts);
-});
-
 // ----------------------------------------------------------------------------
 // REDESIGNED CONTENT PAGES & SUBMENU ROUTES
 // ----------------------------------------------------------------------------
@@ -189,35 +184,45 @@ app.get(['/admissions', '/admissions/', '/admissions/index.html', '/Admissions',
 app.get('/academics/curriculum', (req, res) => res.redirect(302, '/academics#curriculum'));
 app.get(['/academics/calendar', '/academics/university-calendar'], (req, res) => res.redirect(302, '/academics#university-calendar'));
 app.get('/academics/institution-calendar', (req, res) => res.redirect(302, '/academics#institution-calendar'));
-app.get(['/academics/results', '/academics/examinations', '/examinations'], (req, res) => res.redirect(302, '/academics#examinations'));
-app.get('/academics/committees', (req, res) => res.redirect(302, '/academics#committees'));
+app.get(['/academics/results', '/academics/exam-results'], (req, res) => res.redirect(302, '/academics#results'));
+app.get(['/academics/exam-branch', '/academics/coe'], (req, res) => res.redirect(302, '/academics#exam-branch'));
+app.get('/academics/timetables', (req, res) => res.redirect(302, '/academics#timetables'));
+app.get('/academics/copo', (req, res) => res.redirect(302, '/academics#copo'));
+app.get('/academics/grading', (req, res) => res.redirect(302, '/academics#grading'));
+app.get('/academics/pedagogy', (req, res) => res.redirect(302, '/academics#pedagogy'));
 app.get('/academics/syllabi', (req, res) => res.redirect(302, '/academics#syllabi'));
+app.get('/academics/committees', (req, res) => res.redirect(302, '/academics#committees'));
+app.get('/academics/downloads', (req, res) => res.redirect(302, '/academics#downloads'));
+app.get('/academics/malpractice', (req, res) => res.redirect(302, '/academics#malpractice'));
 
 // Legacy Academics PHP redirects
-app.get(['/academics/:file.php', '/Academics/:file.php'], (req, res) => {
+app.get(['/Academics/:file.php', '/academics/:file.php'], (req, res) => {
     const p = req.path.toLowerCase();
-    if (p.includes('calendar')) return res.redirect(301, '/academics#university-calendar');
-    if (p.includes('committee')) return res.redirect(301, '/academics#committees');
-    if (p.includes('result') || p.includes('exam')) return res.redirect(301, '/academics#examinations');
-    if (p.includes('syllabus') || p.includes('syllabi') || p.includes('curriculum')) return res.redirect(301, '/academics#curriculum');
+    if (p.includes('calender') || p.includes('calendar')) return res.redirect(301, '/academics#university-calendar');
+    if (p.includes('syllabus') || p.includes('curriculum')) return res.redirect(301, '/academics#curriculum');
+    if (p.includes('exam') || p.includes('timetable') || p.includes('branch')) return res.redirect(301, '/academics#exam-branch');
+    if (p.includes('result')) return res.redirect(301, '/academics#results');
     res.redirect(301, '/academics');
 });
 
-app.get(['/academics', '/academics/', '/academics/index.html'], (req, res) => {
+app.get(['/academics', '/academics/', '/academics/index.html', '/Academics', '/Academics/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'academics', 'index.html'), sendFileOpts);
 });
 
 // 4. PLACEMENTS - Direct submenu routes & legacy redirects
+app.get(['/placements/cell', '/placements/about-cell'], (req, res) => res.redirect(302, '/placements#about-cell'));
+app.get(['/placements/officer', '/placements/team'], (req, res) => res.redirect(302, '/placements#officer'));
+app.get('/placements/infra', (req, res) => res.redirect(302, '/placements#infra'));
 app.get('/placements/highlights', (req, res) => res.redirect(302, '/placements#highlights'));
 app.get('/placements/training', (req, res) => res.redirect(302, '/placements#training'));
+app.get('/placements/coe', (req, res) => res.redirect(302, '/placements#coe'));
 app.get('/placements/companies', (req, res) => res.redirect(302, '/placements#companies'));
-app.get('/placements/team', (req, res) => res.redirect(302, '/placements#team'));
-app.get('/placements/infra', (req, res) => res.redirect(302, '/placements#infra'));
-app.get('/placements/contact', (req, res) => res.redirect(302, '/placements#contact'));
+app.get('/placements/records', (req, res) => res.redirect(302, '/placements#records'));
 
 // Legacy Placements PHP redirects
-app.get(['/placements/:file.php', '/Placements/:file.php'], (req, res) => {
+app.get(['/placements/:file.php', '/Placements/:file.php', '/placements/MOU*path'], (req, res) => {
     const p = req.path.toLowerCase();
+    if (p.includes('officer') || p.includes('team')) return res.redirect(301, '/placements#officer');
     if (p.includes('infra')) return res.redirect(301, '/placements#infra');
     if (p.includes('training') || p.includes('internship') || p.includes('visit')) return res.redirect(301, '/placements#training');
     if (p.includes('companies')) return res.redirect(301, '/placements#companies');
@@ -244,15 +249,16 @@ app.get('/about/chairman', (req, res) => res.redirect(302, '/about#chairman'));
 app.get('/about/secretary', (req, res) => res.redirect(302, '/about#secretary'));
 app.get('/about/director', (req, res) => res.redirect(302, '/about#director'));
 app.get('/about/principal', (req, res) => res.redirect(302, '/about#principal'));
-app.get('/about/governing-council', (req, res) => res.redirect(302, '/about#governing-council'));
-app.get('/about/workflow', (req, res) => res.redirect(302, '/about#workflow'));
-app.get('/about/academic-board', (req, res) => res.redirect(302, '/about#academic-board'));
+app.get('/about/governing-council', (req, res) => res.redirect(302, '/governance#governing-body'));
+app.get('/about/workflow', (req, res) => res.redirect(302, '/governance#organogram'));
+app.get('/about/academic-board', (req, res) => res.redirect(302, '/governance#academic-council'));
 app.get('/about/naac', (req, res) => res.redirect(302, '/about#naac'));
 app.get('/about/nba', (req, res) => res.redirect(302, '/about#nba'));
 app.get('/about/ugc', (req, res) => res.redirect(302, '/about#ugc'));
 app.get('/about/aicte', (req, res) => res.redirect(302, '/about#aicte'));
-app.get('/about/audit', (req, res) => res.redirect(302, '/about#audit'));
-app.get('/about/ombudsperson', (req, res) => res.redirect(302, '/about#ombudsperson'));
+app.get('/about/audit', (req, res) => res.redirect(302, '/governance#audit'));
+app.get('/about/ombudsperson', (req, res) => res.redirect(302, '/governance#ombudsperson'));
+app.get('/about/idp', (req, res) => res.redirect(302, '/governance#idp'));
 app.get(['/about/code-of-conduct', '/Public_Documents/Code_of_Conduct.php'], (req, res) => res.redirect(302, '/about#code-of-conduct'));
 app.get('/about/handbook', (req, res) => res.redirect(302, '/about#handbook'));
 
@@ -279,9 +285,17 @@ app.get(['/about', '/about/', '/about/index.html'], (req, res) => {
 });
 
 // Legacy Committees & External redirects
-app.get(['/committees/Admissions*path', '/committees/admissions*path'], (req, res) => res.redirect(301, '/admissions#enquiry'));
-app.get(['/committees/College%20Academic*path', '/committees/College Academic*path'], (req, res) => res.redirect(301, '/academics#committees'));
-app.get(['/committees/Student*path', '/committees/student*path'], (req, res) => res.redirect(301, '/placements#about-cell'));
+app.use(['/committees', '/Committees'], (req, res) => {
+    const p = (req.url || '').toLowerCase();
+    if (p.includes('governing')) return res.redirect(301, '/governance#governing-body');
+    if (p.includes('academic') || p.includes('college')) return res.redirect(301, '/governance#academic-council');
+    if (p.includes('student') || p.includes('placement')) return res.redirect(301, '/placements#about-cell');
+    if (p.includes('alumni')) return res.redirect(301, '/campus-life#alumni');
+    if (p.includes('sports')) return res.redirect(301, '/campus-life#sports');
+    if (p.includes('nss')) return res.redirect(301, '/campus-life#nss');
+    if (p.includes('admission')) return res.redirect(301, '/admissions#enquiry');
+    res.redirect(301, '/governance#committees');
+});
 app.get(['/Research*path', '/research*path'], (req, res) => res.redirect(301, '/academics#curriculum'));
 app.get(['/NSS*path', '/nss*path'], (req, res) => res.redirect(301, '/about#why-choose'));
 
@@ -289,58 +303,92 @@ app.get(['/accreditation', '/accreditation/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'accreditation', 'index.html'), sendFileOpts);
 });
 
+app.get(['/announcements', '/announcements/*path'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'announcements', 'index.html'), sendFileOpts);
+});
+
 app.get(['/contact', '/contact/*path'], (req, res) => {
     res.sendFile(path.join(__dirname, 'contact', 'index.html'), sendFileOpts);
 });
 
-// Robust Universal Redirect Catcher for all legacy PHP, space-encoded, or mistyped URLs
-app.use((req, res, next) => {
-    let p = '';
-    try {
-        p = decodeURIComponent(req.path).toLowerCase();
-    } catch {
-        p = req.path.toLowerCase();
-    }
-
-    if (p.includes('calendar')) {
-        if (p.includes('institution')) return res.redirect(302, '/academics#institution-calendar');
-        return res.redirect(302, '/academics#university-calendar');
-    }
-    if (p.includes('academic')) {
-        if (p.includes('curriculum') || p.includes('syllabus') || p.includes('syllabi')) return res.redirect(302, '/academics#curriculum');
-        if (p.includes('result') || p.includes('exam')) return res.redirect(302, '/academics#examinations');
-        if (p.includes('committee')) return res.redirect(302, '/academics#committees');
-        return res.redirect(302, '/academics');
-    }
-    if (p.includes('placement')) {
-        if (p.includes('company') || p.includes('companies')) return res.redirect(302, '/placements#companies');
-        if (p.includes('record') || p.includes('highlight') || p.includes('drive')) return res.redirect(302, '/placements#records');
-        if (p.includes('training') || p.includes('internship')) return res.redirect(302, '/placements#training');
-        if (p.includes('officer') || p.includes('team') || p.includes('cell')) return res.redirect(302, '/placements#about-cell');
-        return res.redirect(302, '/placements');
-    }
-    if (p.includes('admission')) {
-        if (p.includes('fee')) return res.redirect(302, '/admissions#fee-structure');
-        if (p.includes('course') || p.includes('intake') || p.includes('seat')) return res.redirect(302, '/admissions#courses');
-        if (p.includes('form') || p.includes('download')) return res.redirect(302, '/admissions#download-form');
-        if (p.includes('enquiry')) return res.redirect(302, '/admissions#enquiry');
-        return res.redirect(302, '/admissions');
-    }
-    if (p.includes('department')) {
-        if (p.includes('cse') || p.includes('computer')) return res.redirect(302, '/departments/cse');
-        if (p.includes('it') || p.includes('information')) return res.redirect(302, '/departments/it');
-        if (p.includes('ece') || p.includes('electronic')) return res.redirect(302, '/departments/ece');
-        if (p.includes('hns') || p.includes('humanit') || p.includes('science')) return res.redirect(302, '/departments/hns');
-        return res.redirect(302, '/departments');
-    }
-    if (p.endsWith('.php')) {
-        if (p.includes('about') || p.includes('vision') || p.includes('mission') || p.includes('desk') || p.includes('council')) {
-            return res.redirect(302, '/about');
-        }
-        return res.redirect(302, '/');
-    }
-    next();
+// 6. CAMPUS LIFE & FACILITIES - Redesigned Section & Legacy Redirects
+app.get(['/campus-life', '/campus-life/', '/campus-life/index.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'campus-life', 'index.html'), sendFileOpts);
 });
+app.get(['/facilities', '/facilities/', '/facilities/index.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'campus-life', 'index.html'), sendFileOpts);
+});
+
+// Legacy Facilities PHP redirects
+app.get(['/facilities/:file.php', '/Facilities/:file.php'], (req, res) => {
+    const p = req.path.toLowerCase();
+    if (p.includes('infrastructure')) return res.redirect(301, '/campus-life#infrastructure');
+    if (p.includes('central_library')) return res.redirect(301, '/campus-life#central-library');
+    if (p.includes('conventional_library')) return res.redirect(301, '/campus-life#conventional-library');
+    if (p.includes('digital_library')) return res.redirect(301, '/campus-life#digital-library');
+    if (p.includes('e-class_rooms') || p.includes('class')) return res.redirect(301, '/campus-life#e-class-rooms');
+    if (p.includes('aiml')) return res.redirect(301, '/campus-life#aiml-labs');
+    if (p.includes('seminar') || p.includes('auditorium')) return res.redirect(301, '/campus-life#seminar-halls');
+    if (p.includes('ieee')) return res.redirect(301, '/campus-life#ieee-kiosk');
+    if (p.includes('nptel')) return res.redirect(301, '/campus-life#nptel-kiosk');
+    if (p.includes('mhrd') || p.includes('task')) return res.redirect(301, '/campus-life#mhrd-kiosk');
+    if (p.includes('discussion')) return res.redirect(301, '/campus-life#discussion-chambers');
+    if (p.includes('remedial')) return res.redirect(301, '/campus-life#remedial-kiosk');
+    if (p.includes('slow_learner')) return res.redirect(301, '/campus-life#slow-learners-kiosk');
+    if (p.includes('transportation')) return res.redirect(301, '/campus-life#transport');
+    if (p.includes('sports') || p.includes('gym')) return res.redirect(301, '/campus-life#sports');
+    if (p.includes('ro_plant') || p.includes('pure')) return res.redirect(301, '/campus-life#ro-plant');
+    if (p.includes('cafeteria') || p.includes('canteen')) return res.redirect(301, '/campus-life#cafeteria');
+    if (p.includes('medical')) return res.redirect(301, '/campus-life#medical-safety');
+    if (p.includes('power_backup')) return res.redirect(301, '/campus-life#power-backup');
+    if (p.includes('water_harvesting')) return res.redirect(301, '/campus-life#water-harvesting');
+    if (p.includes('social_welfare')) return res.redirect(301, '/campus-life#social-welfare');
+    if (p.includes('vibrant') || p.includes('club')) return res.redirect(301, '/campus-life#clubs');
+    res.redirect(301, '/campus-life');
+});
+
+// Legacy NSS & Clubs redirects
+app.get(['/NSS/:file.php', '/nss/:file.php', '/NSS*path', '/nss*path'], (req, res) => {
+    const p = req.path.toLowerCase();
+    if (p.includes('coordinator')) return res.redirect(301, '/campus-life#nss-coordinator');
+    if (p.includes('event')) return res.redirect(301, '/campus-life#nss-events');
+    if (p.includes('gallery')) return res.redirect(301, '/campus-life#gallery');
+    if (p.includes('ncc')) return res.redirect(301, '/campus-life#ncc');
+    res.redirect(301, '/campus-life#nss');
+});
+app.get(['/EDC.php', '/edc.php'], (req, res) => res.redirect(301, '/campus-life#edc'));
+app.get(['/PCS.php', '/pcs.php'], (req, res) => res.redirect(301, '/campus-life#accessibility'));
+app.get(['/Functional%20Units/PhysicalEducation*path', '/Functional Units/PhysicalEducation*path'], (req, res) => res.redirect(301, '/campus-life#sports'));
+app.get(['/Functional%20Units/Alumni*path', '/Functional Units/Alumni*path'], (req, res) => res.redirect(301, '/campus-life#alumni'));
+app.get(['/Functional%20Units/RTI*path', '/Functional Units/RTI*path'], (req, res) => res.redirect(301, '/campus-life#rti'));
+
+// 7. GOVERNANCE - Redesigned Section & Legacy Redirects
+app.get(['/governance', '/governance/', '/governance/index.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'governance', 'index.html'), sendFileOpts);
+});
+
+// 8. MEDIA & CONNECT - Redesigned Section & Legacy Redirects
+app.get(['/media', '/media/', '/media/index.html', '/media-connect', '/media-connect/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'media', 'index.html'), sendFileOpts);
+});
+app.get(['/gallery', '/gallery/', '/PhotoGallery', '/PhotoGallery/*path', '/gallery.php', '/gallery.html'], (req, res) => {
+    res.redirect(301, '/media#gallery');
+});
+app.get(['/careers', '/careers/', '/careers.php', '/careers.html'], (req, res) => {
+    res.redirect(301, '/media#careers');
+});
+app.get(['/the-rishi-times', '/rishi-times', '/newsletter', '/magazine'], (req, res) => {
+    res.redirect(301, '/media#rishi-times');
+});
+app.get(['/press', '/press-releases', '/news'], (req, res) => {
+    res.redirect(301, '/media#press');
+});
+
+// Defensive catch for malformed /href= navigation
+app.get(['/href=', '/href=*path'], (req, res) => {
+    res.redirect('/');
+});
+
 
 // Static fallback for other root files
 app.use(express.static(__dirname, sendFileOpts));
@@ -373,3 +421,4 @@ const server = app.listen(config.PORT, () => {
 });
 
 module.exports = { app, server };
+

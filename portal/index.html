@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -23,80 +23,146 @@
          1. LOGIN SCREEN (Shown when not authenticated)
          ==================================================================== -->
     <div id="loginView" class="login-wrapper">
-        <div class="login-card">
-            <div class="login-brand">
-                <img src="/images/RITW-LOGO.png" alt="RITW Logo" class="login-brand-logo">
-                <div class="login-brand-title">RITW CAMPUS PORTAL</div>
-                <div class="login-brand-sub">Rishi M.S Institute of Engineering &amp; Technology for Women</div>
-                <div class="login-badges-row">
-                    <span class="badge-pill badge-ugc">UGC Autonomous</span>
-                    <span class="badge-pill badge-naac">NAAC 'A'</span>
-                    <span class="badge-pill badge-nba">NBA Accredited</span>
+        <div class="login-split-card">
+            <!-- Left Pane: Institutional Identity & Academic Showcase -->
+            <div class="login-hero-pane">
+                <div class="hero-pane-content">
+                    <div class="hero-brand-header">
+                        <div class="hero-emblem-wrap">
+                            <img src="/images/ritw-emblem-logo.png" alt="RITW Emblem" class="hero-emblem-img">
+                        </div>
+                        <div class="hero-brand-text">
+                            <span class="hero-brand-acronym">RITW</span>
+                            <span class="hero-brand-fullname">RISHI M.S. INSTITUTE OF ENGINEERING &amp; TECHNOLOGY FOR WOMEN</span>
+                            <span class="hero-portal-title">Campus ERP &amp; Academic Portal</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-badges-strip">
+                        <span class="hero-badge badge-ugc"><i class="fas fa-university"></i> UGC Autonomous</span>
+                        <span class="hero-badge badge-naac"><i class="fas fa-award"></i> NAAC 'A' Grade</span>
+                        <span class="hero-badge badge-nba"><i class="fas fa-check-circle"></i> NBA Accredited</span>
+                        <span class="hero-badge badge-jntuh"><i class="fas fa-graduation-cap"></i> JNTUH Affiliated</span>
+                    </div>
+
+                    <div class="hero-features-list">
+                        <div class="hero-feature-item">
+                            <div class="hero-feature-icon"><i class="fas fa-user-graduate"></i></div>
+                            <div class="hero-feature-text">
+                                <strong>Academic Records &amp; Attendance</strong>
+                                <span>Real-time semester attendance, course syllabus &amp; verified grade sheets</span>
+                            </div>
+                        </div>
+                        <div class="hero-feature-item">
+                            <div class="hero-feature-icon"><i class="fas fa-user-friends"></i></div>
+                            <div class="hero-feature-text">
+                                <strong>Ward Progress &amp; Parent Oversight</strong>
+                                <span>Direct parental access to student marks, circulars &amp; fee status</span>
+                            </div>
+                        </div>
+                        <div class="hero-feature-item">
+                            <div class="hero-feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                            <div class="hero-feature-text">
+                                <strong>Faculty Classroom &amp; Coursework</strong>
+                                <span>Assignment publishing, internal mark submission &amp; lecture tracking</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-footer-notice">
+                        <div class="security-tag">
+                            <i class="fas fa-shield-alt"></i> Official Institutional System &bull; 256-Bit SSL Encrypted
+                        </div>
+                        <div class="help-text">
+                            Need Assistance? <a href="mailto:support@rishimsengg.ac.in">support@rishimsengg.ac.in</a> &bull; Helpdesk: 040-2444-4999
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Role Selector Tabs -->
-            <div class="role-tabs">
-                <button type="button" class="role-tab-btn active" id="tabStudent" onclick="switchLoginRole('student')">
-                    <i class="fas fa-user-graduate"></i> Student
-                </button>
-                <button type="button" class="role-tab-btn" id="tabParent" onclick="switchLoginRole('parent')">
-                    <i class="fas fa-user-friends"></i> Parent
-                </button>
-                <button type="button" class="role-tab-btn" id="tabStaff" onclick="switchLoginRole('staff')">
-                    <i class="fas fa-chalkboard-teacher"></i> Staff
-                </button>
-            </div>
-
-            <!-- Quick Demo Credential Autofill -->
-            <div class="quick-demo-box">
-                <div class="quick-demo-title">
-                    <i class="fas fa-bolt"></i> Quick Demo Accounts (Click to Fill)
-                </div>
-                <div class="quick-demo-btns" id="demoButtonsContainer">
-                    <!-- Populated dynamically based on selected role tab -->
-                </div>
-            </div>
-
-            <!-- Alert Container -->
-            <div id="loginAlert" class="portal-alert portal-alert-danger" style="display: none;"></div>
-
-            <!-- Login Form -->
-            <form id="portalLoginForm" onsubmit="handlePortalLogin(event)">
-                <input type="hidden" id="loginRole" value="student">
-
-                <div class="form-group">
-                    <label class="form-label" id="identifierLabel" for="loginIdentifier">
-                        <i class="fas fa-id-card"></i> Student Roll Number or Email
-                    </label>
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-user prefix-icon"></i>
-                        <input type="text" id="loginIdentifier" class="form-input" 
-                               placeholder="e.g. 23RITW0501" required autofocus autocomplete="username">
+            <!-- Right Pane: Authentication Form Card -->
+            <div class="login-form-pane">
+                <!-- Mobile brand banner (compact presentation on smaller devices) -->
+                <div class="mobile-brand-banner">
+                    <img src="/images/ritw-emblem-logo.png" alt="RITW Emblem" class="mobile-emblem-img">
+                    <div class="mobile-brand-info">
+                        <div class="mobile-brand-title">RITW CAMPUS PORTAL</div>
+                        <div class="mobile-brand-sub">Rishi M.S Institute of Engineering &amp; Technology for Women</div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="loginPassword">
-                        <i class="fas fa-key"></i> Password
-                    </label>
-                    <div class="input-icon-wrap">
-                        <i class="fas fa-lock prefix-icon"></i>
-                        <input type="password" id="loginPassword" class="form-input" 
-                               placeholder="Enter your institutional password" required autocomplete="current-password">
-                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('loginPassword', this)">
-                            <i class="fas fa-eye"></i>
-                        </button>
+                <div class="login-form-header">
+                    <h2 class="form-title">Account Sign In</h2>
+                    <p class="form-subtitle">Select your institutional role and enter your portal credentials.</p>
+                </div>
+
+                <!-- Role Selector Tabs -->
+                <div class="role-tabs">
+                    <button type="button" class="role-tab-btn active" id="tabStudent" onclick="switchLoginRole('student')">
+                        <i class="fas fa-user-graduate"></i> Student
+                    </button>
+                    <button type="button" class="role-tab-btn" id="tabParent" onclick="switchLoginRole('parent')">
+                        <i class="fas fa-user-friends"></i> Parent
+                    </button>
+                    <button type="button" class="role-tab-btn" id="tabStaff" onclick="switchLoginRole('staff')">
+                        <i class="fas fa-chalkboard-teacher"></i> Staff
+                    </button>
+                </div>
+
+                <!-- Quick Demo Credential Autofill -->
+                <div class="quick-demo-box">
+                    <div class="quick-demo-title">
+                        <i class="fas fa-bolt"></i> Quick Demo Accounts (Click to Fill)
+                    </div>
+                    <div class="quick-demo-btns" id="demoButtonsContainer">
+                        <!-- Populated dynamically based on selected role tab -->
                     </div>
                 </div>
 
-                <button type="submit" id="loginSubmitBtn" class="btn-primary-portal">
-                    <i class="fas fa-sign-in-alt"></i> Sign In to Portal
-                </button>
-            </form>
+                <!-- Alert Container -->
+                <div id="loginAlert" class="portal-alert portal-alert-danger" style="display: none;"></div>
 
-            <div class="login-back-link">
-                <a href="/"><i class="fas fa-arrow-left"></i> Return to Public College Website</a>
+                <!-- Login Form -->
+                <form id="portalLoginForm" onsubmit="handlePortalLogin(event)">
+                    <input type="hidden" id="loginRole" value="student">
+
+                    <div class="form-group">
+                        <label class="form-label" id="identifierLabel" for="loginIdentifier">
+                            <i class="fas fa-id-card"></i> Student Roll Number or Email
+                        </label>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-user prefix-icon"></i>
+                            <input type="text" id="loginIdentifier" class="form-input" 
+                                   placeholder="e.g. 23RITW0501" required autofocus autocomplete="username">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label class="form-label" for="loginPassword">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <span class="password-hint">Default: Institutional PIN</span>
+                        </div>
+                        <div class="input-icon-wrap">
+                            <i class="fas fa-key prefix-icon"></i>
+                            <input type="password" id="loginPassword" class="form-input" 
+                                   placeholder="Enter your institutional password" required autocomplete="current-password">
+                            <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility" onclick="togglePasswordVisibility('loginPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="loginSubmitBtn" class="btn-primary-portal">
+                        <i class="fas fa-sign-in-alt"></i> Sign In to Portal
+                    </button>
+                </form>
+
+                <div class="login-footer-links">
+                    <a href="/" class="login-back-link"><i class="fas fa-arrow-left"></i> Return to Public College Website</a>
+                    <div class="login-copyright">&copy; 2026 Rishi M.S Institute of Engineering &amp; Technology for Women</div>
+                </div>
             </div>
         </div>
     </div>
