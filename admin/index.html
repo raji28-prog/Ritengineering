@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RITW Admin CMS | Institutional Content Management System</title>
+    <title>RITW Admin Panel | Institutional Management Console</title>
     <link rel="shortcut icon" href="/images/RITW_Favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/font-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -18,8 +18,13 @@
         <div class="login-card">
             <div class="login-brand">
                 <img src="/images/RITW-LOGO.png" alt="RITW Logo">
-                <h1>RITW Admin CMS</h1>
-                <p>Institutional Portal Management Console</p>
+                <h1>RITW Admin Panel</h1>
+                <p>Institutional Website Management Console</p>
+                <div style="margin-top: 6px;">
+                    <span class="dept-badge" style="background:#E0E7FF; color:#3730A3; font-size:11px;">
+                        <i class="fas fa-certificate"></i> UGC Autonomous & NAAC 'A'
+                    </span>
+                </div>
             </div>
 
             <div id="loginAlert" class="alert alert-danger" style="display: none;"></div>
@@ -27,72 +32,81 @@
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label for="loginUsername"><i class="fas fa-user-shield"></i> Administrator User ID</label>
-                    <input type="text" id="loginUsername" class="form-control" placeholder="Enter configured admin ID" required autofocus>
+                    <input type="text" id="loginUsername" class="form-control" placeholder="Enter admin username" autocomplete="username" required autofocus>
                 </div>
                 <div class="form-group">
                     <label for="loginPassword"><i class="fas fa-key"></i> Password</label>
-                    <input type="password" id="loginPassword" class="form-control" placeholder="••••••••••••" required>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="loginPassword" class="form-control" placeholder="••••••••••••" autocomplete="current-password" required>
+                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()" title="Show/Hide Password" aria-label="Toggle password view">
+                            <i id="passwordToggleIcon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <button type="submit" id="loginBtn" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i> Secure Sign In
+                    <i class="fas fa-sign-in-alt"></i> Sign In to Admin Panel
                 </button>
             </form>
-            <div style="margin-top: 20px; font-size: 11.5px; text-align: center; color: #8E8EA6;">
-                Protected by server-side brute-force rate limiting & bcrypt verification.
+            <div style="margin-top: 22px; font-size: 11.5px; text-align: center; color: #8E8EA6; line-height: 1.5;">
+                <i class="fas fa-lock"></i> Protected by SQLite Authentication & Bcrypt Hashes.<br>
+                Unauthorized access attempts are monitored and rate-limited.
             </div>
         </div>
     </div>
 
     <!-- ══════════════════════════════════════════════════════════════
-         2. DASHBOARD VIEW (Shown when authenticated)
+         2. MAIN DASHBOARD VIEW (Shown when authenticated)
          ══════════════════════════════════════════════════════════════ -->
     <div id="dashboardView" class="dashboard-layout" style="display: none;">
         
+        <!-- BACKDROP OVERLAY FOR MOBILE SIDEBAR -->
+        <div id="sidebarBackdrop" class="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
+
         <!-- SIDEBAR -->
-        <aside class="sidebar">
+        <aside id="adminSidebar" class="sidebar">
             <div class="sidebar-header">
-                <img src="/images/RITW-LOGO.png" alt="RITW">
+                <img src="/images/RITW-LOGO.png" alt="RITW Logo">
                 <div class="sidebar-brand">
-                    <h2>RITW CMS</h2>
+                    <h2>RITW Admin</h2>
                     <span>UGC Autonomous</span>
                 </div>
             </div>
 
             <nav class="sidebar-nav">
-                <div class="nav-section-title">Overview</div>
-                <a class="nav-link active" onclick="switchTab('dashboard')">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                <div class="nav-section-title">Main Navigation</div>
+                <a class="nav-link active" data-tab="dashboard" onclick="navigateTo('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
                 </a>
-
-                <div class="nav-section-title">Content & Architecture</div>
-                <a class="nav-link" onclick="switchTab('pages')">
-                    <i class="fas fa-file-alt"></i> Pages Manager
+                <a class="nav-link" data-tab="pages" onclick="navigateTo('pages')">
+                    <i class="fas fa-file-alt"></i> <span>Page Manager</span>
                 </a>
-                <a class="nav-link" onclick="switchTab('navigation')">
-                    <i class="fas fa-sitemap"></i> Navigation & Menus
+                <a class="nav-link" data-tab="navigation" onclick="navigateTo('navigation')">
+                    <i class="fas fa-sitemap"></i> <span>Navigation Manager</span>
                 </a>
-                <a class="nav-link" onclick="switchTab('sections')">
-                    <i class="fas fa-layer-group"></i> Content Sections
+                <a class="nav-link" data-tab="media" onclick="navigateTo('media')">
+                    <i class="fas fa-photo-video"></i> <span>Media Library</span>
                 </a>
-                <a class="nav-link" onclick="switchTab('customFields')">
-                    <i class="fas fa-sliders-h"></i> Custom Fields
-                </a>
-                <a class="nav-link" onclick="switchTab('media')">
-                    <i class="fas fa-photo-video"></i> Media Library
+                <a class="nav-link" data-tab="documents" onclick="navigateTo('documents')">
+                    <i class="fas fa-file-pdf"></i> <span>Document Manager</span>
                 </a>
 
                 <div class="nav-section-title">Institutional Management</div>
-                <a class="nav-link" onclick="switchTab('announcements')">
-                    <i class="fas fa-bullhorn"></i> News & Tickers
+                <a class="nav-link" data-tab="departments" onclick="navigateTo('departments')">
+                    <i class="fas fa-graduation-cap"></i> <span>Departments & Academics</span>
                 </a>
-                <a class="nav-link" onclick="switchTab('settings')">
-                    <i class="fas fa-university"></i> College Settings
+                <a class="nav-link" data-tab="announcements" onclick="navigateTo('announcements')">
+                    <i class="fas fa-bullhorn"></i> <span>Announcements & Events</span>
+                    <span id="sidebarNewsCount" class="nav-badge-count" style="display:none;">0</span>
                 </a>
-                <a class="nav-link" onclick="switchTab('enquiries')">
-                    <i class="fas fa-envelope-open-text"></i> Admission Leads
+                <a class="nav-link" data-tab="admissions" onclick="navigateTo('admissions')">
+                    <i class="fas fa-user-graduate"></i> <span>Admissions & Placements</span>
                 </a>
-                <a class="nav-link" onclick="switchTab('security')">
-                    <i class="fas fa-shield-alt"></i> Security & Profile
+                <a class="nav-link" data-tab="enquiries" onclick="navigateTo('enquiries')">
+                    <i class="fas fa-envelope-open-text"></i> <span>Enquiry Manager</span>
+                    <span id="sidebarLeadCount" class="nav-badge-count" style="display:none;">0</span>
+                </a>
+                <a class="nav-link" data-tab="settings" onclick="navigateTo('settings')">
+                    <i class="fas fa-sliders-h"></i> <span>Website Settings</span>
                 </a>
             </nav>
 
@@ -104,95 +118,164 @@
                         <div class="role">System Administrator</div>
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-sm" onclick="handleLogout()" title="Sign Out">
+                <button class="btn btn-secondary btn-sm" onclick="handleLogout()" title="Sign Out" aria-label="Sign Out">
                     <i class="fas fa-power-off"></i>
                 </button>
             </div>
         </aside>
 
-        <!-- MAIN WRAPPER -->
+        <!-- MAIN CONTENT WRAPPER -->
         <div class="main-wrapper">
+            <!-- TOPBAR -->
             <header class="topbar">
-                <div class="topbar-title">
-                    <h1 id="pageTitle">Dashboard Overview</h1>
+                <div style="display: flex; align-items: center;">
+                    <button id="mobileSidebarToggle" class="mobile-sidebar-toggle" onclick="toggleMobileSidebar()" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="topbar-title">
+                        <h1 id="pageTitle">Dashboard Overview</h1>
+                    </div>
                 </div>
+
                 <div class="topbar-actions">
-                    <a href="/" target="_blank" class="btn btn-secondary btn-sm">
-                        <i class="fas fa-external-link-alt"></i> View Public Website
+                    <div id="dbStatusBadge" class="db-status-badge">
+                        <span class="db-status-dot"></span>
+                        <span>SQLite Connected</span>
+                    </div>
+                    <a href="/" target="_blank" class="btn btn-secondary btn-sm" title="Open Public Website">
+                        <i class="fas fa-external-link-alt"></i> <span>Public Site</span>
                     </a>
-                    <button class="btn btn-primary btn-sm" onclick="showQuickAddModal()">
-                        <i class="fas fa-plus"></i> Quick Action
+                    <button class="btn btn-danger btn-sm" onclick="handleLogout()" title="Logout">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
                     </button>
                 </div>
             </header>
 
+            <!-- MAIN WORKSPACE -->
             <main class="content-area">
 
-                <!-- TAB: DASHBOARD -->
+                <!-- ══════════════════════════════════════════════════
+                     1. SECTION: DASHBOARD
+                     ══════════════════════════════════════════════════ -->
                 <div id="tab-dashboard" class="tab-pane">
+                    
+                    <!-- SUMMARY STATS GRID -->
                     <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon purple"><i class="fas fa-file-invoice"></i></div>
+                        <div class="stat-card" onclick="navigateTo('pages')" style="cursor: pointer;">
+                            <div class="stat-icon purple"><i class="fas fa-file-alt"></i></div>
                             <div class="stat-info">
                                 <h3 id="statPages">0</h3>
-                                <p>Managed Pages</p>
+                                <p>Page Manager</p>
                             </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon green"><i class="fas fa-bars"></i></div>
+                        <div class="stat-card" onclick="navigateTo('navigation')" style="cursor: pointer;">
+                            <div class="stat-icon green"><i class="fas fa-sitemap"></i></div>
                             <div class="stat-info">
                                 <h3 id="statMenuItems">0</h3>
-                                <p>Menu Links</p>
+                                <p>Navigation Links</p>
                             </div>
                         </div>
-                        <div class="stat-card">
+                        <div class="stat-card" onclick="navigateTo('announcements')" style="cursor: pointer;">
                             <div class="stat-icon gold"><i class="fas fa-bullhorn"></i></div>
                             <div class="stat-info">
                                 <h3 id="statNews">0</h3>
-                                <p>Live Notices</p>
+                                <p>Announcements & Events</p>
                             </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-icon blue"><i class="fas fa-user-graduate"></i></div>
+                        <div class="stat-card" onclick="navigateTo('enquiries')" style="cursor: pointer;">
+                            <div class="stat-icon blue"><i class="fas fa-envelope-open-text"></i></div>
                             <div class="stat-info">
                                 <h3 id="statEnquiries">0</h3>
-                                <p>Admission Leads</p>
+                                <p>Admission Enquiries</p>
+                            </div>
+                        </div>
+                        <div class="stat-card" onclick="navigateTo('media')" style="cursor: pointer;">
+                            <div class="stat-icon purple"><i class="fas fa-photo-video"></i></div>
+                            <div class="stat-info">
+                                <h3 id="statMedia">0</h3>
+                                <p>Media Assets</p>
+                            </div>
+                        </div>
+                        <div class="stat-card" onclick="navigateTo('documents')" style="cursor: pointer;">
+                            <div class="stat-icon green"><i class="fas fa-file-pdf"></i></div>
+                            <div class="stat-info">
+                                <h3 id="statDocuments">0</h3>
+                                <p>Statutory Documents</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card">
+                    <!-- QUICK ACTIONS BAR -->
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text-main);">
+                            <i class="fas fa-bolt" style="color: var(--gold);"></i> Quick Actions
+                        </h3>
+                        <div class="quick-actions-bar">
+                            <div class="quick-action-btn" onclick="navigateTo('pages'); openCreatePageModal();">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Add New Page</span>
+                            </div>
+                            <div class="quick-action-btn" onclick="navigateTo('announcements'); openCreateAnnouncementModal();">
+                                <i class="fas fa-bullhorn"></i>
+                                <span>Post Announcement</span>
+                            </div>
+                            <div class="quick-action-btn" onclick="navigateTo('navigation')">
+                                <i class="fas fa-bars"></i>
+                                <span>Edit Mega-Menu</span>
+                            </div>
+                            <div class="quick-action-btn" onclick="navigateTo('enquiries')">
+                                <i class="fas fa-user-check"></i>
+                                <span>Review Enquiries</span>
+                            </div>
+                            <div class="quick-action-btn" onclick="navigateTo('documents')">
+                                <i class="fas fa-upload"></i>
+                                <span>Manage Certificates</span>
+                            </div>
+                            <div class="quick-action-btn" onclick="navigateTo('settings')">
+                                <i class="fas fa-cog"></i>
+                                <span>Website Settings</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INSTITUTIONAL STATUS & ENVIRONMENT CARDS -->
+                    <div class="card" style="margin-bottom: 24px;">
                         <div class="card-header">
-                            <h2><i class="fas fa-info-circle" style="color: var(--primary);"></i> College Portal System Status</h2>
+                            <h2><i class="fas fa-university" style="color: var(--primary);"></i> Institutional Platform Telemetry</h2>
                         </div>
                         <div class="card-body">
                             <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                                 <div style="flex: 1; min-width: 280px; background: #F8FAFC; padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-                                    <h4 style="margin-bottom: 10px; color: var(--primary);">System Environment</h4>
-                                    <ul style="list-style: none; font-size: 13px; line-height: 1.8;">
-                                        <li><strong>Backend Runtime:</strong> Node.js Express 5.x</li>
+                                    <h4 style="margin-bottom: 10px; color: var(--primary); font-size: 14px;">Backend Architecture</h4>
+                                    <ul style="list-style: none; font-size: 13px; line-height: 1.9;">
+                                        <li><strong>Framework:</strong> Express 5.x REST API</li>
                                         <li><strong>Database:</strong> Native SQLite (WAL Concurrency)</li>
-                                        <li><strong>Authentication:</strong> JWT + Bcrypt Cryptographic Hashes</li>
-                                        <li><strong>Brute Force Shield:</strong> Active (5-try lockout / 15m)</li>
-                                        <li><strong>Cache Engine:</strong> Active with Instant Invalidation</li>
+                                        <li><strong>Authentication:</strong> 256-bit JWT + Bcrypt</li>
+                                        <li><strong>Brute-Force Rate Limiting:</strong> Active (5-attempt Lockout)</li>
+                                        <li><strong>Cache Subsystem:</strong> In-Memory Micro-Cache Active</li>
                                     </ul>
                                 </div>
                                 <div style="flex: 1; min-width: 280px; background: #F8FAFC; padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-                                    <h4 style="margin-bottom: 10px; color: var(--secondary);">Active RITW Credentials</h4>
-                                    <p style="font-size: 13px; margin-bottom: 12px; color: var(--text-muted);">
-                                        You are authenticated as an authorized administrator. Changes published here immediately reflect across all public pages without touching code.
-                                    </p>
-                                    <button class="btn btn-secondary btn-sm" onclick="switchTab('security')">
-                                        <i class="fas fa-key"></i> Change Admin Password
-                                    </button>
+                                    <h4 style="margin-bottom: 10px; color: var(--secondary); font-size: 14px;">RITW Accreditations</h4>
+                                    <ul style="list-style: none; font-size: 13px; line-height: 1.9;">
+                                        <li><strong>Affiliation:</strong> JNTUH Permanent Affiliation</li>
+                                        <li><strong>Autonomous:</strong> UGC Autonomous up to 2032</li>
+                                        <li><strong>Accreditation:</strong> NAAC 'A' Grade & NBA Accredited</li>
+                                        <li><strong>Counseling Code:</strong> TG EAPCET / TG ECET: <strong>RITW</strong></li>
+                                        <li><strong>Campus:</strong> Kukatpally, Near JNTU Metro, Hyderabad</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- RECENT AUDIT LOGS -->
                     <div class="card">
                         <div class="card-header">
                             <h2><i class="fas fa-history"></i> Recent Administrative Audit Logs</h2>
+                            <button class="btn btn-secondary btn-sm" onclick="loadDashboardOverview()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -207,7 +290,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="auditLogsBody">
-                                        <tr><td colspan="5" style="text-align:center;">Loading logs...</td></tr>
+                                        <tr><td colspan="5" style="text-align:center; padding: 20px;">Loading logs...</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -215,56 +298,199 @@
                     </div>
                 </div>
 
-                <!-- TAB: PAGES MANAGER -->
+                <!-- ══════════════════════════════════════════════════
+                     2. SECTION: PAGE MANAGER (HYBRID CMS)
+                     ══════════════════════════════════════════════════ -->
                 <div id="tab-pages" class="tab-pane" style="display: none;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>Pages Inventory</h2>
-                            <button class="btn btn-success btn-sm" onclick="openCreatePageModal()">
-                                <i class="fas fa-plus"></i> Create New Page
-                            </button>
+                    
+                    <!-- 2A. PAGES INVENTORY LIST VIEW -->
+                    <div id="pagesListView">
+                        <!-- HEADER & ACTIONS -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <div class="card-header">
+                                <div>
+                                    <h2 style="margin-bottom: 4px;"><i class="fas fa-file-alt" style="color: var(--primary);"></i> Visual Page Manager</h2>
+                                    <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Manage public website pages directly without coding. Organize by main menu, edit sections, preview changes, and publish live.</p>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-secondary btn-sm" onclick="loadPages()" title="Refresh List">
+                                        <i class="fas fa-sync-alt"></i> Refresh
+                                    </button>
+                                    <button class="btn btn-success btn-sm" onclick="openCreatePageModal()">
+                                        <i class="fas fa-plus"></i> Add New Page
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- MAIN MENU GROUP TABS -->
+                            <div class="cms-menu-tabs-bar">
+                                <button class="cms-menu-tab-btn active" data-group="ALL" onclick="selectMenuGroup('ALL')">
+                                    <i class="fas fa-th-large"></i> All Pages (<span id="countAllPages">0</span>)
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Home" onclick="selectMenuGroup('Home')">
+                                    <i class="fas fa-home"></i> Home
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="About" onclick="selectMenuGroup('About')">
+                                    <i class="fas fa-university"></i> About
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Academics" onclick="selectMenuGroup('Academics')">
+                                    <i class="fas fa-graduation-cap"></i> Academics
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Departments" onclick="selectMenuGroup('Departments')">
+                                    <i class="fas fa-laptop-code"></i> Departments
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Placements" onclick="selectMenuGroup('Placements')">
+                                    <i class="fas fa-briefcase"></i> Placements
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Admissions" onclick="selectMenuGroup('Admissions')">
+                                    <i class="fas fa-user-graduate"></i> Admissions
+                                </button>
+                                <button class="cms-menu-tab-btn" data-group="Contact" onclick="selectMenuGroup('Contact')">
+                                    <i class="fas fa-envelope"></i> Contact
+                                </button>
+                            </div>
+
+                            <div class="card-body" style="padding-top: 14px; padding-bottom: 14px;">
+                                <!-- SEARCH & FILTER BAR -->
+                                <div class="cms-filter-bar">
+                                    <div style="position: relative; flex: 1; min-width: 240px; max-width: 320px;">
+                                        <input type="text" id="pageSearchInput" class="form-control" placeholder="Search pages by title, URL or slug..." oninput="filterPages()" style="padding-left: 34px;">
+                                        <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 13px;"></i>
+                                    </div>
+                                    <select id="pageStatusFilter" class="form-control" onchange="filterPages()" style="max-width: 160px;">
+                                        <option value="">All Statuses</option>
+                                        <option value="published">Published</option>
+                                        <option value="draft">Draft (Unpublished)</option>
+                                        <option value="archived">Archived</option>
+                                    </select>
+                                    
+                                    <!-- VIEW SWITCHER (Cards vs Table) -->
+                                    <div class="cms-view-toggle">
+                                        <button type="button" id="btnViewCards" class="cms-view-btn active" onclick="switchPageViewMode('cards')" title="Visual Cards View">
+                                            <i class="fas fa-th-large"></i> Cards
+                                        </button>
+                                        <button type="button" id="btnViewTable" class="cms-view-btn" onclick="switchPageViewMode('table')" title="List Table View">
+                                            <i class="fas fa-list"></i> Table
+                                        </button>
+                                    </div>
+
+                                    <div id="pagesCountPill" class="cms-count-pill">Showing 0 pages</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>URL Slug</th>
-                                            <th>Status</th>
-                                            <th>Template</th>
-                                            <th>Sections</th>
-                                            <th>Sort Order</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="pagesTableBody"></tbody>
-                                </table>
+
+                        <!-- 2A-1. VISUAL CARDS GRID VIEW -->
+                        <div id="pagesCardGrid" class="cms-pages-grid">
+                            <!-- Populated dynamically via renderPagesGrid() -->
+                        </div>
+
+                        <!-- 2A-2. DATA TABLE VIEW (Alternative) -->
+                        <div id="pagesTableView" class="card" style="display: none;">
+                            <div class="card-body" style="padding: 0;">
+                                <div class="table-responsive">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Page Title & Menu Group</th>
+                                                <th>Public URL Route</th>
+                                                <th>Status</th>
+                                                <th>Sections</th>
+                                                <th>Disk Sync</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pagesTableBody">
+                                            <tr><td colspan="6" style="text-align:center; padding: 24px;">Loading pages inventory...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- 2B. HYBRID CONTENT EDITOR VIEW (Inline Workspace) -->
+                    <div id="pageEditorView" style="display: none;">
+                        
+                        <!-- STICKY EDITOR HEADER TOOLBAR -->
+                        <div class="cms-editor-header">
+                            <div class="cms-editor-title-wrap">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="closePageEditor()">
+                                    <i class="fas fa-arrow-left"></i> Back to Pages
+                                </button>
+                                <div style="display: flex; flex-direction: column; gap: 3px;">
+                                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                        <h2 id="editorPageHeading" style="margin: 0; font-size: 17px; font-weight: 700; color: var(--text-main);">Page Content</h2>
+                                        <span id="editorMenuGroupBadge" class="cms-menu-pill">About</span>
+                                        <span id="editorStatusBadge" class="badge badge-published">Published</span>
+                                    </div>
+                                    <a id="editorPublicUrlLink" href="#" target="_blank" style="font-size: 12px; color: var(--primary); text-decoration: none; font-family: monospace; display: inline-flex; align-items: center; gap: 4px;">
+                                        <span id="editorPublicUrlText">/</span> <i class="fas fa-external-link-alt" style="font-size: 10px;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="cms-editor-actions">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="openPageSettingsFromEditor()" title="Page-level Title, Slug, SEO and Template">
+                                    <i class="fas fa-sliders-h"></i> Page Settings
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="addNewSectionToEditor()" title="Add a new content block">
+                                    <i class="fas fa-plus"></i> Add Section
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="savePageDraft()" title="Save edits to draft without publishing">
+                                    <i class="fas fa-save"></i> Save Draft
+                                </button>
+                                <button type="button" class="btn btn-info btn-sm" onclick="openPagePreview()" style="background:#2563EB; color:#fff; border-color:#2563EB;" title="Interactive live preview">
+                                    <i class="fas fa-eye"></i> Preview
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="publishPageFromEditor()" title="Publish all changes to live public site">
+                                    <i class="fas fa-paper-plane"></i> Publish Live
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- SECTION EDITOR WORKSPACE -->
+                        <div class="card" style="margin-bottom: 24px;">
+                            <div class="card-header" style="background:#FAFAFC;">
+                                <div>
+                                    <h3 style="margin:0; font-size:15px; color:var(--text-main);"><i class="fas fa-layer-group" style="color: var(--primary);"></i> Modular Content Sections (<span id="editorSecCountBadge">0</span>)</h3>
+                                    <p style="margin:2px 0 0; font-size:12.5px; color:var(--text-muted);">
+                                        Each card represents an authentic section on the live website. Click <strong>Edit Section</strong> to customize headings, rich text, media, documents, and links.
+                                    </p>
+                                </div>
+                                <button type="button" class="btn btn-success btn-sm" onclick="addNewSectionToEditor()">
+                                    <i class="fas fa-plus"></i> Add Section
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="editorSectionsContainer"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <!-- TAB: NAVIGATION & MENUS -->
+                <!-- ══════════════════════════════════════════════════
+                     3. SECTION: NAVIGATION MANAGER
+                     ══════════════════════════════════════════════════ -->
                 <div id="tab-navigation" class="tab-pane" style="display: none;">
                     <div class="card">
                         <div class="card-header">
-                            <h2>Header Mega-Menu & Submenu Hierarchy</h2>
+                            <h2>Navigation Hierarchy & Header Mega-Menu</h2>
                             <button class="btn btn-success btn-sm" onclick="openCreateNavModal()">
                                 <i class="fas fa-plus"></i> Add Menu Item
                             </button>
                         </div>
                         <div class="card-body">
                             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-                                Manage top-level navigation tabs and nested submenus. Reorder with the arrows or edit routes directly. Changes immediately update the public desktop mega-menu and mobile drawer.
+                                Manage top-level navigation links and multi-tier mega-menu submenus. Changes immediately synchronize with the public desktop navbar and mobile drawer.
                             </p>
                             <div class="table-responsive">
                                 <table class="data-table">
                                     <thead>
                                         <tr>
-                                            <th>Item Title</th>
-                                            <th>Level / Parent</th>
-                                            <th>Target Route / URL</th>
+                                            <th>Menu Item</th>
+                                            <th>Parent / Level</th>
+                                            <th>Target Route</th>
                                             <th>Visibility</th>
                                             <th>Order</th>
                                             <th>Actions</th>
@@ -277,101 +503,97 @@
                     </div>
                 </div>
 
-                <!-- TAB: CONTENT SECTIONS -->
-                <div id="tab-sections" class="tab-pane" style="display: none;">
+                <!-- ══════════════════════════════════════════════════
+                     4. SECTION: MEDIA LIBRARY
+                     ══════════════════════════════════════════════════ -->
+                <div id="tab-media" class="tab-pane" style="display: none;">
                     <div class="card">
                         <div class="card-header">
-                            <h2>Homepage & Reusable Content Sections</h2>
-                            <button class="btn btn-success btn-sm" onclick="openCreateSectionModal()">
-                                <i class="fas fa-plus"></i> Add Section
-                            </button>
+                            <h2>Media Asset Library</h2>
+                            <label class="btn btn-success btn-sm" style="margin: 0; cursor: pointer;">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Media (JPG, PNG, WebP)
+                                <input type="file" id="mediaFileInput" style="display: none;" onchange="handleFileUpload(event)" accept="image/*">
+                            </label>
                         </div>
                         <div class="card-body">
-                            <div style="margin-bottom: 16px; display: flex; gap: 12px; align-items: center;">
-                                <label style="font-size: 13px; font-weight: 600;">Filter by Type:</label>
-                                <select id="sectionFilterType" class="form-control" style="width: 220px;" onchange="loadSections()">
-                                    <option value="">All Section Types</option>
-                                    <option value="hero_slide">Hero Sliders</option>
-                                    <option value="why_ritw">Why RITW Cards</option>
-                                    <option value="counter">Stats Counters</option>
-                                    <option value="testimonial">Testimonials</option>
-                                    <option value="spotlight">Campus Spotlight</option>
-                                    <option value="standard">Standard Content Blocks</option>
+                            <input type="text" id="mediaSearchInput" class="form-control" placeholder="Search images by filename..." oninput="loadMedia()" style="max-width: 350px; margin-bottom: 16px;">
+                            <div id="mediaGrid" class="media-grid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════════════════════════════════════════
+                     5. SECTION: DOCUMENT MANAGER
+                     ══════════════════════════════════════════════════ -->
+                <div id="tab-documents" class="tab-pane" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Institutional Document & Certificate Manager</h2>
+                            <label class="btn btn-success btn-sm" style="margin: 0; cursor: pointer;">
+                                <i class="fas fa-file-upload"></i> Upload PDF Document
+                                <input type="file" id="docFileInput" style="display: none;" onchange="handleDocUpload(event)" accept="application/pdf">
+                            </label>
+                        </div>
+                        <div class="card-body">
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+                                Manage official statutory orders, AICTE approvals, UGC autonomous certificates, NAAC accreditation files, and financial audits.
+                            </p>
+                            <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+                                <input type="text" id="docSearchInput" class="form-control" placeholder="Search documents by title or authority..." oninput="loadDocuments()" style="max-width: 320px;">
+                                <select id="docCategoryFilter" class="form-control" style="max-width: 240px;" onchange="loadDocuments()">
+                                    <option value="">All Categories</option>
+                                    <option value="Statutory Approvals">Statutory Approvals</option>
+                                    <option value="Accreditations">Accreditations</option>
+                                    <option value="Financial Disclosures">Financial Disclosures</option>
+                                    <option value="Institutional Governance">Institutional Governance</option>
                                 </select>
                             </div>
                             <div class="table-responsive">
                                 <table class="data-table">
                                     <thead>
                                         <tr>
-                                            <th>Section Key / Title</th>
-                                            <th>Type</th>
-                                            <th>Page Binding</th>
-                                            <th>Button Link</th>
-                                            <th>Visibility</th>
-                                            <th>Order</th>
+                                            <th>Document Title</th>
+                                            <th>Category</th>
+                                            <th>Issuer / Authority</th>
+                                            <th>Validity / Period</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="sectionsTableBody"></tbody>
+                                    <tbody id="documentsTableBody"></tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB: CUSTOM FIELDS -->
-                <div id="tab-customFields" class="tab-pane" style="display: none;">
+                <!-- ══════════════════════════════════════════════════
+                     6. SECTION: DEPARTMENTS & ACADEMICS
+                     ══════════════════════════════════════════════════ -->
+                <div id="tab-departments" class="tab-pane" style="display: none;">
                     <div class="card">
                         <div class="card-header">
-                            <h2>Custom Field Definitions</h2>
-                            <button class="btn btn-success btn-sm" onclick="openCreateCustomFieldModal()">
-                                <i class="fas fa-plus"></i> Define Field
-                            </button>
+                            <h2>Academic Departments & Programs</h2>
+                            <div style="font-size: 13px; color: var(--text-muted);">
+                                Total Approved B.Tech Intake: <strong>540 Seats</strong>
+                            </div>
                         </div>
                         <div class="card-body">
                             <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-                                Administrators can define supported field types (text, textarea, rich text, image, URL, date, number, boolean) attached to pages or sections.
+                                Overview of engineering branches, student intake capacity, specialized laboratories, and departmental leadership.
                             </p>
-                            <div class="table-responsive">
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Field Name</th>
-                                            <th>Field Key</th>
-                                            <th>Data Type</th>
-                                            <th>Entity Type</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="customFieldsTableBody"></tbody>
-                                </table>
-                            </div>
+                            <div id="departmentsGrid" class="dept-grid"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB: MEDIA LIBRARY -->
-                <div id="tab-media" class="tab-pane" style="display: none;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>Media Asset Library</h2>
-                            <label class="btn btn-success btn-sm" style="margin: 0; cursor: pointer;">
-                                <i class="fas fa-cloud-upload-alt"></i> Upload Media (JPG, PNG, WebP, PDF)
-                                <input type="file" id="mediaFileInput" style="display: none;" onchange="handleFileUpload(event)" accept="image/*,application/pdf">
-                            </label>
-                        </div>
-                        <div class="card-body">
-                            <input type="text" id="mediaSearchInput" class="form-control" placeholder="Search media by filename..." oninput="loadMedia()" style="max-width: 350px; margin-bottom: 16px;">
-                            <div id="mediaGrid" class="media-grid"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB: ANNOUNCEMENTS & NEWS -->
+                <!-- ══════════════════════════════════════════════════
+                     7. SECTION: ANNOUNCEMENTS & EVENTS
+                     ══════════════════════════════════════════════════ -->
                 <div id="tab-announcements" class="tab-pane" style="display: none;">
                     <div class="card">
                         <div class="card-header">
-                            <h2>Flash News & Announcements Ticker</h2>
+                            <h2>Announcements, Flash News & Notice Board</h2>
                             <button class="btn btn-success btn-sm" onclick="openCreateAnnouncementModal()">
                                 <i class="fas fa-plus"></i> Post Announcement
                             </button>
@@ -384,7 +606,6 @@
                                             <th>Title</th>
                                             <th>Badge</th>
                                             <th>Target URL</th>
-                                            <th>Date Schedule</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
@@ -396,78 +617,85 @@
                     </div>
                 </div>
 
-                <!-- TAB: COLLEGE SETTINGS -->
-                <div id="tab-settings" class="tab-pane" style="display: none;">
-                    <div class="card">
+                <!-- ══════════════════════════════════════════════════
+                     8. SECTION: ADMISSIONS & PLACEMENTS
+                     ══════════════════════════════════════════════════ -->
+                <div id="tab-admissions" class="tab-pane" style="display: none;">
+                    <div class="card" style="margin-bottom: 24px;">
                         <div class="card-header">
-                            <h2>Institutional Details & Contact Configuration</h2>
+                            <h2><i class="fas fa-user-graduate" style="color: var(--secondary);"></i> Admissions 2026-27 Seat Matrix & Guidelines</h2>
                         </div>
                         <div class="card-body">
-                            <form id="collegeSettingsForm" onsubmit="saveCollegeSettings(event)">
-                                <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--primary);">Campus Contacts</h3>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-                                    <div class="form-group">
-                                        <label>Primary Phone</label>
-                                        <input type="text" id="settingPhonePrimary" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Secondary Phone</label>
-                                        <input type="text" id="settingPhoneSecondary" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Official Info Email</label>
-                                        <input type="email" id="settingEmailPrimary" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Admissions Email</label>
-                                        <input type="email" id="settingEmailAdmissions" class="form-control">
-                                    </div>
+                            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                                <div style="flex: 1; min-width: 280px; background: #F8FAFC; padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                                    <h4 style="color: var(--primary); margin-bottom: 8px;">Admission Statutory Norms</h4>
+                                    <ul style="list-style: none; font-size: 13px; line-height: 1.8;">
+                                        <li><strong>TG EAPCET Counseling Code:</strong> RITW</li>
+                                        <li><strong>Category A (Convenor Quota):</strong> 70% of seats through Web Counseling</li>
+                                        <li><strong>Category B (Management Quota):</strong> 30% merit quota as per TGCHE norms</li>
+                                        <li><strong>Lateral Entry:</strong> 10% supernumerary seats via TG ECET</li>
+                                    </ul>
                                 </div>
+                                <div style="flex: 1; min-width: 280px; background: #F8FAFC; padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                                    <h4 style="color: var(--secondary); margin-bottom: 8px;">Placement Achievements</h4>
+                                    <ul style="list-style: none; font-size: 13px; line-height: 1.8;">
+                                        <li><strong>Placement Assistance:</strong> 100% Dedicated Career Support</li>
+                                        <li><strong>Highest Package:</strong> 18.5 LPA</li>
+                                        <li><strong>Average Package:</strong> 4.8 LPA</li>
+                                        <li><strong>Corporate Partners:</strong> 60+ Top Tier MNC Recruiters</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label>Campus Physical Address</label>
-                                    <input type="text" id="settingAddress" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Google Maps Location Link</label>
-                                    <input type="text" id="settingMapLink" class="form-control">
-                                </div>
+                            <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px;">Branch-wise Seat Distribution (Total: 540 Seats)</h3>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Program / Branch</th>
+                                            <th>Code</th>
+                                            <th>Approved Intake</th>
+                                            <th>Convenor Seats (70%)</th>
+                                            <th>Management Seats (30%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admissionsSeatMatrixBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-                                <h3 style="font-size: 15px; margin-top: 24px; margin-bottom: 12px; color: var(--primary);">Social Media Profiles</h3>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
-                                    <div class="form-group">
-                                        <label><i class="fab fa-facebook text-primary"></i> Facebook URL</label>
-                                        <input type="url" id="settingFb" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label><i class="fab fa-instagram text-danger"></i> Instagram URL</label>
-                                        <input type="url" id="settingIg" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label><i class="fab fa-whatsapp text-success"></i> WhatsApp URL</label>
-                                        <input type="url" id="settingWa" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label><i class="fab fa-youtube text-danger"></i> YouTube URL</label>
-                                        <input type="url" id="settingYt" class="form-control">
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary" style="max-width: 200px;">
-                                    <i class="fas fa-save"></i> Save Settings
-                                </button>
-                            </form>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-briefcase"></i> Premier Corporate Recruiters</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="recruitersGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px;"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB: ADMISSION LEADS -->
+                <!-- ══════════════════════════════════════════════════
+                     9. SECTION: ENQUIRY MANAGER
+                     ══════════════════════════════════════════════════ -->
                 <div id="tab-enquiries" class="tab-pane" style="display: none;">
                     <div class="card">
                         <div class="card-header">
-                            <h2>Student Admission Enquiries</h2>
+                            <h2>Student Admission Enquiries & Leads</h2>
+                            <button class="btn btn-secondary btn-sm" onclick="loadEnquiries()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
                         </div>
                         <div class="card-body">
+                            <div style="display: flex; gap: 12px; margin-bottom: 16px; align-items: center; flex-wrap: wrap;">
+                                <label style="font-size: 13px; font-weight: 600;">Status Filter:</label>
+                                <select id="enquiryStatusFilter" class="form-control" style="max-width: 180px;" onchange="loadEnquiries()">
+                                    <option value="">All Statuses</option>
+                                    <option value="new">New (Uncontacted)</option>
+                                    <option value="contacted">Contacted</option>
+                                    <option value="closed">Closed / Enrolled</option>
+                                </select>
+                            </div>
                             <div class="table-responsive">
                                 <table class="data-table">
                                     <thead>
@@ -479,6 +707,7 @@
                                             <th>Course Interest</th>
                                             <th>Message</th>
                                             <th>Status</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody id="enquiriesTableBody"></tbody>
@@ -488,8 +717,73 @@
                     </div>
                 </div>
 
-                <!-- TAB: SECURITY & PROFILE -->
-                <div id="tab-security" class="tab-pane" style="display: none;">
+                <!-- ══════════════════════════════════════════════════
+                     10. SECTION: WEBSITE SETTINGS
+                     ══════════════════════════════════════════════════ -->
+                <div id="tab-settings" class="tab-pane" style="display: none;">
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div class="card-header">
+                            <h2>Institutional Contact & Campus Configuration</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="collegeSettingsForm" onsubmit="saveCollegeSettings(event)">
+                                <h3 style="font-size: 15px; margin-bottom: 12px; color: var(--primary);">Official Contact Details</h3>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px;">
+                                    <div class="form-group">
+                                        <label>Primary Telephone</label>
+                                        <input type="text" id="settingPhonePrimary" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Secondary Phone</label>
+                                        <input type="text" id="settingPhoneSecondary" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Primary Email</label>
+                                        <input type="email" id="settingEmailPrimary" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Admissions Helpline Email</label>
+                                        <input type="email" id="settingEmailAdmissions" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Campus Physical Address</label>
+                                    <input type="text" id="settingAddress" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Google Maps Directions URL</label>
+                                    <input type="text" id="settingMapLink" class="form-control">
+                                </div>
+
+                                <h3 style="font-size: 15px; margin-top: 24px; margin-bottom: 12px; color: var(--primary);">Social Media Handles</h3>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                                    <div class="form-group">
+                                        <label><i class="fab fa-facebook text-primary"></i> Facebook</label>
+                                        <input type="url" id="settingFb" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><i class="fab fa-instagram text-danger"></i> Instagram</label>
+                                        <input type="url" id="settingIg" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><i class="fab fa-whatsapp text-success"></i> WhatsApp Helpline</label>
+                                        <input type="url" id="settingWa" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><i class="fab fa-youtube text-danger"></i> YouTube Channel</label>
+                                        <input type="url" id="settingYt" class="form-control">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" style="max-width: 220px;">
+                                    <i class="fas fa-save"></i> Save Website Settings
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- SECURITY & ADMIN PASSWORD CHANGE -->
                     <div class="card" style="max-width: 600px;">
                         <div class="card-header">
                             <h2>Change Administrator Password</h2>
