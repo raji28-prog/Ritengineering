@@ -367,6 +367,23 @@ app.get(['/governance', '/governance/', '/governance/index.html'], (req, res) =>
     res.sendFile(path.join(__dirname, 'governance', 'index.html'), sendFileOpts);
 });
 
+// 8. MEDIA & CONNECT - Redesigned Section & Legacy Redirects
+app.get(['/media', '/media/', '/media/index.html', '/media-connect', '/media-connect/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'media', 'index.html'), sendFileOpts);
+});
+app.get(['/gallery', '/gallery/', '/PhotoGallery', '/PhotoGallery/*path', '/gallery.php', '/gallery.html'], (req, res) => {
+    res.redirect(301, '/media#gallery');
+});
+app.get(['/careers', '/careers/', '/careers.php', '/careers.html'], (req, res) => {
+    res.redirect(301, '/media#careers');
+});
+app.get(['/the-rishi-times', '/rishi-times', '/newsletter', '/magazine'], (req, res) => {
+    res.redirect(301, '/media#rishi-times');
+});
+app.get(['/press', '/press-releases', '/news'], (req, res) => {
+    res.redirect(301, '/media#press');
+});
+
 // Defensive catch for malformed /href= navigation
 app.get(['/href=', '/href=*path'], (req, res) => {
     res.redirect('/');
